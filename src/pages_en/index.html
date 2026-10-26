@@ -1,0 +1,424 @@
+<!--title: CAMVER | We build, run and protect vehicles-->
+<!--desc: From special-purpose vehicle builds to managed fleet operation and Fleet AI OS safety monitoring. CAMVER builds, runs and protects vehicles.-->
+<style>
+/* Home only: main visual, half-width company photo, large service photo grid, solution banner */
+.mv { position: relative; height: clamp(560px, 84vh, 880px); height: clamp(560px, 84svh, 880px); }
+.slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 800ms var(--ease), visibility 0s linear 800ms; }
+.slide.is-on { opacity: 1; visibility: visible; transition: opacity 800ms var(--ease), visibility 0s; }
+.slide.photo { position: absolute; }
+.slide .lbl { top: 28px; right: max(28px, var(--gutter-r)); }
+.slide-body { position: absolute; left: 0; right: 0; bottom: 132px; z-index: 1; }
+.slide-body .inner { max-width: 640px; display: grid; gap: 16px; }
+.slide h2 { font-size: clamp(36px, 4.6vw, 64px); font-weight: 800; line-height: 1.2; letter-spacing: -0.035em; }
+.slide h2 .tag { font-size: 14px; }
+.slide p { font-size: 18px; color: var(--on-photo-2); max-width: 36ch; }
+.slide .actions { margin-top: 10px; }
+.mv-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; border-top: 1px solid rgba(255, 255, 255, 0.24); background: rgba(10, 13, 18, 0.58); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; }
+.mv-bar-inner { display: flex; align-items: stretch; }
+.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); flex: 1; min-width: 0; }
+.tab { position: relative; font: inherit; text-align: left; background: none; border: 0; cursor: pointer; color: rgba(255, 255, 255, 0.78); padding: 20px 16px 20px 0; display: grid; gap: 2px; min-width: 0; }
+.tab + .tab { padding-left: 16px; border-left: 1px solid rgba(255, 255, 255, 0.18); }
+.tab small { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; }
+.tab span { font-size: 15.5px; font-weight: 700; line-height: 1.4; }
+.tab i { position: absolute; left: 0; top: -1px; height: 3px; width: 0; background: var(--yellow); }
+.tab[aria-selected="true"] { color: #fff; }
+.tab[aria-selected="true"] i { width: 100%; }
+.mv.is-playing .tab[aria-selected="true"] i { width: 0; animation: fill var(--dur, 6s) linear forwards; }
+@keyframes fill { to { width: 100%; } }
+.tab:hover { color: #fff; }
+.tab:focus-visible { outline-color: #fff; }
+.mv-ctrl { display: flex; align-items: center; gap: 6px; padding-left: 18px; border-left: 1px solid rgba(255, 255, 255, 0.18); }
+.mv-ctrl button { width: 40px; height: 40px; display: grid; place-items: center; background: none; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: var(--r-btn); cursor: pointer; color: #fff; }
+.mv-ctrl button:hover { background: #fff; color: var(--ink); }
+.mv-ctrl svg { width: 15px; height: 15px; }
+
+.about { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; margin-top: 120px; background: var(--alt); }
+.about .photo { min-height: 620px; }
+.about-text { padding: 88px max(var(--gutter-r), calc((100vw - var(--wrap)) / 2 + 20px)) 88px 72px; display: grid; gap: 24px; align-content: center; }
+.about-text h2 { font-size: clamp(30px, 3.2vw, 42px); font-weight: 800; }
+.about-text { gap: 20px; }
+.about-text p { color: var(--ink-2); max-width: 44ch; }
+.quick { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line-2); max-width: 520px; }
+.quick a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line-2); text-decoration: none; }
+.quick .q { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; min-width: 0; }
+.quick .q b { font-weight: 800; }
+.quick .q small { color: var(--muted); font-size: 14.5px; }
+.quick a:hover b { text-decoration: underline; }
+.quick svg { width: 14px; height: 14px; flex: none; }
+
+.svc { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 20px; height: clamp(560px, 52vw, 720px); }
+.svc .tile.photo { aspect-ratio: auto; height: 100%; }
+.svc .tile:first-child { grid-row: span 2; }
+/* Same font size in large and small tiles */
+.svc .tile h3 { font-size: 26px; }
+.svc .tile p { font-size: 15px; }
+
+.mod-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; }
+.mod-lead { font-size: 21px; font-weight: 700; color: var(--ink) !important; letter-spacing: -0.02em; }
+
+/* Business tiles: title on one line; descriptions are length-matched so all four tiles have the same number of lines */
+.grid-4.m2 .tile { container-type: inline-size; }
+.grid-4.m2 .tile h3 { font-size: clamp(15px, 7.4cqi, 22px); white-space: nowrap; }
+/* Copy runs about 20-23em and width is capped at 18.5em, so all four tiles wrap to two lines on any screen */
+.grid-4.m2 .tile p { max-width: 18.5em; text-wrap: balance; }
+.sol-split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: center; }
+.sol-split .photo { aspect-ratio: 16 / 10; }
+.sol-split .photo.dash { aspect-ratio: 2 / 1; background: #eceef1; }
+.sol-text { display: grid; gap: 18px; }
+.sol-text h3 { font-size: clamp(24px, 2.4vw, 32px); font-weight: 800; line-height: 1.3; }
+.sol-text p { color: var(--ink-2); }
+.sol-text .proof { font-size: 15px; padding-top: 16px; border-top: 1px solid var(--line-2); }
+.sol-text .proof b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.sol-text .actions { gap: 12px 24px; margin-top: 6px; }
+
+.cs { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: start; }
+
+@media (max-width: 1100px) { .about-text { padding-left: 48px; } }
+@media (max-width: 920px) {
+  .mv { height: clamp(560px, 82vh, 720px); height: clamp(560px, 82svh, 720px); }
+  .slide-body { bottom: 112px; }
+  .slide p { font-size: 16.5px; }
+  .tabs { display: flex; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-left: var(--gutter); }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; width: auto; max-width: none; padding: 18px 18px 18px 0; scroll-snap-align: start; }
+  .tab + .tab { padding-left: 18px; }
+  .tab span { white-space: nowrap; font-size: 15px; }
+  .mv-ctrl { padding-left: 10px; gap: 4px; }
+  .mv-ctrl button { width: 44px; height: 44px; }
+  .mv-ctrl { gap: 2px; }
+  .sol-split { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .about { grid-template-columns: minmax(0, 1fr); margin-top: 88px; }
+  .about .photo { min-height: 0; aspect-ratio: 4 / 3; }
+  .about-text { padding: 48px var(--gutter-r) 56px var(--gutter); }
+  .svc { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; height: auto; }
+  .svc .tile.photo { aspect-ratio: 4 / 3; height: auto; }
+  .svc .tile:first-child { grid-row: auto; }
+  .svc .tile h3 { font-size: 22px; }
+  .cs { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+@media (min-width: 561px) and (max-width: 920px) {
+  .svc { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .svc .tile:first-child { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .grid-4.m2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .grid-4.m2 .tile.photo { aspect-ratio: 3 / 4; }
+  .grid-4.m2 .tile-body { padding: 14px 14px 14px; }
+  .grid-4.m2 .tile h3 { font-size: clamp(12px, 3.65vw, 16px); line-height: 1.35; white-space: nowrap; }
+  .grid-4.m2 .badge { top: 10px; left: 10px; }
+  .grid-4.m2 .tile p, .grid-4.m2 .tile .go { display: none; }
+  .grid-4.m2 .lbl { top: 10px; right: 12px; max-width: 86%; }
+  .grid-4.m2 .lbl small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-on { transition: none; }
+  .mv.is-playing .tab[aria-selected="true"] i { animation: none; width: 100%; }
+}
+
+/* Partner logo marquee */
+.marquee { position: relative; display: grid; gap: 0; }
+.mq-row { display: flex; overflow: hidden; margin-inline: calc(50% - 50vw); border-top: 1px solid var(--line); -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.mq-row + .mq-row { border-bottom: 1px solid var(--line); }
+.mq-track { display: flex; flex: none; list-style: none; margin: 0; padding: 0; animation: mq var(--mq-dur, 54s) linear infinite; }
+.mq-row.rev .mq-track { animation-direction: reverse; }
+.mq-track li { flex: none; width: 210px; height: 104px; display: grid; place-items: center; border-right: 1px solid var(--line); }
+.mq-track img { max-width: 76%; max-height: 62px; width: auto; height: auto; object-fit: contain; }
+@keyframes mq { to { transform: translate3d(-100%, 0, 0); } }
+.marquee:hover .mq-track, .marquee:focus-within .mq-track, .marquee.is-paused .mq-track, .marquee.is-off .mq-track { animation-play-state: paused; }
+.mq-toggle { justify-self: end; margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 2px; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink-2); background: none; border: 0; cursor: pointer; }
+.mq-toggle:hover { color: var(--ink); text-decoration: underline; }
+.mq-toggle svg { width: 14px; height: 14px; }
+.mq-toggle .i-play, .marquee.is-paused .mq-toggle .i-pause { display: none; }
+.marquee.is-paused .mq-toggle .i-play { display: block; }
+@media (max-width: 560px) { .mq-track li { width: 150px; height: 84px; } .mq-track img { max-height: 48px; } }
+@media (prefers-reduced-motion: reduce) {
+  .mq-track { animation: none; }
+  .mq-track[aria-hidden="true"], .mq-toggle { display: none; }
+  .mq-row { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+}
+
+/* Main visual motion: the current slide photo slowly zooms in and the text rises from a mask */
+@media (prefers-reduced-motion: no-preference) {
+  .slide > img { transform-origin: 58% 50%; }
+  .slide.is-on > img { animation: kb 9s var(--ease-out) both; }
+  .slide.is-on .inner > * { animation: rise 900ms var(--ease-out) 420ms both; }
+  .slide.is-on .inner > h2 { animation: title-in 1000ms var(--ease-out) 160ms both; }
+  .slide.is-on .inner > .actions { animation-delay: 560ms; }
+}
+@keyframes kb { from { transform: scale(1.12); } to { transform: scale(1); } }
+</style>
+
+<main>
+  <h1 class="sr">CAMVER: we build, run and protect vehicles</h1>
+
+  <section class="mv" id="mv" aria-roledescription="carousel" aria-label="CAMVER businesses">
+    <article class="slide photo is-on" id="s0" aria-roledescription="slide" aria-label="1 of 5">
+      <img data-slot="home-01" src="img/fleetos-drive.jpg" alt="People driving a car with a Fleet AI OS device mounted on the dashboard" loading="eager" fetchpriority="high" decoding="async" style="object-position: 52% center">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>AI safety monitoring<br>Fleet AI OS</h2>
+        <p>Watches EVs and special vehicles in real time and alerts you before trouble starts.</p>
+        <div class="actions"><a class="btn primary" href="solution.html">More<span class="sr"> about Fleet AI OS</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s1" aria-roledescription="slide" aria-label="2 of 5" aria-hidden="true">
+      <img data-slot="home-02" src="img/shelter-site.jpg" alt="People resting under a camper van awning" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>Safety shelters that<br>come to the site<span class="tag">In progress</span></h2>
+        <p>We send shelters with engine-off AC to construction and logistics sites and monitor them from setup to inspection.</p>
+        <div class="actions"><a class="btn primary" href="business.html#shelter" tabindex="-1">More<span class="sr"> about the Mobile Safety Shelter</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s2" aria-roledescription="slide" aria-label="3 of 5" aria-hidden="true">
+      <img data-slot="home-03" src="img/resort-seaside.jpg" alt="A resort vehicle parked by the sea, with travelers" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>A year-round resort<br>for employees</h2>
+        <p>We run resort vehicles for Hyundai Motor Company employees in 9 regions. CAMVER handles booking through maintenance.</p>
+        <div class="actions"><a class="btn primary" href="business.html#resort" tabindex="-1">More<span class="sr"> about the corporate resort</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s3" aria-roledescription="slide" aria-label="4 of 5" aria-hidden="true">
+      <img data-slot="home-04" src="img/slots/home-04.jpg" alt="Two staff members looking at a tablet together in a vehicle plant" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>Vehicles you need,<br>built in-house</h2>
+        <p>We convert special-purpose vehicles like ambulances and mobile pet cremation vehicles and deliver them with monitoring gear.</p>
+        <div class="actions"><a class="btn primary" href="service.html" tabindex="-1">More<span class="sr"> about vehicle build and conversion</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s4" aria-roledescription="slide" aria-label="5 of 5" aria-hidden="true">
+      <img data-slot="home-05" src="img/slots/home-05.jpg" alt="VANPICK app screen over a campground scene" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>Camper van travel<br>with VANPICK</h2>
+        <p>Book camper van trips, including PV5 camper vans, and camping packages on VANPICK.</p>
+        <div class="actions"><a class="btn primary" href="https://www.vanpick.co.kr" target="_blank" rel="noopener" tabindex="-1">More<span class="sr"> on the VANPICK website</span></a></div>
+      </div></div></div>
+    </article>
+    <div class="mv-bar">
+      <div class="wrap mv-bar-inner">
+        <div class="tabs" role="tablist" aria-label="Choose a business">
+          <button class="tab" role="tab" aria-selected="true" aria-controls="s0"><i></i><span lang="en">Fleet AI OS</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s1"><i></i><span lang="en">Mobile Safety Shelter</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s2"><i></i><span lang="en">Corporate Resort</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s3"><i></i><span lang="en">Vehicle Build</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s4"><i></i><span lang="en">Camping &amp; Leisure</span></button>
+        </div>
+        <div class="mv-ctrl">
+          <button class="prev" type="button" aria-label="Previous business"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+          <button class="play" type="button" aria-label="Pause autoplay"><svg class="i-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="4" y="3" width="2.6" height="10"/><rect x="9.4" y="3" width="2.6" height="10"/></svg><svg class="i-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" hidden><path d="M5 3v10l8-5z"/></svg></button>
+          <button class="next" type="button" aria-label="Next business"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="about-h">
+    <div class="photo plain">
+      <img data-slot="home-06" src="img/slots/home-06.jpg" alt="A shuttle and a truck on a mountain road" loading="lazy" decoding="async">
+    </div>
+    <div class="about-text">
+      <div class="mod-head">
+        <h2 id="about-h" class="en" lang="en">About Us</h2>
+        <a class="more" href="company.html">More<span class="sr"> about the company</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <p class="mod-lead">We build, run and protect vehicles</p>
+      <p>CAMVER started in Seoul in 2019. We convert vehicles and run them ourselves, and we built Fleet AI OS, our AI safety monitoring system, on the driving data from that work. Today we operate 145 vehicles and have driven a total of 4.5 million km without an accident.</p>
+      <ul class="quick">
+        <li><a href="company.html#ceo"><span class="q"><b>CEO message</b><small>Our vision and a word from the CEO</small></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+        <li><a href="company.html#history"><span class="q"><b>History</b><small>From our founding in 2019 to today</small></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+        <li><a href="company.html#partners"><span class="q"><b>Partners</b><small>Companies and institutions we work with</small></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="biz-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="biz-h" class="en" lang="en">Business</h2><p>From employee benefits to worksite safety to camping and leisure, we run it all ourselves.</p></div>
+        <a class="more" href="business.html">More<span class="sr"> about our businesses</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="grid-4 m2">
+        <a class="tile photo" href="business.html#resort">
+          <img data-slot="home-07" src="img/camper-sunset.jpg" alt="A CAMVER camper van parked at sunset" loading="lazy" decoding="async">
+          <div class="tile-body"><h3 lang="en">Corporate Resort</h3><p>A year-round resort employees book and visit</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="business.html#shelter">
+          <img data-slot="home-08" src="img/shelter-site.jpg" alt="People resting under a camper van awning" loading="lazy" decoding="async" style="object-position: 30% center">
+          <span class="tag badge">In progress</span>
+          <div class="tile-body"><h3 lang="en">Mobile Safety Shelter</h3><p>A rest space on wheels for sites without one</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="business.html#special">
+          <img data-slot="home-09" src="img/ambulance.jpg" alt="Ambulance" loading="lazy" decoding="async">
+          <div class="tile-body"><h3 lang="en">Special Vehicles</h3><p>AI that guards must-run vehicles like ambulances</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="business.html#leisure">
+          <img data-slot="home-10" src="img/camper-beach.jpg" alt="A camper van parked by the sea, with travelers" loading="lazy" decoding="async">
+          <div class="tile-body"><h3 lang="en">Camping &amp; Leisure</h3><p>Book camper van and camping trips on VANPICK</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="svc-h" class="en" lang="en">Service</h2><p>One company handles it all, from the moment you need a vehicle to running it.</p></div>
+        <a class="more" href="service.html">More<span class="sr"> about our services</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="svc">
+        <a class="tile photo" href="service.html#build">
+          <img data-slot="home-11" src="img/slots/home-11.jpg" alt="A van on a lift in the service bay, mid-conversion" loading="lazy" decoding="async">
+          <div class="tile-body"><h3>Vehicle build and conversion</h3><p>We convert special-purpose and employee vehicles and install monitoring equipment.</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="service.html#operate">
+          <img data-slot="home-12" src="img/station-lounge.jpg" alt="Waiting area and a vehicle inside a Smart Station" loading="lazy" decoding="async">
+          <div class="tile-body"><h3>Managed fleet operation</h3><p>We run company vehicles for you, including booking, customer service and maintenance.</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="service.html#station">
+          <img data-slot="home-13" src="img/station-front.jpg" alt="CAMVER Smart Station building with parked vehicles" loading="lazy" decoding="async">
+          <div class="tile-body"><h3>Smart Station</h3><p>Our 9 stations across Korea handle vehicle pickup, return and inspection.</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band sol" aria-labelledby="sol-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="sol-h" class="en" lang="en">Solution</h2><p>Integrated AI safety monitoring built on data from vehicles we run ourselves.</p></div>
+        <a class="more" href="solution.html">More<span class="sr"> about our solution</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="sol-split">
+        <div class="photo plain dash">
+          <img data-slot="home-14" src="img/fleetos-dashboard.jpg" alt="Fleet AI OS monitoring dashboard on a laptop and a phone" loading="lazy" decoding="async">
+        </div>
+        <div class="sol-text">
+          <h3>A vehicle's condition<br>in one number: Fleet AI OS</h3>
+          <p>It combines the data each vehicle sends into a single risk index and alerts you before things get dangerous. When needed, it controls the vehicle remotely.</p>
+          <p class="proof">Accredited testing (KTCC) confirmed risk assessment in <b>0.18 seconds</b>, <b>100%</b> accuracy in detecting early signs of fire and remote control response in <b>0.81 seconds</b>.</p>
+          <div class="actions">
+            <a class="btn primary" href="solution.html">More<span class="sr"> about Fleet AI OS</span></a>
+            <a class="more" href="https://camver.ai" target="_blank" rel="noopener">Product site: camver.ai<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="cs-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="cs-h" class="en" lang="en">News</h2><p>Latest news and ways to reach us, in one place.</p></div>
+        <a class="more" href="cs.html#news">More<span class="sr"> news</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="cs">
+        <!-- Default list until the Google Sheet is connected (real article titles). Setting window.CAMVER_NEWS_CSV at deploy time replaces it with the sheet content -->
+        <ul class="news" id="newsList" data-limit="4">
+          <li><a href="https://www.abc12.com/online_features/press_releases/camver-launches-fleet-ai-os-a-predictive-safety-platform-that-detects-ev-battery-hazards-before/article_dd0b2ad6-c917-5c4a-91ff-1f5e2d6b97a5.html" target="_blank" rel="noopener"><span class="news-title">CAMVER launches Fleet AI OS, a predictive safety platform that detects EV battery hazards early</span><time datetime="2026-09-04">Sep 4, 2026</time><span class="news-src">Press release · 6 US outlets</span></a></li>
+          <li><div class="row"><span class="news-title">KRW 10 million+ a year: "Camper vans are now income-generating assets"</span><time datetime="2025-06-08">Jun 8, 2025</time><span class="news-src">Press coverage</span></div></li>
+          <li><div class="row"><span class="news-title">Smart camper van platform CAMVER signals the start of its global expansion</span><time datetime="2025-05-11">May 11, 2025</time><span class="news-src">Press coverage</span></div></li>
+        </ul>
+        <div class="cs-box">
+          <h3>Customer Center</h3>
+          <dl class="tel">
+            <div><dt>Main line</dt><dd>02-576-6776<small>Weekdays 10:00–17:00 (KST) · Weekends and holidays: emergencies only</small></dd></div>
+            <div><dt>A/S</dt><dd>070-7718-1219<small>Weekdays 10:00–17:00 (KST)</small></dd></div>
+          </dl>
+          <ul class="cs-links">
+            <li><a href="cs.html#contact">Business and partnership inquiries<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="cs.html#guide">Vehicle how-to videos<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="https://pf.kakao.com/_njISxb" target="_blank" rel="noopener">Chat with us on KakaoTalk<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="pt-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="pt-h" class="en" lang="en">Partners</h2><p>We work with companies and institutions, including four Hyundai Motor Group companies.</p></div>
+        <a class="more" href="company.html#partners">More<span class="sr"> about our partners</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="marquee" data-marquee>
+        <div class="mq-row" style="--mq-dur: 56s">
+          <ul class="mq-track" aria-label="Corporate partner logos"><li><img src="img/partners/hyundai.jpg" alt="Hyundai Motor Company" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kia.jpg" alt="Kia" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/hec.jpg" alt="Hyundai Engineering" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/glovis.jpg" alt="Hyundai Glovis" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sungwoo.jpg" alt="Sungwoo Motors" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/focus.jpg" alt="Focus H&amp;S" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kt.jpg" alt="KT" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ezwel.jpg" alt="Hyundai Ezwel" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/bemycar.jpg" alt="BeMyCar" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeplus.jpg" alt="Homeplus" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeshopping.jpg" alt="Home&amp;Shopping" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/plusand.jpg" alt="Plus&amp;" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sequencen.jpg" alt="Sequence N" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/wadiz.jpg" alt="Wadiz" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kakaotalk.jpg" alt="Kakao" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+          <ul class="mq-track" aria-hidden="true"><li><img src="img/partners/hyundai.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kia.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/hec.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/glovis.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sungwoo.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/focus.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kt.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ezwel.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/bemycar.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeplus.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeshopping.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/plusand.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sequencen.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/wadiz.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kakaotalk.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+        </div>
+        <div class="mq-row rev" style="--mq-dur: 52s">
+          <ul class="mq-track" aria-label="Public agency and association partner logos"><li><img src="img/partners/molit.jpg" alt="Ministry of Land, Infrastructure and Transport" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kto.jpg" alt="Korea Tourism Organization" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/motie.jpg" alt="Ministry of Trade, Industry and Resources" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sba.jpg" alt="Seoul Business Agency (SBA)" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kepco.jpg" alt="KEPCO" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdn.jpg" alt="KEPCO KDN" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdic.jpg" alt="Korea Deposit Insurance Corporation" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/nps.jpg" alt="National Pension Service" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/snuh-bundang.jpg" alt="Seoul National University Bundang Hospital" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kibo.jpg" alt="Korea Technology Finance Corporation (KIBO)" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kodit.jpg" alt="Korea Credit Guarantee Fund" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kosme.jpg" alt="Korea SMEs and Startups Agency (KOSME)" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-jeju.jpg" alt="Jeju Center for Creative Economy &amp; Innovation" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-gyeonggi.jpg" alt="Gyeonggi Center for Creative Economy &amp; Innovation" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/smartcity.jpg" alt="Korea Smart City Association" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/campground.jpg" alt="Korea Campground Association" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+          <ul class="mq-track" aria-hidden="true"><li><img src="img/partners/molit.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kto.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/motie.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sba.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kepco.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdn.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdic.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/nps.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/snuh-bundang.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kibo.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kodit.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kosme.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-jeju.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-gyeonggi.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/smartcity.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/campground.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+        </div>
+        <button class="mq-toggle" type="button" aria-pressed="false"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M11 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" fill="currentColor"/></svg><span>Pause logo scroll</span></button>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>
+
+<script>
+(function () {
+  /* Main visual: moves to the next business every 6 seconds. Pauses on hover or focus; no autoplay when reduced motion is on */
+  var mv = document.getElementById('mv');
+  if (!mv) return;
+  var slides = Array.prototype.slice.call(mv.querySelectorAll('.slide'));
+  var tabs = Array.prototype.slice.call(mv.querySelectorAll('.tab'));
+  var playBtn = mv.querySelector('.play');
+  var DUR = 6000;
+  var cur = 0, timer = 0, playing = false, held = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  mv.style.setProperty('--dur', DUR / 1000 + 's');
+
+  function show(i, fromUser) {
+    cur = (i + slides.length) % slides.length;
+    slides.forEach(function (s, k) {
+      var on = k === cur;
+      s.classList.toggle('is-on', on);
+      if (on) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
+      s.querySelectorAll('a').forEach(function (a) { if (on) a.removeAttribute('tabindex'); else a.setAttribute('tabindex', '-1'); });
+    });
+    tabs.forEach(function (t, k) {
+      t.setAttribute('aria-selected', k === cur ? 'true' : 'false');
+      t.setAttribute('tabindex', k === cur ? '0' : '-1');
+      var bar = t.querySelector('i');
+      bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    });
+    var active = tabs[cur];
+    if (!window.matchMedia('(min-width: 921px)').matches) {
+      active.parentNode.scrollTo({ left: active.offsetLeft - active.parentNode.offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    schedule();
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (playing && !held) timer = setTimeout(function () { show(cur + 1); }, DUR);
+  }
+  function setPlaying(p) {
+    playing = p;
+    mv.classList.toggle('is-playing', p && !held);
+    playBtn.setAttribute('aria-label', p ? 'Pause autoplay' : 'Start autoplay');
+    playBtn.querySelector('.i-pause').hidden = !p;
+    playBtn.querySelector('.i-play').hidden = p;
+    show(cur);
+  }
+  function hold(h) { held = h; mv.classList.toggle('is-playing', playing && !held); if (!h) show(cur); else clearTimeout(timer); }
+
+  tabs.forEach(function (t, k) { t.addEventListener('click', function () { show(k, true); }); });
+  mv.querySelector('.prev').addEventListener('click', function () { show(cur - 1, true); });
+  mv.querySelector('.next').addEventListener('click', function () { show(cur + 1, true); });
+  playBtn.addEventListener('click', function () { setPlaying(!playing); });
+  mv.querySelector('.tabs').addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      show(cur + (e.key === 'ArrowRight' ? 1 : -1), true);
+      tabs[cur].focus();
+    }
+  });
+  mv.addEventListener('mouseenter', function () { hold(true); });
+  mv.addEventListener('mouseleave', function () { hold(false); });
+  mv.addEventListener('focusin', function () { hold(true); });
+  mv.addEventListener('focusout', function (e) { if (!mv.contains(e.relatedTarget)) hold(false); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) clearTimeout(timer); else schedule(); });
+
+  setPlaying(!reduce);
+})();
+</script>

@@ -1,0 +1,223 @@
+<!--title: Customer Center | CAMVER-->
+<!--desc: CAMVER news, vehicle guide videos, adoption and partnership inquiries, and job applications. Main line 02-576-6776.-->
+<style>
+.news-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px 56px; align-items: start; }
+.guide .tile.photo { aspect-ratio: 16 / 9; }
+.guide .tile-body { padding: 20px 22px 18px; }
+.guide .tile h3 { font-size: 19px; }
+.play { position: absolute; left: 50%; top: 42%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.8); display: grid; place-items: center; z-index: 1; transition: background-color 160ms; }
+.play svg { width: 18px; height: 18px; margin-left: 3px; }
+a.tile:hover .play { background: var(--yellow); border-color: var(--yellow); color: var(--yellow-ink); }
+
+.contact { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px 56px; align-items: start; }
+.aside { display: grid; gap: 22px; padding-top: 6px; }
+.aside h3, .join-info h3.sub-h { font-size: 18px; font-weight: 800; margin: 0; }
+.flow-s { margin: 0; padding: 0; list-style: none; counter-reset: f; display: grid; gap: 12px; }
+.flow-s li { counter-increment: f; display: grid; grid-template-columns: 26px minmax(0, 1fr); font-size: 15px; color: var(--ink-2); }
+.flow-s li::before { content: counter(f); font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.join-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px 56px; align-items: start; }
+.join-info { display: grid; gap: 36px; padding-top: 6px; }
+.join-info .sub-h { margin-bottom: 12px !important; }
+.fields-txt { color: var(--ink-2); line-height: 1.9; }
+.ptypes { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.ptypes li { padding: 14px 0; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.ptypes b { font-size: 15.5px; }
+.ptypes span { font-size: 14.5px; color: var(--ink-2); }
+.form-box { border: 1px solid var(--line-2); border-radius: var(--r-card); padding: 32px; }
+
+@media (max-width: 920px) {
+  .contact, .join-grid, .news-grid { grid-template-columns: minmax(0, 1fr); }
+  .guide .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .guide .tile-body { padding: 12px 12px 10px; }
+  .guide .tile h3 { font-size: 15px; }
+  .guide .tile p, .guide .lbl small { display: none; }
+  .play { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+  .form-box { padding: 24px 20px; }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="cs-01" src="img/slots/cs-01.jpg" alt="Trucks and vans on a highway" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">C·S Center</h1>
+      <p class="subline">Help, news and contact</p>
+      <p>Company news, vehicle how-to videos, and adoption and partnership inquiries in one place.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="On this page">
+    <div class="wrap" lang="en">
+      <a href="#news">News</a>
+      <a href="#guide">Guide Videos</a>
+      <a href="#contact">Contact</a>
+      <a href="#join">Join Us</a>
+    </div>
+  </nav>
+
+  <section class="sec" id="news" aria-labelledby="news-h">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 id="news-h" class="en" lang="en">News</h2></div></div>
+      <div class="news-grid">
+      <div>
+        <!-- Default list shown before the Google Sheet is connected (headlines from the old board). Put an article URL in the sheet's link column to link it. -->
+        <ul class="news" id="newsList" data-limit="30">
+          <li><a href="https://www.abc12.com/online_features/press_releases/camver-launches-fleet-ai-os-a-predictive-safety-platform-that-detects-ev-battery-hazards-before/article_dd0b2ad6-c917-5c4a-91ff-1f5e2d6b97a5.html" target="_blank" rel="noopener"><span class="news-title">CAMVER launches 'Fleet AI OS', a predictive safety platform that detects EV battery hazards in advance</span><time datetime="2026-09-04">Sep 4, 2026</time><span class="news-src">Press release · 6 US media outlets</span></a></li>
+          <li><div class="row"><span class="news-title">KRW 10 million+ a year…"Camper vans are now income-generating assets"</span><time datetime="2025-06-08">Jun 8, 2025</time><span class="news-src">Media coverage</span></div></li>
+          <li><div class="row"><span class="news-title">Wireless from parking to charging…Government reviews 66 sandbox projects</span><time datetime="2025-05-30">May 30, 2025</time><span class="news-src">Media coverage</span></div></li>
+          <li><div class="row"><span class="news-title">Unmanned charging for autonomous EVs gets started…66 regulatory sandbox projects approved</span><time datetime="2025-05-30">May 30, 2025</time><span class="news-src">Media coverage</span></div></li>
+          <li><div class="row"><span class="news-title">Smart camper van platform 'CAMVER' signals its global expansion</span><time datetime="2025-05-11">May 11, 2025</time><span class="news-src">Media coverage</span></div></li>
+          <li><div class="row"><span class="news-title">Hugyeong Partner Co., Ltd. and CAMVER Inc. sign business agreement to diversify local tourism and boost the local economy</span><time datetime="2025-04-19">Apr 19, 2025</time><span class="news-src">Media coverage</span></div></li>
+          <li><div class="row"><span class="news-title">No more trouble finding campgrounds…Camping travel platform based on precise addresses developed</span><time datetime="2024-03-20">Mar 20, 2024</time><span class="news-src">Media coverage</span></div></li>
+        </ul>
+      </div>
+        <div class="cs-box">
+          <h3>Phone support</h3>
+          <dl class="tel">
+            <div><dt>Main line</dt><dd>02-576-6776<small>Weekdays 10:00–17:00 (KST) · Weekends and holidays: urgent calls only</small></dd></div>
+            <div><dt>After-sales service</dt><dd>070-7718-1219<small>Weekdays 10:00–17:00 (KST) · Weekends and holidays: urgent calls only</small></dd></div>
+          </dl>
+          <ul class="cs-links">
+            <li><a href="https://pf.kakao.com/_njISxb" target="_blank" rel="noopener">Chat on our KakaoTalk channel<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="#contact">Send an adoption or partnership inquiry<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band guide" id="guide" aria-labelledby="guide-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="guide-h" class="en" lang="en">Guide Videos</h2><p>Videos show you how to use each vehicle model easily and safely.</p></div>
+        <a class="more" href="https://www.youtube.com/channel/UCITsJlXB9UvCT7B33ysloMg" target="_blank" rel="noopener">YouTube channel<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <!-- Thumbnails load the YouTube thumbnail of the first video in each playlist -->
+      <div class="grid-3">
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj75ksBEdG01Y_6DP_Vs3rv0" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/nXkg7gmPuVM/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>Hyundai Motor Company Staria camper van</h3><p>YouTube playlist</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj5WGW1HWsqMv8snFJXzC29C" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/ck01uUKowlk/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>Hyundai Engineering Staria camper van</h3><p>YouTube playlist</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj5Ii1EkORJMLrvNuekNHWIo" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/IGd3-BVDTHw/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>Forest camper van</h3><p>YouTube playlist</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj4k1Vk4fthbSHkxpkxINZTy" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/mZ7SuGdvFYI/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>Starex camper van</h3><p>YouTube playlist</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj59NUVFPBDLFNn6-Z_5oIF0" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/OpkNIpBJ6iw/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>Ray camper van</h3><p>YouTube playlist</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 id="contact-h" class="en" lang="en">Contact</h2><p>Tell us what you need, and our team will review it and get back to you.</p></div></div>
+      <div class="contact">
+        <!-- Submissions are saved to a sheet by Apps Script (deploy/apps-script/Code.gs), which also emails camver2020@gmail.com. The endpoint is in src/config.json -->
+        <form class="form js-form form-box" data-form="contact" novalidate aria-labelledby="contact-h">
+          <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <fieldset class="field full">
+            <legend>Inquiry type <span class="req" aria-hidden="true">*</span></legend>
+            <div class="chips">
+              <input type="radio" id="ct1" name="type" value="Fleet AI OS adoption" required><label for="ct1">Fleet AI OS adoption</label>
+              <input type="radio" id="ct2" name="type" value="Corporate resort / managed operation"><label for="ct2">Corporate resort / managed operation</label>
+              <input type="radio" id="ct3" name="type" value="Mobile Safety Shelter"><label for="ct3">Mobile Safety Shelter</label>
+              <input type="radio" id="ct4" name="type" value="Vehicle build and conversion"><label for="ct4">Vehicle build and conversion</label>
+              <input type="radio" id="ct5" name="type" value="Opening a station"><label for="ct5">Opening a station</label>
+              <input type="radio" id="ct6" name="type" value="Other"><label for="ct6">Other</label>
+            </div>
+            <p class="err">Please choose an inquiry type.</p>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="c-org">Company or organization</label><input id="c-org" name="org" autocomplete="organization"></div>
+            <div class="field"><label for="c-name">Contact name <span class="req" aria-hidden="true">*</span></label><input id="c-name" name="name" required autocomplete="name"><p class="err">Please enter your name.</p></div>
+            <div class="field"><label for="c-tel">Phone <span class="req" aria-hidden="true">*</span></label><input id="c-tel" name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="010-0000-0000"><p class="err">Please enter a number where we can reach you.</p></div>
+            <div class="field"><label for="c-mail">Email</label><input id="c-mail" name="email" type="email" autocomplete="email" placeholder="name@company.com"><p class="err">Please check the email address format.</p></div>
+            <div class="field full"><label for="c-msg">Message <span class="req" aria-hidden="true">*</span></label><textarea id="c-msg" name="message" required placeholder="Tell us your vehicle types, fleet size and preferred timing so we can help you sooner."></textarea><p class="err">Please enter your message.</p></div>
+            <div class="field full agree"><label><input type="checkbox" name="agree" required><span>[Required] I agree to the collection and use of my personal information. Your name, phone number, message and other details are used only to reply to you and are deleted 1 year after receipt. Submissions are stored on Google servers (US and other countries). If you do not agree, please call us instead. <a href="privacy.html" target="_blank" rel="noopener">View privacy policy</a></span></label><p class="err">You must agree before sending your inquiry.</p></div>
+          </div>
+          <div class="form-foot"><small>We check inquiries on weekdays, 10:00–17:00 (KST).</small><button class="btn primary" type="submit">Send inquiry</button></div>
+          <div class="done" role="status" aria-live="polite"><strong>Your inquiry has been received.</strong>Our team will review it and contact you.</div>
+        </form>
+
+        <aside class="aside" aria-label="Other ways to reach us">
+          <h3>What happens next</h3>
+          <ol class="flow-s">
+            <li>Our team reviews your inquiry on weekdays, 10:00–17:00 (KST).</li>
+            <li>We contact you directly using the details you provided.</li>
+          </ol>
+          <ul class="cs-links">
+            <li><a href="https://pf.kakao.com/_njISxb" target="_blank" rel="noopener">Ask on our KakaoTalk channel<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="mailto:camver2020@naver.com">Email us · camver2020@naver.com<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec last" id="join" aria-labelledby="join-h">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 id="join-h" class="en" lang="en">Join Us</h2><p>We are looking for people and partners who want to build value with us through new technology and services.</p></div></div>
+      <div class="join-grid">
+        <form class="form js-form form-box" data-form="join" novalidate aria-label="Job application and partnership request">
+          <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <fieldset class="field full">
+            <legend>Request type <span class="req" aria-hidden="true">*</span></legend>
+            <div class="chips">
+              <input type="radio" id="jt1" name="kind" value="Apply for a job" required><label for="jt1">Apply for a job</label>
+              <input type="radio" id="jt2" name="kind" value="Partnership"><label for="jt2">Partnership</label>
+            </div>
+            <p class="err">Please choose a job application or a partnership.</p>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="j-name">Name or company name <span class="req" aria-hidden="true">*</span></label><input id="j-name" name="name" required autocomplete="name"><p class="err">Please enter your name or company name.</p></div>
+            <div class="field"><label for="j-field">Area of interest</label>
+              <select id="j-field" name="field">
+                <option value="">Select</option>
+                <option>Mobility</option><option>Camper vans</option><option>Caravans</option><option>Campgrounds</option><option>Car rental</option><option>Finance and accounting</option><option>E-commerce</option><option>IT</option><option>Platforms</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field"><label for="j-tel">Phone <span class="req" aria-hidden="true">*</span></label><input id="j-tel" name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="010-0000-0000"><p class="err">Please enter a number where we can reach you.</p></div>
+            <div class="field"><label for="j-mail">Email <span class="req" aria-hidden="true">*</span></label><input id="j-mail" name="email" type="email" required autocomplete="email" placeholder="name@company.com"><p class="err">Please check your email address.</p></div>
+            <div class="field full"><label for="j-msg">About you <span class="req" aria-hidden="true">*</span></label><textarea id="j-msg" name="message" required placeholder="For a job, tell us about your experience and the work you want to do. For a partnership, describe your company and your proposal."></textarea><p class="err">Please write a short introduction.</p></div>
+            <div class="field full"><label for="j-file">Attachment <small class="opt">Up to 10MB</small></label><input id="j-file" name="file" type="file" accept=".pdf,.doc,.docx,.hwp,.hwpx,.ppt,.pptx" data-max-mb="10"><p class="err">Only files up to 10MB can be sent.</p></div>
+            <div class="field full agree"><label><input type="checkbox" name="agree" required><span>[Required] I agree to the collection and use of my personal information. Your name, phone number, email, introduction and attachment are used only to review your application or partnership request and are deleted 1 year after receipt. Submissions are stored on Google servers (US and other countries). <a href="privacy.html" target="_blank" rel="noopener">View privacy policy</a></span></label><p class="err">You must agree before sending.</p></div>
+          </div>
+          <div class="form-foot"><small>We recommend PDF for résumés and company profiles.</small><button class="btn primary" type="submit">Send</button></div>
+          <div class="done" role="status" aria-live="polite"><strong>We have received your submission.</strong>We will review it and get back to you.</div>
+        </form>
+
+        <div class="join-info">
+          <div>
+            <h3 class="sub-h">Hiring areas</h3>
+            <p class="fields-txt">Mobility · Camper vans · Caravans · Campgrounds · Car rental · Finance and accounting · E-commerce · IT · Platforms</p>
+          </div>
+          <div>
+            <h3 class="sub-h">Partner types</h3>
+            <ul class="ptypes">
+              <li><b>Technology partner</b><span>Specialist companies with technology and know-how</span></li>
+              <li><b>Sharing partner</b><span>Companies or individuals with products and services</span></li>
+              <li><b>Alliance partner</b><span>Companies that share content with us and help expand infrastructure</span></li>
+              <li><b>Mutual-growth partner</b><span>Companies that share future value with us through collaboration</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

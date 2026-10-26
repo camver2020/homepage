@@ -11,6 +11,7 @@
   dist/                GitHub Pages 에 그대로 올리는 배포본 (사진 안내 딱지 없음, 옛 주소 이동 페이지·CNAME 포함)
   preview/index.html   아티팩트 미리보기용 홈 조각 (doctype 없이 title·meta로 시작)
   preview/*.html       아티팩트에 같이 올리는 하위 페이지 (완성 문서, 홈 링크만 ./ 로)
+  dist/en/, preview/en/ 영어판 (src/pages_en + src/partials/en)
 """
 import json
 import os
@@ -26,6 +27,8 @@ PREVIEW = ROOT / "preview"
 
 PAGES = ["index", "company", "business", "service", "solution", "cs", "privacy", "admin"]
 DIST_ONLY = ["404"]  # 배포본에만 넣는 페이지 (아티팩트 미리보기엔 안 올림)
+# 영어판: src/pages_en/*.html → dist/en/*.html. 머리말·꼬리말·JOIN 띠는 src/partials/en/ 것을 씀
+PAGES_EN = ["index", "company", "business", "service", "solution", "cs", "privacy"]
 
 # 옛 사이트 주소 → 새 페이지. 검색 결과·즐겨찾기로 들어오는 사람을 옮겨 줌
 # (camver.co.kr 시절 주소 + 지금 camver.ai.kr 에 떠 있는 빌더 사이트 주소)
@@ -58,21 +61,22 @@ FONTS = """<link rel="preconnect" href="https://fonts.googleapis.com">
 """
 
 HEAD = """<!doctype html>
-<html lang="ko">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="캠버 CAMVER">
+<meta property="og:site_name" content="{site_name}">
+<meta property="og:locale" content="{og_locale}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:image" content="{site}/img/og-image.jpg">
 <meta property="og:url" content="{url}">
 <link rel="canonical" href="{url}">
-<link rel="icon" href="img/favicon.ico" sizes="any">
+{alternates}<link rel="icon" href="img/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="img/favicon-32.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 """
@@ -109,10 +113,12 @@ SHOW_SPECS = os.environ.get("SHOW_SPECS", "0") == "1"  # SHOW_SPECS=1 python3 to
 CONFIG = json.loads((SRC / "config.json").read_text(encoding="utf-8"))
 
 
-def config_js():
-    """src/config.json → 폼 전송 주소·소식 시트 주소를 페이지에 심는 한 줄"""
+def config_js(lang="ko"):
+    """src/config.json → 폼 전송 주소·소식 시트 주소를 페이지에 심는 한 줄.
+    소식 시트는 한글 기사 제목이라 영어판에선 안 불러오고 페이지에 적힌 영어 목록을 그대로 씀"""
+    news = (CONFIG.get("news_csv") or "") if lang == "ko" else ""
     return ("window.CAMVER_FORM_ENDPOINT = " + json.dumps(CONFIG.get("form_endpoint") or "") + ";\n"
-            "window.CAMVER_NEWS_CSV = " + json.dumps(CONFIG.get("news_csv") or "") + ";\n")
+            "window.CAMVER_NEWS_CSV = " + json.dumps(news) + ";\n")
 
 
 SPECS = {k: v for k, v in json.loads((SRC / "image-specs.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
@@ -161,16 +167,42 @@ def parse(frag):
     return title, desc, css, frag.strip(), flags
 
 
-def header_for(name):
-    h = read(PARTS / "header.html")
+def part(fname, lang):
+    """공통 부품. 영어판은 partials/en/ 에 있으면 그걸, 없으면(base.css·base.js) 같은 걸 씀"""
+    p = PARTS / "en" / fname
+    return read(p if lang == "en" and p.exists() else PARTS / fname)
+
+
+def lang_links(name, lang):
+    """머리말 언어 메뉴·Admin 링크. 같은 페이지의 다른 언어판으로 이동"""
+    en_name = name if name in PAGES_EN else "index"
+    if lang == "en":
+        return {"LANG_KO": f"../{name}.html", "LANG_EN": f"{name}.html", "ADMIN": "../admin.html",
+                "CUR_KO": "", "CUR_EN": ' aria-current="true"'}
+    return {"LANG_KO": f"{name}.html", "LANG_EN": f"en/{en_name}.html", "ADMIN": "admin.html",
+            "CUR_KO": ' aria-current="true"', "CUR_EN": ""}
+
+
+def header_for(name, lang="ko"):
+    h = part("header.html", lang)
     if name != "index":
         h = h.replace(f'<a href="{name}.html">', f'<a href="{name}.html" aria-current="page">', 1)
+    for k, v in lang_links(name, lang).items():
+        h = h.replace("{{%s}}" % k, v)
     return h.strip()
 
 
-def assemble(name, specs=True):
-    title, desc, css, body, flags = parse(read(SRC / "pages" / f"{name}.html"))
-    body = body.replace("{{JOIN}}", read(PARTS / "join.html").strip())
+def en_paths(html):
+    """영어판은 /en/ 폴더 안에 있어서 이미지 경로를 한 단계 위로"""
+    for a in ('src="img/', 'href="img/', 'srcset="img/', "url(img/", "url('img/", 'url("img/'):
+        html = html.replace(a, a.replace("img/", "../img/"))
+    return html
+
+
+def assemble(name, specs=True, lang="ko"):
+    pages_dir = SRC / ("pages_en" if lang == "en" else "pages")
+    title, desc, css, body, flags = parse(read(pages_dir / f"{name}.html"))
+    body = body.replace("{{JOIN}}", part("join.html", lang).strip())
     body = body.replace("<main>", '<main id="main" tabindex="-1">', 1)
     body = add_specs(body, specs)
     style = "<style>\n" + read(PARTS / "base.css").strip() + ("\n\n/* 페이지 전용 */\n" + css if css else "") + "\n</style>\n"
@@ -179,20 +211,36 @@ def assemble(name, specs=True):
         inner = body + "\n"
     else:
         inner = (
-            header_for(name) + "\n\n" + body + "\n\n" + read(PARTS / "footer.html").strip()
-            + "\n\n<script>\n" + config_js() + read(PARTS / "base.js").strip() + "\n</script>\n"
+            header_for(name, lang) + "\n\n" + body + "\n\n" + part("footer.html", lang).strip()
+            + "\n\n<script>\n" + config_js(lang) + read(PARTS / "base.js").strip() + "\n</script>\n"
         )
     return title, desc, style, inner, flags
 
 
-def home_links_to_root(html):
-    # 아티팩트에서는 홈이 루트 주소라 index.html 파일이 따로 없음
-    return re.sub(r'href="index\.html(#[^"]*)?"', lambda m: 'href="./' + (m.group(1) or "") + '"', html)
+def home_links_to_root(html, lang="ko"):
+    # 아티팩트에서는 홈이 루트 주소라 index.html 파일이 따로 없음 (영어판 홈은 en/index.html 그대로 있음)
+    pat = r'href="\.\./index\.html(#[^"]*)?"' if lang == "en" else r'href="index\.html(#[^"]*)?"'
+    root = "../" if lang == "en" else "./"
+    return re.sub(pat, lambda m: 'href="' + root + (m.group(1) or "") + '"', html)
 
 
-def page_url(name):
+def page_url(name, lang="ko"):
     site = CONFIG["site_url"].rstrip("/")
-    return site + "/" + ("" if name == "index" else f"{name}.html")
+    return site + "/" + ("en/" if lang == "en" else "") + ("" if name == "index" else f"{name}.html")
+
+
+def head_for(name, lang, title, desc, flags):
+    site = CONFIG["site_url"].rstrip("/")
+    alt = ""
+    if name in PAGES_EN:
+        alt = (f'<link rel="alternate" hreflang="ko" href="{page_url(name)}">\n'
+               f'<link rel="alternate" hreflang="en" href="{page_url(name, "en")}">\n'
+               f'<link rel="alternate" hreflang="x-default" href="{page_url(name)}">\n')
+    head = HEAD.format(title=title, desc=desc, site=site, url=page_url(name, lang), lang=lang, alternates=alt,
+                       site_name="CAMVER" if lang == "en" else "캠버 CAMVER", og_locale="en_US" if lang == "en" else "ko_KR")
+    if flags["robots"]:
+        head += f'<meta name="robots" content="{flags["robots"]}">\n'
+    return head
 
 
 def build():
@@ -201,29 +249,29 @@ def build():
     PREVIEW.mkdir(exist_ok=True)
     for out in (DIST, PREVIEW):
         shutil.copytree(SRC / "img", out / "img", dirs_exist_ok=True)
-    for name in PAGES + DIST_ONLY:
+    jobs = [(n, "ko") for n in PAGES + DIST_ONLY] + [(n, "en") for n in PAGES_EN]
+    for name, lang in jobs:
+        sub = "en/" if lang == "en" else ""
+        for d in (DIST, PREVIEW):
+            (d / sub).mkdir(parents=True, exist_ok=True)
+        fix = en_paths if lang == "en" else (lambda h: h)
         # 배포본(dist)은 사진 안내 딱지 없이, 미리보기(preview)는 SHOW_SPECS 설정대로
-        title, desc, style, inner, flags = assemble(name, specs=False)
-        head = HEAD.format(title=title, desc=desc, site=site, url=page_url(name))
-        if flags["robots"]:
-            head += f'<meta name="robots" content="{flags["robots"]}">\n'
+        title, desc, style, inner, flags = assemble(name, specs=False, lang=lang)
+        head = head_for(name, lang, title, desc, flags)
         if name == "404":
             # 없는 주소 어디서든 뜨는 페이지라 링크·이미지 기준을 사이트 맨 위로 고정
             head = head.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="/">', 1)
-        doc = head + FONTS + style + "</head>\n<body>\n" + inner + "</body>\n</html>\n"
-        (DIST / f"{name}.html").write_text(doc, encoding="utf-8")
-        print("built", name, len(doc) // 1024, "KB")
+        doc = fix(head + FONTS + style + "</head>\n<body>\n" + inner + "</body>\n</html>\n")
+        (DIST / f"{sub}{name}.html").write_text(doc, encoding="utf-8")
+        print("built", sub + name, len(doc) // 1024, "KB")
         if name in DIST_ONLY:
             continue
-        title, desc, style, inner, flags = assemble(name, specs=True)
-        if name == "index":
+        title, desc, style, inner, flags = assemble(name, specs=True, lang=lang)
+        if name == "index" and lang == "ko":
             prev = PREVIEW_HEAD + FONTS + style + inner
         else:
-            head = HEAD.format(title=title, desc=desc, site=site, url=page_url(name))
-            if flags["robots"]:
-                head += f'<meta name="robots" content="{flags["robots"]}">\n'
-            prev = head + FONTS + style + "</head>\n<body>\n" + inner + "</body>\n</html>\n"
-        (PREVIEW / f"{name}.html").write_text(home_links_to_root(prev), encoding="utf-8")
+            prev = head_for(name, lang, title, desc, flags) + FONTS + style + "</head>\n<body>\n" + inner + "</body>\n</html>\n"
+        (PREVIEW / f"{sub}{name}.html").write_text(home_links_to_root(fix(prev), lang), encoding="utf-8")
 
     # 옛 주소 이동 페이지
     for old, target in REDIRECTS.items():
@@ -235,9 +283,9 @@ def build():
     # GitHub Pages 용 파일
     (DIST / "CNAME").write_text(CONFIG["domain"].strip() + "\n", encoding="utf-8")
     (DIST / ".nojekyll").write_text("", encoding="utf-8")
-    public = [n for n in PAGES if n != "admin"]
+    public = [(n, "ko") for n in PAGES if n != "admin"] + [(n, "en") for n in PAGES_EN]
     (DIST / "robots.txt").write_text(f"User-agent: *\nDisallow: /admin.html\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
-    urls = "".join(f"  <url><loc>{page_url(n)}</loc></url>\n" for n in public)
+    urls = "".join(f"  <url><loc>{page_url(n, l)}</loc></url>\n" for n, l in public)
     (DIST / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n", encoding="utf-8")
     print("redirects", len(REDIRECTS), "· CNAME", CONFIG["domain"])
 

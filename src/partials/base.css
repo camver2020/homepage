@@ -122,9 +122,16 @@ p { margin: 0; text-wrap: pretty; }
 .top .btn { min-height: 40px; padding: 8px 16px; font-size: 14px; background: var(--head-btn-bg); color: var(--head-btn-fg); border-color: var(--head-btn-bd); }
 .top .btn:hover { background: var(--yellow); border-color: var(--yellow); color: var(--yellow-ink); }
 .top-actions { display: flex; align-items: center; gap: 6px; }
-.top-admin { width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink); border-radius: var(--r-btn); text-decoration: none; transition: background-color 180ms var(--ease); }
-.top-admin svg { width: 20px; height: 20px; }
-.top-admin:hover { background: var(--alt); }
+/* 언어 메뉴: 지구본 버튼 → KR / EN */
+.lang { position: relative; }
+.lang-btn { width: 40px; height: 40px; display: grid; place-items: center; padding: 0; background: transparent; border: 0; border-radius: var(--r-btn); color: var(--ink); cursor: pointer; transition: background-color 180ms var(--ease); }
+.lang-btn svg { width: 21px; height: 21px; }
+.lang-btn:hover, .lang-btn[aria-expanded="true"] { background: var(--alt); }
+.lang-menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 60; min-width: 156px; margin: 0; padding: 6px; list-style: none; background: var(--bg); border: 1px solid var(--line-2); box-shadow: 0 12px 28px rgba(17, 20, 24, 0.12); }
+.lang-menu a { display: flex; align-items: baseline; gap: 12px; padding: 11px 12px; color: var(--ink-2); font-size: 14px; text-decoration: none; }
+.lang-menu a b { min-width: 24px; font-weight: 800; letter-spacing: 0.06em; color: var(--ink); }
+.lang-menu a:hover { background: var(--alt); color: var(--ink); }
+.lang-menu a[aria-current="true"] b { box-shadow: inset 0 -3px 0 var(--yellow); }
 
 /* 사진 자리: 실사진은 <img> 를 .photo 첫 자식으로 넣으면 됨 (첫 화면 밖 사진은 loading="lazy", 모든 사진에 alt 필수) */
 .photo { position: relative; overflow: hidden; background: var(--photo); color: var(--on-photo); isolation: isolate; }
@@ -435,11 +442,11 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
   .top-inner { flex-wrap: wrap; align-content: center; row-gap: 4px; }
   .top-actions { margin-left: auto; }
   .top .btn { min-height: 44px; }
-  .top-admin { width: 44px; height: 44px; }
+  .lang-btn { width: 44px; height: 44px; }
   .top { position: relative; top: 0; }
   .localnav { top: env(safe-area-inset-top, 0px); }
   html { scroll-padding-top: 72px; }
-  .nav { order: 3; width: 100%; margin: 0; justify-content: space-between; gap: 0; overflow-x: auto; scrollbar-width: none; }
+  .nav { order: 3; width: 100%; margin: 0; justify-content: space-between; gap: 0 14px; overflow-x: auto; scrollbar-width: none; }
   .nav::-webkit-scrollbar { display: none; }
   .nav a { flex: none; padding: 12px 0; font-size: 13px; letter-spacing: 0; white-space: nowrap; }
   .nav a::after { bottom: 6px; }
@@ -480,6 +487,18 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
   .grid-3:has(> .tile.wide) .tile h3 { font-size: 16px; }
   .grid-3:has(> .tile.wide) .tile p { font-size: 13px; }
   .grid-3:has(> .tile.wide) .lbl small { display: none; }
+}
+@media (max-width: 420px) {
+  .top-inner { column-gap: 8px; }
+  .top-actions { gap: 4px; }
+  .top .btn { padding: 8px 10px; font-size: 13px; letter-spacing: -0.01em; }
+  .lang-btn { width: 36px; }
+  .top .logo-img { height: 26px; }
+}
+@media (max-width: 340px) {
+  .top .btn { padding: 7px 7px; font-size: 12.5px; }
+  .lang-btn { width: 32px; }
+  .top .logo-img { height: 22px; }
 }
 @media (max-width: 560px) {
   .logo-word { font-size: 18px; }

@@ -1,0 +1,158 @@
+<!--title: Service | CAMVER-->
+<!--desc: Vehicle build and conversion, managed fleet operation, and Smart Stations at 9 locations across Korea. CAMVER takes care of it, from the moment you need a vehicle through daily operation.-->
+<style>
+.svc-sec .split { align-items: start; }
+.svc-sec .split > .photo { aspect-ratio: 4 / 3; }
+.svc-sec .split-text { gap: 20px; }
+.models { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; border-top: 1px solid var(--ink); margin: 0; }
+.models div { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.models dt { font-weight: 800; font-size: 16px; }
+.models dd { margin: 0; color: var(--ink-2); font-size: 15px; }
+.stations { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; border-top: 1px solid var(--ink); }
+.stations li { padding: 18px 0 20px; border-bottom: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+.stations b { font-size: 16.5px; font-weight: 800; }
+.stations span { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+.stations small { display: block; color: var(--muted); font-size: 13.5px; }
+@media (max-width: 920px) {
+  .models { grid-template-columns: minmax(0, 1fr); }
+  .stations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .models div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .stations { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="service-01" src="img/slots/service-01.jpg" alt="VANPICK app screen over a campground scene" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">Service</h1>
+      <p class="subline">We build vehicles, run them for you and service them at our stations</p>
+      <p>From vehicle build and conversion to managed operation and Smart Stations across Korea, one company handles it all.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="On this page">
+    <div class="wrap" lang="en">
+      <a href="#build">Vehicle Build</a>
+      <a href="#operate">Managed Operation</a>
+      <a href="#station">Smart Station</a>
+    </div>
+  </nav>
+
+  <section class="sec svc-sec" id="build" aria-labelledby="build-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="photo plain">
+          <img data-slot="service-02" src="img/slots/service-02.jpg" alt="Workers converting a PV5 interior in a factory" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="build-h" class="en" lang="en">Vehicle Build</h2><p class="subline">We build the vehicles you need</p></div>
+          <p>We convert special-purpose and employee vehicles to fit their use, and deliver them with monitoring devices and sensors installed from the start. We develop them with conversion specialists such as Sungwoo Motors and J-Road.</p>
+          <ul class="checks">
+            <li>Conversion of special-purpose vehicles such as ambulances and mobile cremation vehicles</li>
+            <li>Camper van and resort vehicle development</li>
+            <li>Installation of monitoring devices, cameras and environment sensors</li>
+            <li>Vehicle repair and upgrades</li>
+          </ul>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">Ask about build and conversion</a></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">Vehicles we developed</h3>
+        <div class="grid-3">
+          <div class="tile photo wide">
+            <img data-slot="service-03" src="img/slots/service-03.jpg" alt="Smart Home camper van exterior" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Smart Home camper van</h3><p>AI-based smart camper van · Co-developed with Sungwoo Motors</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="service-04" src="img/slots/service-04.jpg" alt="Staria camper van exterior" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Staria camper van</h3><p>Developed in 2021 · Co-developed with Sungwoo Motors</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="service-05" src="img/ray-camper.jpg" alt="Ray camper van" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Ray camper van</h3><p>Affordable compact camper van · Co-developed with J-Road</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band svc-sec" id="operate" aria-labelledby="operate-h">
+    <div class="wrap">
+      <div class="split rev">
+        <div class="photo plain">
+          <img data-slot="service-06" src="img/slots/service-06.jpg" alt="Staff member checking vehicles on a tablet in front of camper vans" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="operate-h" class="en" lang="en">Managed Operation</h2><p class="subline">Hand us your vehicles and we run them</p></div>
+          <p>CAMVER takes on the work of running vehicles, from bookings and customer service to handover, return and maintenance. We operate vehicles for four Hyundai Motor Group companies (Hyundai Motor Company, Kia, Hyundai Engineering and Hyundai Glovis).</p>
+          <p>We currently operate 145 vehicles. To date, they have made 30,000 trips and served 90,000 users.</p>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">Ask about managed operation</a></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">What you can hand over to us</h3>
+        <dl class="models">
+          <div><dt>Monitoring subscription</dt><dd>Subscribe to operations and management monitoring for your mobility sector.</dd></div>
+          <div><dt>Managed operation</dt><dd>We run and manage your vehicles with CAMVER's operating know-how.</dd></div>
+          <div><dt>Special conversion</dt><dd>We convert vehicles to fit how you use them.</dd></div>
+          <div><dt>Repair and upgrades</dt><dd>We repair and upgrade vehicles of any type.</dd></div>
+          <div><dt>Custom monitoring software</dt><dd>We develop a monitoring solution built for your business.</dd></div>
+          <div><dt>Corporate and municipal consulting</dt><dd>We design vehicle services with you to fit your organization.</dd></div>
+          <div><dt>Monitoring license</dt><dd>License our monitoring solution to grow your mobility business.</dd></div>
+          <div><dt>Monitoring training</dt><dd>In-house training prepares your staff to handle monitoring.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec svc-sec" id="station" aria-labelledby="station-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-text">
+          <div class="ttl"><h2 id="station-h" class="en" lang="en">Smart Station</h2><p class="subline">We look after vehicles at 9 stations across Korea</p></div>
+          <p>A Smart Station is where CAMVER vehicles are picked up, returned and inspected. We opened a station in Namyang, Hwaseong in 2023 and set up stations nationwide in 2024.</p>
+          <p>For partners who want to open a station, we work through the setup together, from the first consultation to the pilot run.</p>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">Ask about opening a station</a></div>
+        </div>
+        <div class="photo plain">
+          <img data-slot="service-07" src="img/station-red.jpg" alt="CAMVER Smart Station building" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">Station locations</h3>
+        <ul class="stations">
+          <li><b>Seoul HQ</b><span>Room 207, 2F, 70 Cheonggyesan-ro 9-gil, Seocho-gu, Seoul<small>SH Plaza, Naegok-dong</small></span></li>
+          <li><b>Hwaseong</b><span>Building A, 1247 Sinnam-ri, Namyang-eup, Hwaseong-si, Gyeonggi-do</span></li>
+          <li><b>Pocheon</b><span>155 Jajak-ro, Pocheon-si, Gyeonggi-do<small>Daejin Techno Park</small></span></li>
+          <li><b>Eumseong</b><span>40-44 Baegya-ro, Geumwang-eup, Eumseong-gun, Chungcheongbuk-do</span></li>
+          <li><b>Cheonan</b><span>1001 Seongseong-dong, Seobuk-gu, Cheonan-si, Chungcheongnam-do<small>Cheonan G1 Biz Campus Knowledge Industry Center</small></span></li>
+          <li><b>Iksan</b><span>Building 2, 15 Deokgi 1-gil, Iksan-si, Jeonbuk State<small>Deokgi-dong</small></span></li>
+          <li><b>Gangneung</b><span>2F, 32 Seongdeokponam-ro 213beon-gil, Gangneung-si, Gangwon State<small>Ponam-dong</small></span></li>
+          <li><b>Ulsan</b><span>97 Daean 1-gil, Buk-gu, Ulsan<small>Sanha-dong</small></span></li>
+          <li><b>Jeju</b><span>75 Yeonsam-ro, Jeju-si, Jeju-do<small>Ora 3-dong</small></span></li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">How we open a station</h3>
+        <ol class="steps">
+          <li><h3>Consultation</h3><p>We meet in person to talk it through.</p></li>
+          <li><h3>Site analysis</h3><p>We visit the site and review operating and management conditions in detail.</p></li>
+          <li><h3>Contract</h3><p>We sign on a standard quote or a custom proposal.</p></li>
+          <li><h3>Station setup</h3><p>We put in the facilities, equipment and software.</p></li>
+          <li><h3>Service training</h3><p>We train your team to run the station.</p></li>
+          <li><h3>Pilot service</h3><p>We do a trial run before the official launch.</p></li>
+          <li><h3>Grand opening</h3><p>The station officially starts service.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>

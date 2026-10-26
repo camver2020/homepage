@@ -1,0 +1,211 @@
+<!--title: Business | CAMVER-->
+<!--desc: Corporate resorts, the Mobile Safety Shelter, special-purpose vehicle monitoring, and camping and leisure. The businesses of CAMVER, a company that runs its own vehicles.-->
+<style>
+.biz-sec .split { align-items: start; }
+.biz-sec .split > .photo { aspect-ratio: 4 / 3; }
+.biz-sec .split > .photo.tall { aspect-ratio: 4 / 5; }
+.biz-sec .split-text { gap: 20px; }
+.note { font-size: 14.5px; color: var(--muted); }
+.ways { margin: 4px 0 0; border-top: 1px solid var(--line-2); }
+.ways div { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.ways dt { font-weight: 800; font-size: 15.5px; }
+.ways dd { margin: 0; font-size: 15px; color: var(--ink-2); line-height: 1.65; }
+.past { font-size: 14.5px; color: var(--muted); line-height: 1.7; }
+.past b { display: block; color: var(--ink-2); font-weight: 700; }
+.checks.two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+.change { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px 64px; align-items: start; padding-top: 40px; border-top: 1px solid var(--line); }
+.change > div { display: grid; gap: 14px; }
+.change p { color: var(--ink-2); }
+.change .sub-h { margin-bottom: 0; }
+.tbl .arrow { color: var(--muted); padding-right: 16px; width: 1%; }
+.tbl td.now { font-weight: 700; }
+.leisure .split > .photo { aspect-ratio: 16 / 10; }
+.leisure .split { align-items: center; }
+@media (max-width: 920px) {
+  .checks.two, .change { grid-template-columns: minmax(0, 1fr); }
+  .biz-sec .split > .photo.tall { aspect-ratio: 4 / 3; }
+  .change { padding-top: 32px; }
+}
+@media (max-width: 560px) {
+  .ways div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .cases { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .cases .tile-body { padding: 12px 12px 12px; }
+  .cases .tile h3 { font-size: 15px; }
+  .cases .tile p, .cases .lbl small { display: none; }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="business-01" src="img/resort-seaside.jpg" alt="Resort vehicle parked by the sea, with travelers" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">Business</h1>
+      <p class="subline">Four businesses we run ourselves</p>
+      <p>Corporate resorts, worksite shelters, special-purpose vehicles, <span class="nowrap">camping and leisure.</span> We run them on hands-on experience operating our own vehicles and on our monitoring technology.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="On this page">
+    <div class="wrap" lang="en">
+      <a href="#resort">Corporate Resort</a>
+      <a href="#shelter">Mobile Safety Shelter</a>
+      <a href="#special">Special Vehicles</a>
+      <a href="#leisure">Camping &amp; Leisure</a>
+    </div>
+  </nav>
+
+  <section class="sec biz-sec" id="resort" aria-labelledby="resort-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="photo tall plain">
+          <img data-slot="business-02" src="img/slots/business-02.jpg" alt="People resting behind a vehicle on a beach at sunset" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="resort-h" class="en" lang="en">Corporate Resort</h2><p class="subline">A year-round resort employees book and head out to</p></div>
+          <p>We started in 2021 by running camper van trips for Hyundai Motor Company employees. Since 2024 we have operated Hyundai Motor Company's year-round corporate resort. Today we run resort vehicles in 9 regions across Korea.</p>
+          <p>CAMVER handles vehicle prep, bookings, customer service and maintenance. The company only needs to set its benefits policy.</p>
+          <dl class="ways">
+            <div><dt>Managed operation</dt><dd>The company gets its own resort vehicles. CAMVER runs everything from employee bookings to vehicle care.</dd></div>
+            <div><dt>Voucher</dt><dd>The company buys passes for CAMVER resort vehicles and hands them out to employees. CAMVER runs all vehicle operations.</dd></div>
+          </dl>
+          <p class="past"><b>Clients so far</b>Hyundai Motor Company · Hyundai Engineering · KEPCO · Seoul National University Bundang Hospital · KEPCO KDN · Korea Deposit Insurance Corporation · National Pension Service</p>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">Request a resort consultation</a></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">What changes for your company</h3>
+        <ul class="cols c4">
+          <li><h3>Lower costs</h3><p>Costs scale with the type and level of service you choose.</p></li>
+          <li><h3>Less admin work</h3><p>Your team no longer handles benefits tasks like taking bookings or managing vehicles.</p></li>
+          <li><h3>Employer branding</h3><p>Employees feel the benefits more and think better of the company.</p></li>
+          <li><h3>Flexible policy</h3><p>You can adjust the benefits program to fit your situation and internal policies.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band biz-sec" id="shelter" aria-labelledby="shelter-h">
+    <div class="wrap">
+      <div class="split rev">
+        <div class="photo tall plain">
+          <img data-slot="business-03" src="img/slots/business-03.jpg" alt="People resting beside a vehicle on a beach at sunset" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="shelter-h" class="en" lang="en">Mobile Safety Shelter<span class="tag" lang="en">In progress</span></h2><p class="subline">A rest space that drives to sites with nowhere to take a break</p></div>
+          <p>It is a rest space built from a converted camper van. We send it to construction, logistics and <span class="nowrap">facility management</span> sites where a separate break room is hard to build. Its no-idle air conditioner runs with the engine off to keep workers cool.</p>
+          <p>We don't hand over the vehicle and walk away. CAMVER handles dispatch, maintenance, pickup and redeployment, and monitors every unit with Fleet AI OS.</p>
+          <div>
+            <h3 class="sub-h">What we monitor</h3>
+            <ul class="checks two">
+              <li>Indoor temperature and humidity</li>
+              <li>CO and CO₂ levels</li>
+              <li>Vehicle location and site deployment status</li>
+              <li>Inspection and maintenance history</li>
+            </ul>
+          </div>
+          <p class="note">We are currently in talks with public agencies and companies about adoption.</p>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">Request a shelter consultation</a></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">Vehicles used as shelters</h3>
+        <div class="grid-3">
+          <div class="tile photo wide">
+            <img data-slot="business-04" src="img/slots/business-04.jpg" alt="Forest camper van exterior" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Forest camper van</h3></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="business-05" src="img/slots/business-05.jpg" alt="Staria camper van exterior" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Staria camper van</h3></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="business-06" src="img/slots/business-06.jpg" alt="PV5 camper van with an outdoor table" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>PV5 camper van</h3></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec biz-sec" id="special" aria-labelledby="special-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="photo plain">
+          <img data-slot="business-07" src="img/slots/business-07.jpg" alt="Worksite shelter vehicle, ambulance and truck" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="special-h" class="en" lang="en">Special Vehicles</h2><p class="subline">Custom monitoring for vehicles that must keep running</p></div>
+          <p>Purpose-built vehicles such as ambulances and mobile cremation vehicles each need different things watched. CAMVER fits devices and sensors at the conversion stage, then tailors the monitoring dashboard and alert thresholds to each vehicle.</p>
+          <div class="actions">
+            <a class="btn primary" href="cs.html#contact">Ask about custom monitoring</a>
+            <a class="btn line arrow" href="solution.html">More<span class="sr"> — Fleet AI OS</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="block change">
+        <div>
+          <h3 class="sub-h">Special-purpose vehicles are changing</h3>
+          <p>A special-purpose vehicle carries special equipment for a specific job. Camper vans, buses, trucks, ambulances, fire trucks, cranes, snowplows and mixer trucks all fall into this group.</p>
+          <p>As more vehicles run on electric power and electronic controls, real-time monitoring of vehicle condition matters more.</p>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th scope="col">Area</th><th scope="col">Until now</th><th scope="col"><span class="sr">Change</span></th><th scope="col">Going forward</th></tr></thead>
+            <tbody>
+              <tr><td>Drive</td><td>Mechanical drive</td><td class="arrow" aria-hidden="true">→</td><td class="now">Electric drive</td></tr>
+              <tr><td>Power</td><td>Combustion engine</td><td class="arrow" aria-hidden="true">→</td><td class="now">Electric motor</td></tr>
+              <tr><td>Energy</td><td>Fossil fuel</td><td class="arrow" aria-hidden="true">→</td><td class="now">Electricity and hydrogen</td></tr>
+              <tr><td>Control</td><td>Mechanical control</td><td class="arrow" aria-hidden="true">→</td><td class="now">Electronic control</td></tr>
+              <tr><td>Operation</td><td>Standalone operation</td><td class="arrow" aria-hidden="true">→</td><td class="now">Intelligent, connected operation</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">Case studies</h3>
+        <div class="grid-4 cases">
+          <div class="tile photo wide">
+            <img data-slot="business-08" src="img/slots/business-08.jpg" alt="Hyundai Motor Company camper vans parked side by side in a warehouse" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Hyundai Motor Company camper vans</h3><p>Employee resort vehicles</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="business-09" src="img/slots/business-09.jpg" alt="Hyundai Engineering camper vans lined up in a parking lot" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>Hyundai Engineering camper vans</h3><p>Employee travel vehicles</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="business-10" src="img/petmun.jpg" alt="Petmoon mobile cremation vehicle" loading="lazy" decoding="async" style="object-position: center 60%">
+            <div class="tile-body"><h3>Petmoon mobile cremation vehicle</h3><p>Pet funeral vehicle</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="business-11" src="img/ambulance.jpg" alt="Sungwoo Motors ambulance" loading="lazy" decoding="async" style="object-position: center 60%">
+            <div class="tile-body"><h3>Sungwoo Motors ambulance</h3><p>Emergency patient transport</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band biz-sec leisure" id="leisure" aria-labelledby="leisure-h">
+    <div class="wrap">
+      <div class="split rev">
+        <div class="photo plain">
+          <img data-slot="business-12" src="img/slots/business-12.jpg" alt="VANPICK camper van at a campground at dusk" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="leisure-h" class="en" lang="en">Camping &amp; Leisure</h2><p class="subline">Book camper van trips on VANPICK</p></div>
+          <p>On VANPICK, the camping and leisure site CAMVER runs, you can book camper van trips and camping products. Videos in our Customer Center show how to use each model.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://www.vanpick.co.kr" target="_blank" rel="noopener">Go to VANPICK</a>
+            <a class="btn line" href="cs.html#guide">Vehicle how-to videos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>

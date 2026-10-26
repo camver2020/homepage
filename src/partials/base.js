@@ -1,3 +1,6 @@
+/* 영어판(<html lang="en">)이면 스크립트가 넣는 문구도 영어로 */
+var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
+
 (function () {
   /* 메뉴·링크로 다른 페이지에 넘어오면 새로 연 것처럼 맨 위(주소에 #구역이 있으면 그 구역)에서 시작.
      미리보기 화면이 앞 페이지의 스크롤 위치를 새 페이지에 다시 입히는 경우가 있어서,
@@ -48,6 +51,37 @@
   go();
   function arm() { go(); timer = setTimeout(done, 1200); }
   if (document.readyState === 'complete') arm(); else window.addEventListener('load', arm, { once: true });
+})();
+
+(function () {
+  /* 언어 메뉴: 지구본 버튼을 누르면 KR / EN 이 펼쳐짐. 바깥을 누르거나 Esc 로 닫힘.
+     언어를 바꿀 때 지금 보던 구역(#...)이 있으면 그대로 이어서 엶 */
+  var btn = document.querySelector('.lang-btn');
+  var menu = document.getElementById('lang-menu');
+  if (!btn || !menu) return;
+  function open(on) {
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    menu.hidden = !on;
+  }
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var on = btn.getAttribute('aria-expanded') !== 'true';
+    open(on);
+    if (on) { var cur = menu.querySelector('[aria-current="true"]') || menu.querySelector('a'); cur && cur.focus(); }
+  });
+  document.addEventListener('click', function (e) { if (!menu.hidden && !menu.contains(e.target)) open(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); }
+  });
+  menu.addEventListener('focusout', function (e) {
+    if (e.relatedTarget && !menu.contains(e.relatedTarget) && e.relatedTarget !== btn) open(false);
+  });
+  Array.prototype.slice.call(menu.querySelectorAll('a')).forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (a.getAttribute('aria-current') === 'true') { open(false); return; }
+      if (location.hash && a.href.indexOf('#') < 0) a.href = a.href + location.hash;
+    });
+  });
 })();
 
 (function () {
@@ -104,7 +138,8 @@
     if (!fail) {
       fail = document.createElement('div');
       fail.className = 'fail'; fail.setAttribute('role', 'alert');
-      fail.innerHTML = '<strong>보내지 못했습니다.</strong>잠시 후 다시 보내 주시거나 02-576-6776으로 전화 주세요.';
+      fail.innerHTML = EN ? '<strong>Your message was not sent.</strong>Please try again in a moment, or call us at +82-2-576-6776.'
+                          : '<strong>보내지 못했습니다.</strong>잠시 후 다시 보내 주시거나 02-576-6776으로 전화 주세요.';
       form.appendChild(fail);
     }
     var submit = form.querySelector('[type=submit]');
@@ -123,7 +158,7 @@
       var f = input.closest('.field');
       if (input.type === 'file' && input.getAttribute('data-max-mb')) {
         var file = input.files && input.files[0];
-        input.setCustomValidity(file && file.size > Number(input.getAttribute('data-max-mb')) * 1048576 ? '파일이 너무 큽니다' : '');
+        input.setCustomValidity(file && file.size > Number(input.getAttribute('data-max-mb')) * 1048576 ? (EN ? 'File is too large' : '파일이 너무 큽니다') : '');
       }
       var bad = !input.checkValidity();
       if (bad) { f.setAttribute('data-invalid', ''); input.setAttribute('aria-invalid', 'true'); }
@@ -147,7 +182,7 @@
       submit.classList.toggle('is-busy', on);
       submit.setAttribute('aria-busy', on ? 'true' : 'false');
       submit.disabled = on;
-      submit.textContent = on ? '보내는 중…' : label;
+      submit.textContent = on ? (EN ? 'Sending…' : '보내는 중…') : label;
     }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -360,7 +395,7 @@
     if (btn) btn.addEventListener('click', function () {
       var paused = box.classList.toggle('is-paused');
       btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-      btn.querySelector('span').textContent = paused ? '로고 흐름 재생' : '로고 흐름 멈춤';
+      btn.querySelector('span').textContent = paused ? (EN ? 'Play logo scroll' : '로고 흐름 재생') : (EN ? 'Pause logo scroll' : '로고 흐름 멈춤');
     });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { box.classList.toggle('is-off', !es[0].isIntersecting); }).observe(box);

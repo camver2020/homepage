@@ -1,0 +1,396 @@
+<!--title: Company | CAMVER-->
+<!--desc: CAMVER, founded in Seoul in 2019: vision, CEO message, history, certifications and patents, partners and location.-->
+<style>
+.intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px 64px; margin-bottom: 64px; }
+.intro h2 { font-size: clamp(30px, 3.2vw, 42px); font-weight: 800; }
+.intro-text { display: grid; gap: 18px; padding-top: 6px; }
+.intro-text p { color: var(--ink-2); max-width: 56ch; }
+.intro-text .lead { color: var(--ink); }
+
+.vision-ttl { margin-bottom: 64px; gap: 16px; }
+.vision-ttl h2 { font-size: clamp(30px, 3.2vw, 42px); font-weight: 800; }
+.vision { margin: 0; font-size: clamp(24px, 2.5vw, 34px); font-weight: 800; line-height: 1.35; letter-spacing: -0.03em; max-width: 22ch; text-wrap: balance; }
+.vision em { font-style: normal; box-shadow: inset 0 -0.32em 0 var(--yellow); }
+
+.ceo .photo { aspect-ratio: 4 / 5; }
+.ceo .split-text { gap: 18px; }
+.ceo blockquote { margin: 0; display: grid; gap: 16px; }
+.ceo blockquote p { color: var(--ink-2); }
+.sign { margin-top: 10px; font-size: 15px; color: var(--muted); }
+.sign b { color: var(--ink); font-size: 18px; margin-left: 8px; }
+
+.info { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 56px; }
+
+.award-group { margin-top: 48px; }
+.award-group .sub-h small { font-size: 14.5px; font-weight: 600; color: var(--muted); margin-left: 10px; letter-spacing: 0; }
+.thumbs.t7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.award-row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: 20px; }
+.award-row .thumbs.t5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.thumbs.t3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.thumbs.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.thumbs.t5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+.pgroup { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 56px; padding: 36px 0; border-top: 1px solid var(--line); }
+.pgroup:first-of-type { border-top-color: var(--ink); }
+.pgroup h3 { font-size: 20px; font-weight: 800; }
+.pgroup p { color: var(--ink-2); font-size: 15px; margin-top: 8px; max-width: 30ch; }
+.pgroup .logos { align-self: start; }
+.pgroup .logos li { height: 88px; }
+
+.loc { align-items: stretch; }
+.loc .split-text { align-content: start; }
+.split .photo.map { aspect-ratio: auto; min-height: 420px; }
+.map::after { display: none; }
+
+@media (max-width: 920px) {
+  .intro, .info, .pgroup { grid-template-columns: minmax(0, 1fr); }
+  .intro { margin-bottom: 44px; }
+  .vision-ttl { margin-bottom: 44px; }
+  .info .rows + .rows { border-top: 0; }
+  .award-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .thumbs.t7, .thumbs.t5 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .thumbs.t3, .thumbs.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .split .photo.map { min-height: 0; aspect-ratio: 4 / 3; }
+  .ceo .photo { aspect-ratio: 4 / 3; }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="company-01" src="img/slots/company-01.jpg" alt="AX graphic on a dark background" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">Company</h1>
+      <p class="subline">We build, run and protect vehicles</p>
+      <p>Founded in Seoul in 2019, we now run 145 vehicles ourselves.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="On this page">
+    <div class="wrap" lang="en">
+      <a href="#overview">Overview</a>
+      <a href="#history">History</a>
+      <a href="#awards">Certifications &amp; Patents</a>
+      <a href="#partners">Partners</a>
+      <a href="#location">Location</a>
+    </div>
+  </nav>
+
+  <section class="sec" id="overview" aria-labelledby="ov-h">
+    <div class="wrap">
+      <div class="intro">
+        <div class="ttl"><h2 id="ov-h" class="en" lang="en">Overview</h2><p class="subline">Safety monitoring built by a company that runs its own vehicles</p></div>
+        <div class="intro-text">
+          <p class="lead">CAMVER opened in Seoul in December 2019. We started by renting out a few camper vans. Today we convert vehicles ourselves and run company vehicles on our clients' behalf.</p>
+          <p>The more vehicles we ran, the bigger the safety problem became. So we built our own monitoring system that reads vehicle data in real time and warns of risks early. That system is now Fleet AI OS, and it also runs on vehicles owned by other companies and public institutions.</p>
+        </div>
+      </div>
+      <div class="figs c4">
+        <div><b>6 years</b><span>Running our own vehicles</span></div>
+        <div><b>145 vehicles</b><span>In operation today</span></div>
+        <div><b>4.5M km</b><span>Driven accident-free to date<small>112 times around the Earth</small></span></div>
+        <div><b>90,000</b><span>Users to date</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="vision-h">
+    <div class="wrap">
+      <div class="ttl vision-ttl"><h2 id="vision-h" class="en" lang="en">Vision</h2><p class="vision">Safe technology and a new culture for <em>a happier tomorrow</em></p></div>
+      <ul class="cols">
+        <li><h3>Technology leadership</h3><p>We build the technology we need before others do, and use it to raise the bar for our industry.</p></li>
+        <li><h3>Respect for people</h3><p>People matter most to us, from the customers in our vehicles to the colleagues we work with.</p></li>
+        <li><h3>Customer focus</h3><p>We change our service to suit our customers. We look for what bothers them before they have to tell us.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CEO message: new draft rewritten from the old site copy around integrated safety monitoring. Needs the CEO's review -->
+  <section class="sec ceo" id="ceo" aria-labelledby="ceo-h">
+    <div class="wrap split">
+      <div class="photo plain">
+        <img data-slot="company-02" src="img/slots/company-02.jpg" alt="CAMVER's CEO speaking on stage at an event" loading="lazy" decoding="async">
+      </div>
+      <div class="split-text">
+        <div class="ttl"><h2 id="ceo-h" class="en" lang="en">CEO Message</h2><p class="subline">Out in the field, we learned that vehicles can't afford to stop</p></div>
+        <blockquote>
+          <p>CAMVER started in 2019 with a few camper vans. We fixed them and rented them out ourselves, and the first thing we learned was this: if you don't know what's happening in the vehicle your customer is riding in, you can't promise them safety.</p>
+          <p>So we built a monitoring system for our own use. The data from six years of running 145 vehicles became what is now Fleet AI OS. We have built vehicles, run them and kept them safe, all in one company, so we know what people in the field really need.</p>
+          <p>At CAMVER, we want to build a happier future through technology and culture. We will keep putting our energy into making travel safer.</p>
+        </blockquote>
+        <p class="sign">CEO, CAMVER Inc.<b>Youngsin Kim</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="history" aria-labelledby="hist-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="hist-h" class="en" lang="en">History</h2><p>Key milestones from the last few years. Open the full history below, going back to our founding in 2019.</p></div>
+      </div>
+      <div class="timeline">
+        <div class="year"><h3>2026</h3><ul>
+          <li><b>09</b><span>Fleet AI OS launch, covered by 6 US media outlets</span></li>
+        </ul></div>
+        <!-- 2025 regulatory sandbox designation: year only -->
+        <div class="year"><h3>2025</h3><ul>
+          <li><b>12</b><span>100% fire anomaly detection accuracy for Fleet AI OS confirmed in KTCC testing (test report KTCC-R-2025-0169)</span></li>
+          <li><b>12</b><span>Excellence Award, Kia PBV Idea Contest (PV5-based smart AI safety monitoring solution)</span></li>
+          <li><b></b><span>Regulatory sandbox special exemption for field trials (No. 703, Ministry of Trade, Industry and Energy)</span></li>
+        </ul></div>
+        <div class="year"><h3>2024</h3><ul>
+          <li><b>12</b><span>Excellence Award, Korea Location Information Business Model Contest (Korea Internet &amp; Security Agency)</span></li>
+          <li><b>02</b><span>Launch of the Hyundai Motor Company year-round corporate resort</span></li>
+          <li><b>01</b><span>Safety monitoring solution installed in Hyundai Motor Company camper vans</span></li>
+          <li><b>01</b><span>Smart Stations built nationwide</span></li>
+        </ul></div>
+        <div class="year"><h3>2023</h3><ul>
+          <li><b>11</b><span>Contract for a monitoring platform for mobile pet cremation vehicles</span></li>
+          <li><b>10</b><span>Named official corporate resort partner of Hyundai Motor Company</span></li>
+          <li><b>09</b><span>Smart Station opened in Namyang, Hwaseong</span></li>
+          <li><b>08</b><span>Contract with Hyundai Motor Company Namyang R&amp;D Center</span></li>
+        </ul></div>
+      </div>
+
+      <details class="more-hist">
+        <summary>Show the full history, 2019–2024<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg></summary>
+        <div class="timeline">
+          <div class="year"><h3>2024</h3><ul>
+            <li><b>12</b><span>Excellence Award, Korea Location Information Business Model Contest (Korea Internet &amp; Security Agency)</span></li>
+            <li><b>03</b><span>Relaunch of the remodeled Oji Camping platform</span></li>
+            <li><b>02</b><span>Launch of the Hyundai Motor Company year-round corporate resort business</span></li>
+            <li><b>02</b><span>Camper van sharing MOU with Bakar</span></li>
+            <li><b>02</b><span>Corporate resort listed on Hyundai Ezwel</span></li>
+            <li><b>01</b><span>Nationwide Smart Station network built (Seoul, Hwaseong, Cheonan, Ulsan, Jeonju, Gangneung, Geoje, Jeju)</span></li>
+            <li><b>01</b><span>Joint training for all branches nationwide</span></li>
+            <li><b>01</b><span>Safety monitoring solution installed in Hyundai Motor Company camper vans</span></li>
+          </ul></div>
+          <div class="year"><h3>2023</h3><ul>
+            <li><b>11</b><span>Acquisition of the Oji Camping platform</span></li>
+            <li><b>11</b><span>Contract for a monitoring platform for mobile pet cremation vehicles</span></li>
+            <li><b>10</b><span>Named official corporate resort partner of Hyundai Motor Company</span></li>
+            <li><b>10</b><span>Hyundai Engineering camper van service extended</span></li>
+            <li><b>10</b><span>Selected for the Seoul smart campground pilot service</span></li>
+            <li><b>09</b><span>Smart Station opened in Namyang-eup, Hwaseong</span></li>
+            <li><b>09</b><span>Sale of CAMVER Rent-a-Car</span></li>
+            <li><b>09</b><span>Jeju electric camper van development contract</span></li>
+            <li><b>08</b><span>Contract with Hyundai Motor Company Namyang R&amp;D Center</span></li>
+            <li><b>07</b><span>Camper van service for Seoul National University Bundang Hospital</span></li>
+            <li><b>04</b><span>Live commerce contract with Home&amp;Shopping</span></li>
+            <li><b>04</b><span>MOU with Rainbow Mobility</span></li>
+            <li><b>02</b><span>In-store promotion of camper van travel packages at Homeplus</span></li>
+            <li><b>01</b><span>Camping partnership with Sequence N</span></li>
+            <li><b>01</b><span>Camper van sharing partnership with Bievista</span></li>
+          </ul></div>
+          <div class="year"><h3>2022</h3><ul>
+            <li><b>10</b><span>CAMVER Camping store launched on Naver Smart Store</span></li>
+            <li><b>08</b><span>Minister's Award, Ministry of Land, Infrastructure and Transport (contactless startup support program)</span></li>
+            <li><b>07</b><span>CAMVER camping travel app scheduled for release (Android, iOS)</span></li>
+            <li><b>06</b><span>MOU and launch ceremony for a shared camping travel platform (Sungwoo Motors, Plus&amp;, Focus H&amp;S, BeMyCar)</span></li>
+            <li><b>06</b><span>MOU with Anydu on advanced game development</span></li>
+            <li><b>06</b><span>MOU with the Korea Small and Medium Rent-a-Car Cooperative</span></li>
+            <li><b>06</b><span>Camping travel sales agreement with Homeplus and BeMyCar</span></li>
+            <li><b>06</b><span>Agreement with Infoseed to develop a nationwide camping travel map</span></li>
+            <li><b>05</b><span>Platform MOU with Hyundai Rental</span></li>
+            <li><b>05</b><span>MOU with Foodtree to sell camping food (800 items)</span></li>
+            <li><b>05</b><span>MOU with MS Camping to sell camping food (500 items)</span></li>
+            <li><b>05</b><span>Camping travel sharing partner MOU with 5G Camping</span></li>
+            <li><b>04</b><span>Policy funding from the Korea SMEs and Startups Agency (KOSME)</span></li>
+            <li><b>04</b><span>Selected for the 2022 contactless startup incubation program, Ministry of Land, Infrastructure and Transport (Korea Smart City Association)</span></li>
+            <li><b>03</b><span>Exhibitor at the 2022 Camping &amp; Picnic Fair (with Sungwoo Motors)</span></li>
+            <li><b>03</b><span>Selected as an Innovative Startup by the Korea Credit Guarantee Fund</span></li>
+            <li><b>02</b><span>Third Wadiz reward crowdfunding campaign funded (614%)</span></li>
+            <li><b>02</b><span>Encouragement Award, Korea Tourism Organization crowdfunding support program</span></li>
+            <li><b>01</b><span>Selected for the Korea Tourism Organization crowdfunding support program</span></li>
+          </ul></div>
+          <div class="year"><h3>2021</h3><ul>
+            <li><b>12</b><span>Selected for the Korea Tourism Organization ICT staffing support program</span></li>
+            <li><b>12</b><span>Selected for OPEN NEST 200, Korea Credit Guarantee Fund</span></li>
+            <li><b>10</b><span>Camping travel packages sold on Tourvis, a Ministry of Culture, Sports and Tourism travel platform</span></li>
+            <li><b>09</b><span>Start of camping food collaboration with Nongshim</span></li>
+            <li><b>08</b><span>Employee getaway service launched for Korea Deposit Insurance Corporation and National Pension Service</span></li>
+            <li><b>07</b><span>Member of the Korea Campground Association</span></li>
+            <li><b>07</b><span>Selected for the 2021 commercialization support program for companies using public works (nationwide camping travel map)</span></li>
+            <li><b>06</b><span>Employee getaway service launched for KEPCO, Seoul National University Bundang Hospital and KEPCO KDN</span></li>
+            <li><b>05</b><span>Investment from the Korea Technology Finance Corporation (KIBO)</span></li>
+            <li><b>05</b><span>Sales on Kakao Talk Deal</span></li>
+            <li><b>04</b><span>Selected as a 2021 Data Voucher recipient company</span></li>
+            <li><b>04</b><span>Staria camper van completed (developed with Sungwoo Motors)</span></li>
+            <li><b>04</b><span>Ray camper van completed (developed with J-Road)</span></li>
+            <li><b>03</b><span>Selected as operator of Hyundai Motor Company Wheelping (25 vehicles)</span></li>
+            <li><b>03</b><span>Selected as operator of Hyundai Motor Company employee camper van trips (3 camper vans provided)</span></li>
+            <li><b>01</b><span>CAMVER Rent-a-Car Inc. founded (acquisition of Bando Rent-a-Car, 51 vehicles)</span></li>
+          </ul></div>
+          <div class="year"><h3>2020</h3><ul>
+            <li><b>12</b><span>Advanced to the Korea Tourism Organization grand final demo day</span></li>
+            <li><b>12</b><span>Advanced to the Jeju Center for Creative Economy &amp; Innovation demo day</span></li>
+            <li><b>11</b><span>Pre-sale of camper van travel packages through Plus&amp;</span></li>
+            <li><b>10</b><span>Camper van travel packages launched on 23 domestic channels</span></li>
+            <li><b>10</b><span>Managed operation of Seumnaeum, a campground at a former school in Yangpyeong (1-year contract)</span></li>
+            <li><b>09</b><span>Camper van sharing service launched (7 camper vans)</span></li>
+            <li><b>09</b><span>Second Wadiz reward crowdfunding campaign funded (613%)</span></li>
+            <li><b>08</b><span>Pilot camper van trip service for KT employees (No. 1 in employee satisfaction, 4 camper vans)</span></li>
+            <li><b>06</b><span>Selected as a Korea Tourism Organization accelerated startup</span></li>
+            <li><b>06</b><span>Launch of a B2B camper van travel service</span></li>
+            <li><b>05</b><span>Wadiz reward crowdfunding campaign funded (380%)</span></li>
+            <li><b>05</b><span>Corporate R&amp;D Center established</span></li>
+            <li><b>05</b><span>Selected for the tourism crowdfunding support program</span></li>
+            <li><b>05</b><span>Selected for incubation by the Jeju Center for Creative Economy &amp; Innovation</span></li>
+            <li><b>03</b><span>Mutual growth partner MOU with Sungwoo Motors</span></li>
+            <li><b>03</b><span>Venture Business certification from KIBO</span></li>
+            <li><b>03</b><span>GS Rent-a-Car CAMVER branch opened (2 camper vans)</span></li>
+            <li><b>02</b><span>CAMVER app beta launched</span></li>
+            <li><b>02</b><span>Business guarantee from KIBO</span></li>
+            <li><b>02</b><span>Selected as a Focus H&amp;S partner company</span></li>
+          </ul></div>
+          <div class="year"><h3>2019</h3><ul>
+            <li><b>12</b><span>CAMVER Inc. founded</span></li>
+          </ul></div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="sec" id="awards" aria-labelledby="aw-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="aw-h" class="en" lang="en">Certifications &amp; Patents</h2><p>Accredited test results, government certifications, awards and patents.</p></div>
+      </div>
+      <div class="award-group">
+        <h3 class="sub-h">Certifications and tests</h3>
+        <ul class="thumbs t7">
+          <li><div class="photo plain"><img data-slot="company-03" src="img/slots/company-03.jpg" alt="KTCC test report" loading="lazy" decoding="async"></div><p>KTCC test report<small>100% fire anomaly detection accuracy · Dec 2025</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-04" src="img/slots/company-04.jpg" alt="KGcT test report" loading="lazy" decoding="async"></div><p>KGcT test report (KOLAS)<small>Dec 2024</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-05" src="img/slots/company-05.jpg" alt="Regulatory sandbox exemption certificate for field trials" loading="lazy" decoding="async"></div><p>Regulatory sandbox exemption certificate<small>Field trial exemption No. 703</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-06" src="img/slots/company-06.jpg" alt="Location-based service provider registration certificate" loading="lazy" decoding="async"></div><p>Location-based service provider registration<small>No. 2441</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-07" src="img/slots/company-07.jpg" alt="Venture Business Certificate" loading="lazy" decoding="async"></div><p>Venture Business Certificate</p></li>
+          <li><div class="photo plain"><img data-slot="company-08" src="img/slots/company-08.jpg" alt="Corporate R&amp;D Center certificate" loading="lazy" decoding="async"></div><p>Corporate R&amp;D Center certificate</p></li>
+          <li><div class="photo plain"><img data-slot="company-09" src="img/slots/company-09.jpg" alt="Open NEST 200 selection certificate" loading="lazy" decoding="async"></div><p>Open NEST 200 selection certificate<small>Korea Credit Guarantee Fund · Dec 2021</small></p></li>
+        </ul>
+      </div>
+      <div class="award-row">
+      <div class="award-group">
+        <h3 class="sub-h">Awards</h3>
+        <ul class="thumbs t4">
+          <li><div class="photo plain"><img data-slot="company-10" src="img/slots/company-10.jpg" alt="Minister's Award certificate, Ministry of Land, Infrastructure and Transport" loading="lazy" decoding="async"></div><p>Minister's Award, Ministry of Land, Infrastructure and Transport<small>2022 · Contactless startup incubation program</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-11" src="img/slots/company-11.jpg" alt="Kia PBV Idea Contest Excellence Award certificate" loading="lazy" decoding="async"></div><p>Excellence Award, Kia PBV Idea Contest<small>Dec 2025 · Startup (SW) category</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-12" src="img/slots/company-12.jpg" alt="Excellence Award certificate, Korea Location Information Business Model Contest" loading="lazy" decoding="async"></div><p>Excellence Award, Location Information Business Model Contest<small>Dec 2024 · KISA</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-12-02" src="img/slots/company-12-02.jpg" alt="Korea Tourism Organization Encouragement Award certificate" loading="lazy" decoding="async"></div><p>Encouragement Award, Korea Tourism Organization<small>2022 · Tourism crowdfunding support program</small></p></li>
+        </ul>
+      </div>
+      <div class="award-group">
+        <h3 class="sub-h">Patents and trademarks <small>5 registered patents · 8 patent applications, 13 in total</small></h3>
+        <ul class="thumbs t5">
+          <li><div class="photo plain"><img data-slot="company-13" src="img/slots/company-13.jpg" alt="Patent certificate" loading="lazy" decoding="async"></div><p>Patent certificate<small>Registered patent</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-14" src="img/slots/company-14.jpg" alt="Patent certificate" loading="lazy" decoding="async"></div><p>Patent certificate<small>Registered patent</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-15" src="img/slots/company-15.jpg" alt="Patent certificate" loading="lazy" decoding="async"></div><p>Patent certificate<small>Registered patent</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-16" src="img/slots/company-16.jpg" alt="Trademark registration for the camver logo" loading="lazy" decoding="async"></div><p>Trademark registration<small>camver logo</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-17" src="img/slots/company-17.jpg" alt="Trademark registration for CAMVER" loading="lazy" decoding="async"></div><p>Trademark registration<small>CAMVER</small></p></li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="partners" aria-labelledby="pt-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="pt-h" class="en" lang="en">Partners</h2><p>We keep widening the work we share with partners who grow alongside us.</p></div>
+      </div>
+      <!-- No official J-Road logo file found, so it is shown as text. Replace with img/partners/jroad.jpg (250×125) once received -->
+      <div class="pgroup">
+        <div><h3>Clients</h3><p>We handle employee benefits and vehicle operations for companies and public institutions.</p></div>
+        <ul class="logos" aria-label="Client logos">
+          <li><img src="img/partners/hyundai.jpg" alt="Hyundai Motor Company" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kia.jpg" alt="Kia" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/hec.jpg" alt="Hyundai Engineering" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/glovis.jpg" alt="Hyundai Glovis" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/snuh-bundang.jpg" alt="Seoul National University Bundang Hospital" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kepco.jpg" alt="KEPCO" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kdn.jpg" alt="KEPCO KDN" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kdic.jpg" alt="Korea Deposit Insurance Corporation" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/nps.jpg" alt="National Pension Service" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kt.jpg" alt="KT" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <div><h3>Technology partners</h3><p>Specialist companies we work with on vehicle conversion and monitoring equipment.</p></div>
+        <ul class="logos" aria-label="Technology partner logos">
+          <li><img src="img/partners/sungwoo.jpg" alt="Sungwoo Motors" loading="lazy" decoding="async"></li>
+          <li><span>J-Road</span></li>
+          <li><img src="img/partners/focus.jpg" alt="Focus H&amp;S" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <div><h3>Service and content partners</h3><p>Companies we share products, services and content with.</p></div>
+        <ul class="logos" aria-label="Service and content partner logos">
+          <li><img src="img/partners/ezwel.jpg" alt="Hyundai Ezwel" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/bemycar.jpg" alt="BeMyCar" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/plusand.jpg" alt="Plus&amp;" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/homeplus.jpg" alt="Homeplus" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/homeshopping.jpg" alt="Home&amp;Shopping" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/sequencen.jpg" alt="Sequence N" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/wadiz.jpg" alt="Wadiz" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kakaotalk.jpg" alt="Kakao" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <div><h3>Public institutions</h3><p>Public support programs help us build our R&amp;D capabilities.</p></div>
+        <ul class="logos" aria-label="Public institution logos">
+          <li><img src="img/partners/molit.jpg" alt="Ministry of Land, Infrastructure and Transport" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/motie.jpg" alt="Ministry of Trade, Industry and Resources (formerly Ministry of Trade, Industry and Energy)" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kto.jpg" alt="Korea Tourism Organization" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/sba.jpg" alt="Seoul Business Agency (SBA)" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kibo.jpg" alt="Korea Technology Finance Corporation (KIBO)" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kodit.jpg" alt="Korea Credit Guarantee Fund" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kosme.jpg" alt="Korea SMEs and Startups Agency (KOSME)" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/ccei-gyeonggi.jpg" alt="Gyeonggi Center for Creative Economy &amp; Innovation" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/ccei-jeju.jpg" alt="Jeju Center for Creative Economy &amp; Innovation" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/smartcity.jpg" alt="Korea Smart City Association" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/campground.jpg" alt="Korea Campground Association" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="location" aria-labelledby="loc-h">
+    <div class="wrap">
+      <div class="split loc">
+        <div class="split-text">
+          <div class="ttl"><h2 id="loc-h" class="en" lang="en">Location</h2><p class="subline">Company details and directions</p></div>
+          <ul class="rows kv">
+            <li><span>Address</span><span>Room 207, 2F, SH Plaza, 70 Cheonggyesan-ro 9-gil, Seocho-gu, Seoul, Korea</span></li>
+            <li><span>Subway</span><span>Cheonggyesan Station (Sinbundang Line), Exit 3<small>About 8 minutes (400 m) on foot toward Seocho Foresta Complex 4</small></span></li>
+            <li><span>Bus</span><span>Blue buses 470 · 741 · 452<small>About 5 minutes (300 m) on foot from the Seocho Foresta Entrance stop</small></span></li>
+            <li><span>Phone</span><span>02-576-6776 <small>Fax 0504-205-0826</small></span></li>
+            <li><span>Email</span><span><a href="mailto:camver2020@naver.com">camver2020@naver.com</a></span></li>
+          </ul>
+          <div class="actions">
+            <a class="btn line" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%B2%AD%EA%B3%84%EC%82%B0%EB%A1%9C9%EA%B8%B8%2070" target="_blank" rel="noopener">View on Kakao Map</a>
+            <a class="btn line" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%B2%AD%EA%B3%84%EC%82%B0%EB%A1%9C9%EA%B8%B8%2070" target="_blank" rel="noopener">View on Naver Map</a>
+          </div>
+        </div>
+        <div class="photo map">
+          <img data-slot="company-map" src="img/slots/company-map.jpg" alt="Map of CAMVER headquarters: 70 Cheonggyesan-ro 9-gil, Seocho-gu, Seoul, near Cheonggyesan Station" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="block corp">
+        <h3 class="sub-h">Company profile</h3>
+        <div class="info">
+          <ul class="rows kv">
+            <li><span>Company name</span><span>CAMVER Inc.</span></li>
+            <li><span>CEO</span><span>Youngsin Kim</span></li>
+            <li><span>Founded</span><span>December 19, 2019</span></li>
+            <li><span>Business reg. no.</span><span>596-87-01817</span></li>
+          </ul>
+          <ul class="rows kv">
+            <li><span>Business areas</span><span>Special-purpose vehicle build and conversion, managed fleet operation, AI integrated safety monitoring (Fleet AI OS)</span></li>
+            <li><span>Regulatory sandbox</span><span>Special exemption for field trials No. 703</span></li>
+            <li><span>Registrations</span><span>Registered location-based service provider No. 2441<small>Domestic travel agency 2021-000008 · Mail-order sales 2021-Seoul Seocho-2215</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>
