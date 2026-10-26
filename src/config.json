@@ -1,0 +1,7 @@
+{
+  "_설명": "배포 설정. form_endpoint = Apps Script 웹앱 주소(https://script.google.com/macros/s/.../exec). 비워 두면 폼은 보내는 척만 함. news_csv = 소식 시트 CSV 주소. 바꾸면 python3 tools/build.py 다시 실행. site_url·domain = 실제 도메인(GitHub Pages CNAME 에 들어감)",
+  "site_url": "https://www.camver.co.kr",
+  "domain": "www.camver.co.kr",
+  "form_endpoint": "",
+  "news_csv": "https://docs.google.com/spreadsheets/d/1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo/gviz/tq?tqx=out:csv&headers=1"
+}

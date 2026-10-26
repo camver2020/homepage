@@ -1,0 +1,424 @@
+<!--title: 캠버 CAMVER-->
+<!--desc: 특수차량 제작부터 위탁 운영, Fleet AI OS 안전관제까지. 차를 만들고, 굴리고, 지키는 캠버.-->
+<style>
+/* 홈 전용: 메인 비주얼, 회사 반쪽 사진, 서비스 큰 사진 모음, 솔루션 배너 */
+.mv { position: relative; height: clamp(560px, 84vh, 880px); height: clamp(560px, 84svh, 880px); }
+.slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 800ms var(--ease), visibility 0s linear 800ms; }
+.slide.is-on { opacity: 1; visibility: visible; transition: opacity 800ms var(--ease), visibility 0s; }
+.slide.photo { position: absolute; }
+.slide .lbl { top: 28px; right: max(28px, var(--gutter-r)); }
+.slide-body { position: absolute; left: 0; right: 0; bottom: 132px; z-index: 1; }
+.slide-body .inner { max-width: 640px; display: grid; gap: 16px; }
+.slide h2 { font-size: clamp(36px, 4.6vw, 64px); font-weight: 800; line-height: 1.2; letter-spacing: -0.035em; }
+.slide h2 .tag { font-size: 14px; }
+.slide p { font-size: 18px; color: var(--on-photo-2); max-width: 36ch; }
+.slide .actions { margin-top: 10px; }
+.mv-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; border-top: 1px solid rgba(255, 255, 255, 0.24); background: rgba(10, 13, 18, 0.58); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; }
+.mv-bar-inner { display: flex; align-items: stretch; }
+.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); flex: 1; min-width: 0; }
+.tab { position: relative; font: inherit; text-align: left; background: none; border: 0; cursor: pointer; color: rgba(255, 255, 255, 0.78); padding: 20px 16px 20px 0; display: grid; gap: 2px; min-width: 0; }
+.tab + .tab { padding-left: 16px; border-left: 1px solid rgba(255, 255, 255, 0.18); }
+.tab small { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; }
+.tab span { font-size: 15.5px; font-weight: 700; line-height: 1.4; }
+.tab i { position: absolute; left: 0; top: -1px; height: 3px; width: 0; background: var(--yellow); }
+.tab[aria-selected="true"] { color: #fff; }
+.tab[aria-selected="true"] i { width: 100%; }
+.mv.is-playing .tab[aria-selected="true"] i { width: 0; animation: fill var(--dur, 6s) linear forwards; }
+@keyframes fill { to { width: 100%; } }
+.tab:hover { color: #fff; }
+.tab:focus-visible { outline-color: #fff; }
+.mv-ctrl { display: flex; align-items: center; gap: 6px; padding-left: 18px; border-left: 1px solid rgba(255, 255, 255, 0.18); }
+.mv-ctrl button { width: 40px; height: 40px; display: grid; place-items: center; background: none; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: var(--r-btn); cursor: pointer; color: #fff; }
+.mv-ctrl button:hover { background: #fff; color: var(--ink); }
+.mv-ctrl svg { width: 15px; height: 15px; }
+
+.about { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: stretch; margin-top: 120px; background: var(--alt); }
+.about .photo { min-height: 620px; }
+.about-text { padding: 88px max(var(--gutter-r), calc((100vw - var(--wrap)) / 2 + 20px)) 88px 72px; display: grid; gap: 24px; align-content: center; }
+.about-text h2 { font-size: clamp(30px, 3.2vw, 42px); font-weight: 800; }
+.about-text { gap: 20px; }
+.about-text p { color: var(--ink-2); max-width: 44ch; }
+.quick { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--line-2); max-width: 520px; }
+.quick a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line-2); text-decoration: none; }
+.quick .q { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; min-width: 0; }
+.quick .q b { font-weight: 800; }
+.quick .q small { color: var(--muted); font-size: 14.5px; }
+.quick a:hover b { text-decoration: underline; }
+.quick svg { width: 14px; height: 14px; flex: none; }
+
+.svc { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 20px; height: clamp(560px, 52vw, 720px); }
+.svc .tile.photo { aspect-ratio: auto; height: 100%; }
+.svc .tile:first-child { grid-row: span 2; }
+/* 큰 칸·작은 칸 모두 같은 글자 크기 */
+.svc .tile h3 { font-size: 26px; }
+.svc .tile p { font-size: 15px; }
+
+.mod-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; }
+.mod-lead { font-size: 21px; font-weight: 700; color: var(--ink) !important; letter-spacing: -0.02em; }
+
+/* 사업 타일: 영문 제목 한 줄, 설명은 네 칸 모두 같은 줄 수가 되게 길이를 맞춤(15px 기준 304~312px) */
+.grid-4.m2 .tile { container-type: inline-size; }
+.grid-4.m2 .tile h3 { font-size: clamp(15px, 7.4cqi, 22px); white-space: nowrap; }
+/* 문구 길이를 20.3~20.8em으로 맞추고 폭을 18.5em으로 묶어 두면 어느 화면에서든 네 칸 다 두 줄 */
+.grid-4.m2 .tile p { max-width: 18.5em; text-wrap: balance; }
+.sol-split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: center; }
+.sol-split .photo { aspect-ratio: 16 / 10; }
+.sol-split .photo.dash { aspect-ratio: 2 / 1; background: #eceef1; }
+.sol-text { display: grid; gap: 18px; }
+.sol-text h3 { font-size: clamp(24px, 2.4vw, 32px); font-weight: 800; line-height: 1.3; }
+.sol-text p { color: var(--ink-2); }
+.sol-text .proof { font-size: 15px; padding-top: 16px; border-top: 1px solid var(--line-2); }
+.sol-text .proof b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.sol-text .actions { gap: 12px 24px; margin-top: 6px; }
+
+.cs { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px; align-items: start; }
+
+@media (max-width: 1100px) { .about-text { padding-left: 48px; } }
+@media (max-width: 920px) {
+  .mv { height: clamp(560px, 82vh, 720px); height: clamp(560px, 82svh, 720px); }
+  .slide-body { bottom: 112px; }
+  .slide p { font-size: 16.5px; }
+  .tabs { display: flex; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-padding-left: var(--gutter); }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; width: auto; max-width: none; padding: 18px 18px 18px 0; scroll-snap-align: start; }
+  .tab + .tab { padding-left: 18px; }
+  .tab span { white-space: nowrap; font-size: 15px; }
+  .mv-ctrl { padding-left: 10px; gap: 4px; }
+  .mv-ctrl button { width: 44px; height: 44px; }
+  .mv-ctrl { gap: 2px; }
+  .sol-split { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .about { grid-template-columns: minmax(0, 1fr); margin-top: 88px; }
+  .about .photo { min-height: 0; aspect-ratio: 4 / 3; }
+  .about-text { padding: 48px var(--gutter-r) 56px var(--gutter); }
+  .svc { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; height: auto; }
+  .svc .tile.photo { aspect-ratio: 4 / 3; height: auto; }
+  .svc .tile:first-child { grid-row: auto; }
+  .svc .tile h3 { font-size: 22px; }
+  .cs { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
+@media (min-width: 561px) and (max-width: 920px) {
+  .svc { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .svc .tile:first-child { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .grid-4.m2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .grid-4.m2 .tile.photo { aspect-ratio: 3 / 4; }
+  .grid-4.m2 .tile-body { padding: 14px 14px 14px; }
+  .grid-4.m2 .tile h3 { font-size: clamp(12px, 3.65vw, 16px); line-height: 1.35; white-space: nowrap; }
+  .grid-4.m2 .badge { top: 10px; left: 10px; }
+  .grid-4.m2 .tile p, .grid-4.m2 .tile .go { display: none; }
+  .grid-4.m2 .lbl { top: 10px; right: 12px; max-width: 86%; }
+  .grid-4.m2 .lbl small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-on { transition: none; }
+  .mv.is-playing .tab[aria-selected="true"] i { animation: none; width: 100%; }
+}
+
+/* 파트너 로고 흐름 */
+.marquee { position: relative; display: grid; gap: 0; }
+.mq-row { display: flex; overflow: hidden; margin-inline: calc(50% - 50vw); border-top: 1px solid var(--line); -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.mq-row + .mq-row { border-bottom: 1px solid var(--line); }
+.mq-track { display: flex; flex: none; list-style: none; margin: 0; padding: 0; animation: mq var(--mq-dur, 54s) linear infinite; }
+.mq-row.rev .mq-track { animation-direction: reverse; }
+.mq-track li { flex: none; width: 210px; height: 104px; display: grid; place-items: center; border-right: 1px solid var(--line); }
+.mq-track img { max-width: 76%; max-height: 62px; width: auto; height: auto; object-fit: contain; }
+@keyframes mq { to { transform: translate3d(-100%, 0, 0); } }
+.marquee:hover .mq-track, .marquee:focus-within .mq-track, .marquee.is-paused .mq-track, .marquee.is-off .mq-track { animation-play-state: paused; }
+.mq-toggle { justify-self: end; margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 2px; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink-2); background: none; border: 0; cursor: pointer; }
+.mq-toggle:hover { color: var(--ink); text-decoration: underline; }
+.mq-toggle svg { width: 14px; height: 14px; }
+.mq-toggle .i-play, .marquee.is-paused .mq-toggle .i-pause { display: none; }
+.marquee.is-paused .mq-toggle .i-play { display: block; }
+@media (max-width: 560px) { .mq-track li { width: 150px; height: 84px; } .mq-track img { max-height: 48px; } }
+@media (prefers-reduced-motion: reduce) {
+  .mq-track { animation: none; }
+  .mq-track[aria-hidden="true"], .mq-toggle { display: none; }
+  .mq-row { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+}
+
+/* 메인 비주얼 움직임: 지금 장면 사진은 천천히 당겨지고, 글은 마스크에서 올라옴 */
+@media (prefers-reduced-motion: no-preference) {
+  .slide > img { transform-origin: 58% 50%; }
+  .slide.is-on > img { animation: kb 9s var(--ease-out) both; }
+  .slide.is-on .inner > * { animation: rise 900ms var(--ease-out) 420ms both; }
+  .slide.is-on .inner > h2 { animation: title-in 1000ms var(--ease-out) 160ms both; }
+  .slide.is-on .inner > .actions { animation-delay: 560ms; }
+}
+@keyframes kb { from { transform: scale(1.12); } to { transform: scale(1); } }
+</style>
+
+<main>
+  <h1 class="sr">캠버: 차를 만들고, 굴리고, 지키는 회사</h1>
+
+  <section class="mv" id="mv" aria-roledescription="carousel" aria-label="캠버 사업 소개">
+    <article class="slide photo is-on" id="s0" aria-roledescription="slide" aria-label="5개 중 1번째">
+      <img data-slot="home-01" src="img/fleetos-drive.jpg" alt="Fleet AI OS 단말을 대시보드에 단 차 안에서 운전하는 사람들" loading="eager" fetchpriority="high" decoding="async" style="object-position: 52% center">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>AI 통합 안전관제<br>Fleet AI OS</h2>
+        <p>전기차와 특수차량의 상태를 실시간으로 보고, 위험해지기 전에 알립니다.</p>
+        <div class="actions"><a class="btn primary" href="solution.html">More<span class="sr"> — Fleet AI OS</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s1" aria-roledescription="slide" aria-label="5개 중 2번째" aria-hidden="true">
+      <img data-slot="home-02" src="img/shelter-site.jpg" alt="캠핑카 차양 아래에서 쉬는 사람들" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>현장으로 찾아가는<br>이동형 안전 쉼터<span class="tag">추진 중</span></h2>
+        <p>무시동 에어컨을 단 차량형 쉼터를 건설·물류 현장에 보내고, 배치부터 점검까지 관제로 관리합니다.</p>
+        <div class="actions"><a class="btn primary" href="business.html#shelter" tabindex="-1">More<span class="sr"> — 이동형 안전 쉼터</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s2" aria-roledescription="slide" aria-label="5개 중 3번째" aria-hidden="true">
+      <img data-slot="home-03" src="img/resort-seaside.jpg" alt="바닷가에 세운 휴양 차량과 여행객" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>임직원을 위한<br>사계절 휴양소</h2>
+        <p>현대자동차 임직원 휴양 차량을 전국 9개 지역에서 운영합니다. 예약부터 정비까지 캠버가 맡습니다.</p>
+        <div class="actions"><a class="btn primary" href="business.html#resort" tabindex="-1">More<span class="sr"> — 기업 복지 휴양소</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s3" aria-roledescription="slide" aria-label="5개 중 4번째" aria-hidden="true">
+      <img data-slot="home-04" src="img/slots/home-04.jpg" alt="차량 공장에서 태블릿을 함께 보는 직원 두 명" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>필요한 차를<br>직접 만듭니다</h2>
+        <p>구급차, 이동형 화장차 같은 특수목적 차량을 개조하고 관제 장비까지 달아서 넘깁니다.</p>
+        <div class="actions"><a class="btn primary" href="service.html" tabindex="-1">More<span class="sr"> — 차량 제작·개조</span></a></div>
+      </div></div></div>
+    </article>
+    <article class="slide photo" id="s4" aria-roledescription="slide" aria-label="5개 중 5번째" aria-hidden="true">
+      <img data-slot="home-05" src="img/slots/home-05.jpg" alt="캠핑장 풍경 위에 띄운 VANPICK 앱 화면" loading="eager" decoding="async">
+      <div class="slide-body"><div class="wrap"><div class="inner">
+        <h2>캠핑카 여행은<br>VANPICK에서</h2>
+        <p>PV5 캠핑카를 비롯한 캠핑카 여행과 캠핑 상품을 VANPICK에서 예약할 수 있습니다.</p>
+        <div class="actions"><a class="btn primary" href="https://www.vanpick.co.kr" target="_blank" rel="noopener" tabindex="-1">More<span class="sr"> — VANPICK 사이트</span></a></div>
+      </div></div></div>
+    </article>
+    <div class="mv-bar">
+      <div class="wrap mv-bar-inner">
+        <div class="tabs" role="tablist" aria-label="사업 선택">
+          <button class="tab" role="tab" aria-selected="true" aria-controls="s0"><i></i><span lang="en">Fleet AI OS</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s1"><i></i><span lang="en">Mobile Safety Shelter</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s2"><i></i><span lang="en">Corporate Resort</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s3"><i></i><span lang="en">Vehicle Build</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="s4"><i></i><span lang="en">Camping &amp; Leisure</span></button>
+        </div>
+        <div class="mv-ctrl">
+          <button class="prev" type="button" aria-label="이전 사업"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+          <button class="play" type="button" aria-label="자동 넘김 멈춤"><svg class="i-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="4" y="3" width="2.6" height="10"/><rect x="9.4" y="3" width="2.6" height="10"/></svg><svg class="i-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" hidden><path d="M5 3v10l8-5z"/></svg></button>
+          <button class="next" type="button" aria-label="다음 사업"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="about-h">
+    <div class="photo plain">
+      <img data-slot="home-06" src="img/slots/home-06.jpg" alt="산길 도로를 달리는 셔틀과 화물차" loading="lazy" decoding="async">
+    </div>
+    <div class="about-text">
+      <div class="mod-head">
+        <h2 id="about-h" class="en" lang="en">About Us</h2>
+        <a class="more" href="company.html">More<span class="sr"> — 회사 소개</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <p class="mod-lead">차를 만들고, 굴리고, 지키는 회사</p>
+      <p>캠버는 2019년 서울에서 시작했습니다. 차를 직접 개조하고, 그 차를 직접 운영하면서 쌓은 운행 데이터로 AI 안전관제 Fleet AI OS를 만들었습니다. 지금은 145대를 운영하며 누적 450만 km를 사고 없이 달렸습니다.</p>
+      <ul class="quick">
+        <li><a href="company.html#ceo"><span class="q"><b>대표 인사말</b><small>비전과 대표 인사말</small></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+        <li><a href="company.html#history"><span class="q"><b>연혁</b><small>2019년 설립부터 지금까지</small></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+        <li><a href="company.html#partners"><span class="q"><b>파트너</b><small>함께하는 기업과 기관</small></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="biz-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="biz-h" class="en" lang="en">Business</h2><p>기업 복지부터 현장 안전, 캠핑·레저까지 직접 운영합니다.</p></div>
+        <a class="more" href="business.html">More<span class="sr"> — 사업 분야</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="grid-4 m2">
+        <a class="tile photo" href="business.html#resort">
+          <img data-slot="home-07" src="img/camper-sunset.jpg" alt="노을 아래 세운 캠버 캠핑카" loading="lazy" decoding="async">
+          <div class="tile-body"><h3 lang="en">Corporate Resort</h3><p>임직원이 예약하고 떠나는 사계절 기업 휴양소</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="business.html#shelter">
+          <img data-slot="home-08" src="img/shelter-site.jpg" alt="캠핑카 차양 아래에서 쉬는 사람들" loading="lazy" decoding="async" style="object-position: 30% center">
+          <span class="tag badge">추진 중</span>
+          <div class="tile-body"><h3 lang="en">Mobile Safety Shelter</h3><p>쉴 곳 없는 현장으로 찾아가는 차량형 휴게 공간</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="business.html#special">
+          <img data-slot="home-09" src="img/ambulance.jpg" alt="구급차" loading="lazy" decoding="async">
+          <div class="tile-body"><h3 lang="en">Special Vehicles</h3><p>구급차처럼 멈추면 안&nbsp;되는 차를 지키는 AI 관제</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="business.html#leisure">
+          <img data-slot="home-10" src="img/camper-beach.jpg" alt="바닷가에 세운 캠핑카와 여행객" loading="lazy" decoding="async">
+          <div class="tile-body"><h3 lang="en">Camping &amp; Leisure</h3><p>캠핑카 여행과 캠핑 상품을 VANPICK에서 예약</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="svc-h" class="en" lang="en">Service</h2><p>차가 필요한 순간부터 운영까지 한 회사에서 맡습니다.</p></div>
+        <a class="more" href="service.html">More<span class="sr"> — 서비스</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="svc">
+        <a class="tile photo" href="service.html#build">
+          <img data-slot="home-11" src="img/slots/home-11.jpg" alt="정비동 리프트에 올려 개조 중인 승합차" loading="lazy" decoding="async">
+          <div class="tile-body"><h3>차량 제작·개조</h3><p>특수목적 차량과 임직원 차량을 개조하고 관제 장비를 답니다.</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="service.html#operate">
+          <img data-slot="home-12" src="img/station-lounge.jpg" alt="스마트 스테이션 안 대기 공간과 차량" loading="lazy" decoding="async">
+          <div class="tile-body"><h3>차량 위탁 운영</h3><p>예약, 고객 응대, 정비까지 맡아서 기업 차량을 굴립니다.</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+        <a class="tile photo" href="service.html#station">
+          <img data-slot="home-13" src="img/station-front.jpg" alt="캠버 스마트 스테이션 건물과 주차된 차량" loading="lazy" decoding="async">
+          <div class="tile-body"><h3>스마트 스테이션</h3><p>전국 9곳 거점에서 차량 인수·반납과 점검을 맡습니다.</p><span class="go">More<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band sol" aria-labelledby="sol-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="sol-h" class="en" lang="en">Solution</h2><p>직접 굴린 차의 데이터로 만든 AI 통합 안전관제입니다.</p></div>
+        <a class="more" href="solution.html">More<span class="sr"> — 솔루션</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="sol-split">
+        <div class="photo plain dash">
+          <img data-slot="home-14" src="img/fleetos-dashboard.jpg" alt="노트북과 휴대폰에 띄운 Fleet AI OS 관제 대시보드" loading="lazy" decoding="async">
+        </div>
+        <div class="sol-text">
+          <h3>차 한 대의 상태를<br>숫자 하나로, Fleet AI OS</h3>
+          <p>차에서 올라오는 데이터를 위험 지수 하나로 묶어 보여주고, 위험해지기 전에 알립니다. 필요하면 원격으로 차를 제어합니다.</p>
+          <p class="proof">공인 시험(KTCC)에서 위험 판단 <b>0.18초</b>, 화재 이상징후 판단 정확도 <b>100%</b>, 원격제어 응답 <b>0.81초</b>를 확인했습니다.</p>
+          <div class="actions">
+            <a class="btn primary" href="solution.html">More<span class="sr"> — Fleet AI OS</span></a>
+            <a class="more" href="https://camver.ai/ko" target="_blank" rel="noopener">제품 사이트 camver.ai<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="cs-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="cs-h" class="en" lang="en">News</h2><p>새 소식과 문의 창구를 한곳에 모았습니다.</p></div>
+        <a class="more" href="cs.html#news">More<span class="sr"> — 소식</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="cs">
+        <!-- 구글 시트 연동 전 기본 목록(실제 기사 제목). 배포 때 window.CAMVER_NEWS_CSV 를 넣으면 시트 내용으로 바뀜 -->
+        <ul class="news" id="newsList" data-limit="4">
+          <li><a href="https://www.abc12.com/online_features/press_releases/camver-launches-fleet-ai-os-a-predictive-safety-platform-that-detects-ev-battery-hazards-before/article_dd0b2ad6-c917-5c4a-91ff-1f5e2d6b97a5.html" target="_blank" rel="noopener"><span class="news-title">캠버, 전기차 배터리 위험을 미리 감지하는 예측 안전 플랫폼 'Fleet AI OS' 출시</span><time datetime="2026-09-04">2026.09.04</time><span class="news-src">보도자료 · 미국 6개 매체</span></a></li>
+          <li><div class="row"><span class="news-title">연 1000만원↑…"캠핑카, 이제는 수익형 자산"</span><time datetime="2025-06-08">2025.06.08</time><span class="news-src">언론 보도</span></div></li>
+          <li><div class="row"><span class="news-title">스마트 캠핑카 플랫폼 '캠버' 글로벌 진출 '신호탄'</span><time datetime="2025-05-11">2025.05.11</time><span class="news-src">언론 보도</span></div></li>
+        </ul>
+        <div class="cs-box">
+          <h3>고객센터</h3>
+          <dl class="tel">
+            <div><dt>대표 전화</dt><dd>02-576-6776<small>평일 10:00–17:00 · 주말·공휴일은 긴급 통화만</small></dd></div>
+            <div><dt>A/S</dt><dd>070-7718-1219<small>평일 10:00–17:00</small></dd></div>
+          </dl>
+          <ul class="cs-links">
+            <li><a href="cs.html#contact">도입·제휴 문의하기<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="cs.html#guide">차량 사용법 영상<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="https://pf.kakao.com/_njISxb" target="_blank" rel="noopener">카카오톡 채널 상담<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="pt-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="pt-h" class="en" lang="en">Partners</h2><p>현대자동차그룹 4개사를 비롯한 기업·기관과 일합니다.</p></div>
+        <a class="more" href="company.html#partners">More<span class="sr"> — 파트너</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <div class="marquee" data-marquee>
+        <div class="mq-row" style="--mq-dur: 56s">
+          <ul class="mq-track" aria-label="기업 파트너 로고"><li><img src="img/partners/hyundai.jpg" alt="현대자동차" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kia.jpg" alt="기아" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/hec.jpg" alt="현대엔지니어링" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/glovis.jpg" alt="현대글로비스" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sungwoo.jpg" alt="성우모터스" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/focus.jpg" alt="포커스에이치앤에스" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kt.jpg" alt="KT" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ezwel.jpg" alt="현대이지웰" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/bemycar.jpg" alt="비마이카" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeplus.jpg" alt="홈플러스" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeshopping.jpg" alt="홈앤쇼핑" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/plusand.jpg" alt="플러스앤" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sequencen.jpg" alt="시퀀스엔" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/wadiz.jpg" alt="와디즈" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kakaotalk.jpg" alt="카카오" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+          <ul class="mq-track" aria-hidden="true"><li><img src="img/partners/hyundai.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kia.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/hec.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/glovis.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sungwoo.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/focus.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kt.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ezwel.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/bemycar.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeplus.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/homeshopping.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/plusand.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sequencen.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/wadiz.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kakaotalk.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+        </div>
+        <div class="mq-row rev" style="--mq-dur: 52s">
+          <ul class="mq-track" aria-label="공공기관·협회 파트너 로고"><li><img src="img/partners/molit.jpg" alt="국토교통부" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kto.jpg" alt="한국관광공사" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/motie.jpg" alt="산업통상부" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sba.jpg" alt="서울경제진흥원" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kepco.jpg" alt="한국전력공사" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdn.jpg" alt="한전KDN" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdic.jpg" alt="예금보험공사" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/nps.jpg" alt="국민연금공단" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/snuh-bundang.jpg" alt="분당서울대학교병원" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kibo.jpg" alt="기술보증기금" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kodit.jpg" alt="신용보증기금" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kosme.jpg" alt="중소벤처기업진흥공단" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-jeju.jpg" alt="제주창조경제혁신센터" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-gyeonggi.jpg" alt="경기창조경제혁신센터" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/smartcity.jpg" alt="스마트도시협회" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/campground.jpg" alt="대한캠핑장협회" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+          <ul class="mq-track" aria-hidden="true"><li><img src="img/partners/molit.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kto.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/motie.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/sba.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kepco.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdn.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kdic.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/nps.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/snuh-bundang.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kibo.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kodit.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/kosme.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-jeju.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/ccei-gyeonggi.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/smartcity.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li><li><img src="img/partners/campground.jpg" alt="" loading="lazy" decoding="async" width="250" height="125"></li></ul>
+        </div>
+        <button class="mq-toggle" type="button" aria-pressed="false"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M11 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" fill="currentColor"/></svg><span>로고 흐름 멈춤</span></button>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>
+
+<script>
+(function () {
+  /* 메인 비주얼: 6초마다 다음 사업으로. 마우스를 올리거나 포커스가 들어오면 멈춤, 움직임 줄이기 설정이면 자동 넘김 안 함 */
+  var mv = document.getElementById('mv');
+  if (!mv) return;
+  var slides = Array.prototype.slice.call(mv.querySelectorAll('.slide'));
+  var tabs = Array.prototype.slice.call(mv.querySelectorAll('.tab'));
+  var playBtn = mv.querySelector('.play');
+  var DUR = 6000;
+  var cur = 0, timer = 0, playing = false, held = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  mv.style.setProperty('--dur', DUR / 1000 + 's');
+
+  function show(i, fromUser) {
+    cur = (i + slides.length) % slides.length;
+    slides.forEach(function (s, k) {
+      var on = k === cur;
+      s.classList.toggle('is-on', on);
+      if (on) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
+      s.querySelectorAll('a').forEach(function (a) { if (on) a.removeAttribute('tabindex'); else a.setAttribute('tabindex', '-1'); });
+    });
+    tabs.forEach(function (t, k) {
+      t.setAttribute('aria-selected', k === cur ? 'true' : 'false');
+      t.setAttribute('tabindex', k === cur ? '0' : '-1');
+      var bar = t.querySelector('i');
+      bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    });
+    var active = tabs[cur];
+    if (!window.matchMedia('(min-width: 921px)').matches) {
+      active.parentNode.scrollTo({ left: active.offsetLeft - active.parentNode.offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    schedule();
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (playing && !held) timer = setTimeout(function () { show(cur + 1); }, DUR);
+  }
+  function setPlaying(p) {
+    playing = p;
+    mv.classList.toggle('is-playing', p && !held);
+    playBtn.setAttribute('aria-label', p ? '자동 넘김 멈춤' : '자동 넘김 시작');
+    playBtn.querySelector('.i-pause').hidden = !p;
+    playBtn.querySelector('.i-play').hidden = p;
+    show(cur);
+  }
+  function hold(h) { held = h; mv.classList.toggle('is-playing', playing && !held); if (!h) show(cur); else clearTimeout(timer); }
+
+  tabs.forEach(function (t, k) { t.addEventListener('click', function () { show(k, true); }); });
+  mv.querySelector('.prev').addEventListener('click', function () { show(cur - 1, true); });
+  mv.querySelector('.next').addEventListener('click', function () { show(cur + 1, true); });
+  playBtn.addEventListener('click', function () { setPlaying(!playing); });
+  mv.querySelector('.tabs').addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      show(cur + (e.key === 'ArrowRight' ? 1 : -1), true);
+      tabs[cur].focus();
+    }
+  });
+  mv.addEventListener('mouseenter', function () { hold(true); });
+  mv.addEventListener('mouseleave', function () { hold(false); });
+  mv.addEventListener('focusin', function () { hold(true); });
+  mv.addEventListener('focusout', function (e) { if (!mv.contains(e.relatedTarget)) hold(false); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) clearTimeout(timer); else schedule(); });
+
+  setPlaying(!reduce);
+})();
+</script>

@@ -1,0 +1,10 @@
+# 빌드 결과 (GitHub Actions 가 매번 새로 만듦)
+dist/
+preview/
+# 원본 자료·작업 메모는 공개 저장소에 올리지 않음
+assets-src/
+.impeccable/
+PRODUCT.md
+src/home.html
+__pycache__/
+.DS_Store

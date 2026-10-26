@@ -1,0 +1,396 @@
+<!--title: 회사 소개 | 캠버 CAMVER-->
+<!--desc: 2019년 서울에서 시작한 캠버의 비전, 대표 인사말, 연혁, 인증·특허, 파트너, 오시는 길.-->
+<style>
+.intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px 64px; margin-bottom: 64px; }
+.intro h2 { font-size: clamp(30px, 3.2vw, 42px); font-weight: 800; }
+.intro-text { display: grid; gap: 18px; padding-top: 6px; }
+.intro-text p { color: var(--ink-2); max-width: 56ch; }
+.intro-text .lead { color: var(--ink); }
+
+.vision-ttl { margin-bottom: 64px; gap: 16px; }
+.vision-ttl h2 { font-size: clamp(30px, 3.2vw, 42px); font-weight: 800; }
+.vision { margin: 0; font-size: clamp(24px, 2.5vw, 34px); font-weight: 800; line-height: 1.35; letter-spacing: -0.03em; max-width: 22ch; text-wrap: balance; }
+.vision em { font-style: normal; box-shadow: inset 0 -0.32em 0 var(--yellow); }
+
+.ceo .photo { aspect-ratio: 4 / 5; }
+.ceo .split-text { gap: 18px; }
+.ceo blockquote { margin: 0; display: grid; gap: 16px; }
+.ceo blockquote p { color: var(--ink-2); }
+.sign { margin-top: 10px; font-size: 15px; color: var(--muted); }
+.sign b { color: var(--ink); font-size: 18px; margin-left: 8px; }
+
+.info { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 56px; }
+
+.award-group { margin-top: 48px; }
+.award-group .sub-h small { font-size: 14.5px; font-weight: 600; color: var(--muted); margin-left: 10px; letter-spacing: 0; }
+.thumbs.t7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.award-row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr); gap: 20px; }
+.award-row .thumbs.t5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.thumbs.t3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.thumbs.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.thumbs.t5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+.pgroup { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 56px; padding: 36px 0; border-top: 1px solid var(--line); }
+.pgroup:first-of-type { border-top-color: var(--ink); }
+.pgroup h3 { font-size: 20px; font-weight: 800; }
+.pgroup p { color: var(--ink-2); font-size: 15px; margin-top: 8px; max-width: 30ch; }
+.pgroup .logos { align-self: start; }
+.pgroup .logos li { height: 88px; }
+
+.loc { align-items: stretch; }
+.loc .split-text { align-content: start; }
+.split .photo.map { aspect-ratio: auto; min-height: 420px; }
+.map::after { display: none; }
+
+@media (max-width: 920px) {
+  .intro, .info, .pgroup { grid-template-columns: minmax(0, 1fr); }
+  .intro { margin-bottom: 44px; }
+  .vision-ttl { margin-bottom: 44px; }
+  .info .rows + .rows { border-top: 0; }
+  .award-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .thumbs.t7, .thumbs.t5 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .thumbs.t3, .thumbs.t4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .split .photo.map { min-height: 0; aspect-ratio: 4 / 3; }
+  .ceo .photo { aspect-ratio: 4 / 3; }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="company-01" src="img/slots/company-01.jpg" alt="어두운 배경의 AX 그래픽" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">Company</h1>
+      <p class="subline">차를 만들고, 굴리고, 지키는 회사</p>
+      <p>2019년 서울에서 시작해 지금은 145대의 차를 직접 운영합니다.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="이 페이지 안 이동">
+    <div class="wrap" lang="en">
+      <a href="#overview">Overview</a>
+      <a href="#history">History</a>
+      <a href="#awards">Certifications &amp; Patents</a>
+      <a href="#partners">Partners</a>
+      <a href="#location">Location</a>
+    </div>
+  </nav>
+
+  <section class="sec" id="overview" aria-labelledby="ov-h">
+    <div class="wrap">
+      <div class="intro">
+        <div class="ttl"><h2 id="ov-h" class="en" lang="en">Overview</h2><p class="subline">차를 직접 굴려 본 회사가 안전관제를 만들었습니다</p></div>
+        <div class="intro-text">
+          <p class="lead">캠버는 2019년 12월 서울에서 문을 열었습니다. 캠핑카 몇 대를 빌려드리는 일로 시작해, 지금은 차를 직접 개조하고 기업 차량을 대신 운영하는 회사가 됐습니다.</p>
+          <p>운영하는 차가 늘수록 안전이 가장 큰 숙제였습니다. 그래서 차에서 올라오는 데이터를 실시간으로 보고 위험을 먼저 알려주는 관제를 직접 만들었습니다. 그 관제가 지금의 Fleet AI OS이고, 이제는 다른 회사와 기관의 차에도 붙습니다.</p>
+        </div>
+      </div>
+      <div class="figs c4">
+        <div><b>6년</b><span>차량 직접 운영</span></div>
+        <div><b>145대</b><span>지금 운영 중인 차량</span></div>
+        <div><b>450만 km</b><span>누적 무사고 주행<small>지구 112바퀴</small></span></div>
+        <div><b>9만 명</b><span>누적 이용자</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="vision-h">
+    <div class="wrap">
+      <div class="ttl vision-ttl"><h2 id="vision-h" class="en" lang="en">Vision</h2><p class="vision">안전한 기술과 새로운 문화로 만들어 가는 <em>행복한 내일</em></p></div>
+      <ul class="cols">
+        <li><h3>기술선도</h3><p>필요한 기술을 남보다 먼저 만들고, 그 기술로 업계의 기준을 끌어올립니다.</p></li>
+        <li><h3>인간존중</h3><p>차를 타는 고객과 함께 일하는 직원, 사람을 가장 귀하게 여깁니다.</p></li>
+        <li><h3>고객중심</h3><p>고객이 편한 쪽으로 서비스를 고칩니다. 불편한 점은 저희가 먼저 찾습니다.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 대표 인사말: 기존 사이트 문안을 통합안전관제 방향으로 새로 쓴 초안. 대표님 확인 필요 -->
+  <section class="sec ceo" id="ceo" aria-labelledby="ceo-h">
+    <div class="wrap split">
+      <div class="photo plain">
+        <img data-slot="company-02" src="img/slots/company-02.jpg" alt="행사 무대에서 발표하는 캠버 대표" loading="lazy" decoding="async">
+      </div>
+      <div class="split-text">
+        <div class="ttl"><h2 id="ceo-h" class="en" lang="en">CEO Message</h2><p class="subline">차는 멈추면 안 된다는 걸 현장에서 배웠습니다</p></div>
+        <blockquote>
+          <p>캠버는 2019년, 캠핑카 몇 대로 시작했습니다. 차를 직접 고치고 직접 빌려드리면서 가장 먼저 배운 것은 고객이 탄 차에서 무슨 일이 일어나는지 모르면 안전을 약속할 수 없다는 사실이었습니다.</p>
+          <p>그래서 우리가 쓰려고 관제를 만들었습니다. 6년 동안 145대를 운영하며 쌓은 데이터가 지금의 Fleet AI OS가 됐습니다. 차를 만드는 일, 굴리는 일, 지키는 일을 한 회사에서 모두 해 왔기에 현장에서 정말 필요한 것이 무엇인지 압니다.</p>
+          <p>캠버는 기술과 문화로 행복한 미래를 만드는 기업입니다. 앞으로도 더 안전한 이동을 만드는 데 힘을 쏟겠습니다.</p>
+        </blockquote>
+        <p class="sign">주식회사 캠버 대표이사<b>김영신</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="history" aria-labelledby="hist-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="hist-h" class="en" lang="en">History</h2><p>최근 몇 년의 굵직한 일입니다. 2019년 설립부터 이어진 전체 연혁은 아래에서 펼쳐 보세요.</p></div>
+      </div>
+      <div class="timeline">
+        <div class="year"><h3>2026</h3><ul>
+          <li><b>09</b><span>Fleet AI OS 출시, 미국 6개 매체에 보도</span></li>
+        </ul></div>
+        <!-- 2025년 규제샌드박스 지정은 연도만 표기 -->
+        <div class="year"><h3>2025</h3><ul>
+          <li><b>12</b><span>KTCC 시험에서 Fleet AI OS 화재 이상징후 판단 정확도 100% 확인 (시험성적서 KTCC-R-2025-0169)</span></li>
+          <li><b>12</b><span>기아 PBV 아이디어 공모전 우수상 (PV5 기반 스마트 안전관제 AI 솔루션)</span></li>
+          <li><b></b><span>규제샌드박스 실증특례 지정 (제703호, 산업통상자원부)</span></li>
+        </ul></div>
+        <div class="year"><h3>2024</h3><ul>
+          <li><b>12</b><span>대한민국 위치정보 우수 비즈니스 모델 발굴 공모전 우수상 (한국인터넷진흥원)</span></li>
+          <li><b>02</b><span>현대자동차 사계절 휴양소 사업 시작</span></li>
+          <li><b>01</b><span>현대자동차 캠핑카에 안전관제 솔루션 설치</span></li>
+          <li><b>01</b><span>전국 스마트 스테이션 구축</span></li>
+        </ul></div>
+        <div class="year"><h3>2023</h3><ul>
+          <li><b>11</b><span>반려동물 이동형 화장차 관제 플랫폼 계약</span></li>
+          <li><b>10</b><span>현대자동차 공식 휴양소 파트너 선정</span></li>
+          <li><b>09</b><span>화성 남양 스마트 스테이션 개설</span></li>
+          <li><b>08</b><span>현대자동차 남양연구소 계약</span></li>
+        </ul></div>
+      </div>
+
+      <details class="more-hist">
+        <summary>2019–2024 전체 연혁 펼쳐 보기<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg></summary>
+        <div class="timeline">
+          <div class="year"><h3>2024</h3><ul>
+            <li><b>12</b><span>대한민국 위치정보 우수 비즈니스 모델 발굴 공모전 우수상 (한국인터넷진흥원)</span></li>
+            <li><b>03</b><span>오지캠핑 플랫폼 리모델링 런칭</span></li>
+            <li><b>02</b><span>현대자동차 사계절 휴양소 사업 개시</span></li>
+            <li><b>02</b><span>바카르 캠핑카 공유 MOU 체결</span></li>
+            <li><b>02</b><span>현대이지웰 기업 휴양소 입점</span></li>
+            <li><b>01</b><span>스마트 스테이션 전국 인프라 구축 (서울·화성·천안·울산·전주·강릉·거제·제주)</span></li>
+            <li><b>01</b><span>전국 지점 통합 교육 진행</span></li>
+            <li><b>01</b><span>현대자동차 캠핑카 안전관제 솔루션 설치</span></li>
+          </ul></div>
+          <div class="year"><h3>2023</h3><ul>
+            <li><b>11</b><span>오지캠핑 플랫폼 인수</span></li>
+            <li><b>11</b><span>반려동물 이동형 화장차 관제 플랫폼 계약</span></li>
+            <li><b>10</b><span>현대자동차 공식 휴양소 파트너 선정</span></li>
+            <li><b>10</b><span>현대엔지니어링 캠핑카 서비스 연장</span></li>
+            <li><b>10</b><span>서울시 스마트 캠핑장 시범 서비스 선정</span></li>
+            <li><b>09</b><span>화성시 남양읍 스마트 스테이션 개설</span></li>
+            <li><b>09</b><span>캠버렌트카 매각</span></li>
+            <li><b>09</b><span>제주도 전기 캠핑카 개발 계약</span></li>
+            <li><b>08</b><span>현대자동차 남양연구소 계약</span></li>
+            <li><b>07</b><span>분당서울대병원 캠핑카 서비스 진행</span></li>
+            <li><b>04</b><span>홈앤쇼핑 라이브 커머스 계약</span></li>
+            <li><b>04</b><span>(주)레인보우모빌리티 MOU 체결</span></li>
+            <li><b>02</b><span>홈플러스 캠핑카 여행 상품 매장 홍보</span></li>
+            <li><b>01</b><span>시퀀스엔 캠핑 파트너십 체결</span></li>
+            <li><b>01</b><span>비에비스타 캠핑카 공유 파트너십 체결</span></li>
+          </ul></div>
+          <div class="year"><h3>2022</h3><ul>
+            <li><b>10</b><span>캠버캠핑 네이버 스마트스토어 런칭</span></li>
+            <li><b>08</b><span>비대면 스타트업 지원사업 국토교통부 장관상 수상</span></li>
+            <li><b>07</b><span>캠버 캠핑여행 전문 앱 출시 예정 (안드로이드·iOS)</span></li>
+            <li><b>06</b><span>캠핑여행 공유 플랫폼 사업 MOU 및 발대식 ((주)성우모터스·(주)플러스앤·(주)포커스에이치앤에스·(주)비마이카)</span></li>
+            <li><b>06</b><span>(주)애니듀 게임 개발 고도화 MOU 체결</span></li>
+            <li><b>06</b><span>한국중소렌터카협동조합 MOU 체결</span></li>
+            <li><b>06</b><span>홈플러스·(주)비마이카 캠핑여행 판매 협약</span></li>
+            <li><b>06</b><span>(주)인포씨드 캠핑여행 전국 지도 개발 협약</span></li>
+            <li><b>05</b><span>현대렌탈 플랫폼 MOU 체결</span></li>
+            <li><b>05</b><span>푸드트리 캠핑푸드 판매 MOU 체결 (800종)</span></li>
+            <li><b>05</b><span>MS캠핑 캠핑푸드 판매 MOU 체결 (500종)</span></li>
+            <li><b>05</b><span>5G캠핑 캠핑여행 공유 파트너 MOU 체결</span></li>
+            <li><b>04</b><span>중소벤처기업진흥공단 정책자금 지원</span></li>
+            <li><b>04</b><span>국토교통부 2022년 비대면 스타트업 육성사업 선정 ((사)스마트도시협회)</span></li>
+            <li><b>03</b><span>2022 캠핑&amp;피크닉페어 참가 ((주)성우모터스 협업)</span></li>
+            <li><b>03</b><span>신용보증기금 혁신스타트업 선정</span></li>
+            <li><b>02</b><span>3차 와디즈 크라우드 리워드 펀딩 성공 (614%)</span></li>
+            <li><b>02</b><span>한국관광공사 크라우드펀딩 지원사업 장려상 수상</span></li>
+            <li><b>01</b><span>한국관광공사 크라우드펀딩 지원사업 선정</span></li>
+          </ul></div>
+          <div class="year"><h3>2021</h3><ul>
+            <li><b>12</b><span>한국관광공사 ICT 인력 지원사업 선정</span></li>
+            <li><b>12</b><span>신용보증기금 OPEN NEST 200 선정</span></li>
+            <li><b>10</b><span>문화체육관광부 여행 플랫폼 ‘투어비스’ 캠핑여행 상품 판매</span></li>
+            <li><b>09</b><span>농심 캠핑푸드 협업 시작</span></li>
+            <li><b>08</b><span>예금보험공사·국민연금공단 임직원 휴양 서비스 개시</span></li>
+            <li><b>07</b><span>대한캠핑장협회 회원사 등록</span></li>
+            <li><b>07</b><span>2021 공공저작물 활용기업 사업화 지원사업 선정 (전국 캠핑여행 지도 제작)</span></li>
+            <li><b>06</b><span>한국전력공사·분당서울대병원·한전KDN 임직원 휴양 서비스 개시</span></li>
+            <li><b>05</b><span>기술보증기금 투자 유치</span></li>
+            <li><b>05</b><span>카카오 톡딜 판매</span></li>
+            <li><b>04</b><span>2021년 데이터바우처 수요기업 선정</span></li>
+            <li><b>04</b><span>스타리아 캠핑카 개발 완료 (성우모터스 공동 개발)</span></li>
+            <li><b>04</b><span>레이 캠핑카 개발 완료 (제이로드 공동 개발)</span></li>
+            <li><b>03</b><span>현대자동차 ‘휠핑’ 운영사 선정 (운영 차량 25대)</span></li>
+            <li><b>03</b><span>현대자동차 임직원 캠핑카 여행 운영사 선정 (캠핑카 3대 지원)</span></li>
+            <li><b>01</b><span>주식회사 캠버렌트카 설립 (반도렌트카 인수, 차량 51대)</span></li>
+          </ul></div>
+          <div class="year"><h3>2020</h3><ul>
+            <li><b>12</b><span>한국관광공사 왕중왕전 데모데이 진출</span></li>
+            <li><b>12</b><span>제주창조경제혁신센터 데모데이 진출</span></li>
+            <li><b>11</b><span>(주)플러스앤 캠핑카 여행상품 선판매</span></li>
+            <li><b>10</b><span>캠핑카 여행상품 국내 23개 채널 런칭</span></li>
+            <li><b>10</b><span>양평 세움내움 폐교 캠핑장 위탁 운영 (1년 계약)</span></li>
+            <li><b>09</b><span>캠핑카 공유 서비스 런칭 (캠핑카 7대)</span></li>
+            <li><b>09</b><span>2차 와디즈 크라우드 리워드 펀딩 성공 (613%)</span></li>
+            <li><b>08</b><span>KT 임직원 캠핑카 여행 파일럿 서비스 운영 (임직원 이용 만족도 1위, 캠핑카 4대)</span></li>
+            <li><b>06</b><span>한국관광공사 액셀러레이팅 스타트업 선정</span></li>
+            <li><b>06</b><span>B2B 전문 캠핑카 여행 서비스 오픈</span></li>
+            <li><b>05</b><span>와디즈 크라우드 리워드 펀딩 성공 (380%)</span></li>
+            <li><b>05</b><span>기업부설연구소 설립</span></li>
+            <li><b>05</b><span>관광 크라우드펀딩 지원사업 선정</span></li>
+            <li><b>05</b><span>제주창조경제혁신센터 보육기업 선정</span></li>
+            <li><b>03</b><span>(주)성우모터스 상생 파트너 MOU</span></li>
+            <li><b>03</b><span>기술보증기금 벤처기업 인증</span></li>
+            <li><b>03</b><span>지에스렌트카 캠버지점 개설 (캠핑카 2대)</span></li>
+            <li><b>02</b><span>캠버 앱 베타 서비스 시작</span></li>
+            <li><b>02</b><span>기술보증기금 기업 보증</span></li>
+            <li><b>02</b><span>(주)포커스에이치앤에스 파트너사 선정</span></li>
+          </ul></div>
+          <div class="year"><h3>2019</h3><ul>
+            <li><b>12</b><span>주식회사 캠버 설립</span></li>
+          </ul></div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="sec" id="awards" aria-labelledby="aw-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="aw-h" class="en" lang="en">Certifications &amp; Patents</h2><p>공인 시험 결과와 정부 인증, 받은 상과 특허입니다.</p></div>
+      </div>
+      <div class="award-group">
+        <h3 class="sub-h">인증·시험</h3>
+        <ul class="thumbs t7">
+          <li><div class="photo plain"><img data-slot="company-03" src="img/slots/company-03.jpg" alt="KTCC 시험성적서" loading="lazy" decoding="async"></div><p>KTCC 시험성적서<small>화재 이상징후 판단 정확도 100% · 2025.12</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-04" src="img/slots/company-04.jpg" alt="KGcT 시험성적서" loading="lazy" decoding="async"></div><p>KGcT 시험성적서 (KOLAS)<small>2024.12</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-05" src="img/slots/company-05.jpg" alt="실증을 위한 규제특례 확인서" loading="lazy" decoding="async"></div><p>규제특례 확인서<small>실증 특례 제703호</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-06" src="img/slots/company-06.jpg" alt="위치기반서비스사업 신고확인증" loading="lazy" decoding="async"></div><p>위치기반서비스사업 신고확인증<small>제2441호</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-07" src="img/slots/company-07.jpg" alt="벤처기업 확인서" loading="lazy" decoding="async"></div><p>벤처기업 확인서</p></li>
+          <li><div class="photo plain"><img data-slot="company-08" src="img/slots/company-08.jpg" alt="기업부설연구소 인정서" loading="lazy" decoding="async"></div><p>기업부설연구소 인정서</p></li>
+          <li><div class="photo plain"><img data-slot="company-09" src="img/slots/company-09.jpg" alt="Open NEST 200 기업 선정서" loading="lazy" decoding="async"></div><p>Open NEST 200 기업 선정서<small>신용보증기금 · 2021.12</small></p></li>
+        </ul>
+      </div>
+      <div class="award-row">
+      <div class="award-group">
+        <h3 class="sub-h">수상</h3>
+        <ul class="thumbs t4">
+          <li><div class="photo plain"><img data-slot="company-10" src="img/slots/company-10.jpg" alt="국토교통부 장관상 상장" loading="lazy" decoding="async"></div><p>국토교통부 장관상<small>2022 · 비대면 스타트업 육성사업</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-11" src="img/slots/company-11.jpg" alt="기아 PBV 아이디어 공모전 우수상 상장" loading="lazy" decoding="async"></div><p>기아 PBV 아이디어 공모전 우수상<small>2025.12 · 스타트업(SW) 부문</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-12" src="img/slots/company-12.jpg" alt="위치정보 우수 비즈니스 모델 발굴 공모전 우수상 상장" loading="lazy" decoding="async"></div><p>위치정보 비즈니스 모델 공모전 우수상<small>2024.12 · 한국인터넷진흥원</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-12-02" src="img/slots/company-12-02.jpg" alt="한국관광공사 장려상 상장" loading="lazy" decoding="async"></div><p>한국관광공사 장려상<small>2022 · 관광 크라우드펀딩 지원사업</small></p></li>
+        </ul>
+      </div>
+      <div class="award-group">
+        <h3 class="sub-h">특허·상표 <small>특허 등록 5건 · 출원 8건, 모두 13건</small></h3>
+        <ul class="thumbs t5">
+          <li><div class="photo plain"><img data-slot="company-13" src="img/slots/company-13.jpg" alt="특허증" loading="lazy" decoding="async"></div><p>특허증<small>등록 특허</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-14" src="img/slots/company-14.jpg" alt="특허증" loading="lazy" decoding="async"></div><p>특허증<small>등록 특허</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-15" src="img/slots/company-15.jpg" alt="특허증" loading="lazy" decoding="async"></div><p>특허증<small>등록 특허</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-16" src="img/slots/company-16.jpg" alt="camver 로고 상표등록증" loading="lazy" decoding="async"></div><p>상표등록증<small>camver 로고</small></p></li>
+          <li><div class="photo plain"><img data-slot="company-17" src="img/slots/company-17.jpg" alt="CAMVER 상표등록증" loading="lazy" decoding="async"></div><p>상표등록증<small>CAMVER</small></p></li>
+        </ul>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="partners" aria-labelledby="pt-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="pt-h" class="en" lang="en">Partners</h2><p>동반성장 파트너와 상생하고 협력하는 범위를 넓혀 가고 있습니다.</p></div>
+      </div>
+      <!-- 제이로드 로고는 공식 파일 못 찾아서 글자로 둠. 파일 받으면 img/partners/jroad.jpg (250×125) 로 교체 -->
+      <div class="pgroup">
+        <div><h3>고객사</h3><p>기업과 기관의 임직원 복지, 차량 운영을 맡고 있습니다.</p></div>
+        <ul class="logos" aria-label="고객사 로고">
+          <li><img src="img/partners/hyundai.jpg" alt="현대자동차" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kia.jpg" alt="기아" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/hec.jpg" alt="현대엔지니어링" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/glovis.jpg" alt="현대글로비스" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/snuh-bundang.jpg" alt="분당서울대학교병원" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kepco.jpg" alt="한국전력공사" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kdn.jpg" alt="한전KDN" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kdic.jpg" alt="예금보험공사" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/nps.jpg" alt="국민연금공단" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kt.jpg" alt="KT" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <div><h3>기술 파트너</h3><p>차량 개조와 관제 장비를 함께 만드는 전문 기업입니다.</p></div>
+        <ul class="logos" aria-label="기술 파트너 로고">
+          <li><img src="img/partners/sungwoo.jpg" alt="성우모터스" loading="lazy" decoding="async"></li>
+          <li><span><small>LOGO</small>제이로드</span></li>
+          <li><img src="img/partners/focus.jpg" alt="포커스에이치앤에스" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <div><h3>서비스·콘텐츠 파트너</h3><p>상품과 서비스, 콘텐츠를 함께 나누는 기업입니다.</p></div>
+        <ul class="logos" aria-label="서비스·콘텐츠 파트너 로고">
+          <li><img src="img/partners/ezwel.jpg" alt="현대이지웰" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/bemycar.jpg" alt="비마이카" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/plusand.jpg" alt="플러스앤" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/homeplus.jpg" alt="홈플러스" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/homeshopping.jpg" alt="홈앤쇼핑" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/sequencen.jpg" alt="시퀀스엔" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/wadiz.jpg" alt="와디즈" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kakaotalk.jpg" alt="카카오" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+      <div class="pgroup">
+        <div><h3>공공기관</h3><p>공공기관 지원사업으로 연구개발 역량을 키우고 있습니다.</p></div>
+        <ul class="logos" aria-label="공공기관 로고">
+          <li><img src="img/partners/molit.jpg" alt="국토교통부" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/motie.jpg" alt="산업통상부(구 산업통상자원부)" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kto.jpg" alt="한국관광공사" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/sba.jpg" alt="서울경제진흥원" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kibo.jpg" alt="기술보증기금" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kodit.jpg" alt="신용보증기금" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/kosme.jpg" alt="중소벤처기업진흥공단" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/ccei-gyeonggi.jpg" alt="경기창조경제혁신센터" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/ccei-jeju.jpg" alt="제주창조경제혁신센터" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/smartcity.jpg" alt="스마트도시협회" loading="lazy" decoding="async"></li>
+          <li><img src="img/partners/campground.jpg" alt="대한캠핑장협회" loading="lazy" decoding="async"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="location" aria-labelledby="loc-h">
+    <div class="wrap">
+      <div class="split loc">
+        <div class="split-text">
+          <div class="ttl"><h2 id="loc-h" class="en" lang="en">Location</h2><p class="subline">회사 정보·오시는 길</p></div>
+          <ul class="rows kv">
+            <li><span>주소</span><span>서울특별시 서초구 청계산로9길 70, 2층 207호 (내곡동, SH플라자)</span></li>
+            <li><span>지하철</span><span>신분당선 청계산입구역 3번 출구<small>서초포레스타 4단지 방향으로 걸어서 약 8분 (400m)</small></span></li>
+            <li><span>버스</span><span>간선 470 · 741 · 452<small>서초포레스타입구 정류장에서 걸어서 약 5분 (300m)</small></span></li>
+            <li><span>전화</span><span>02-576-6776 <small>팩스 0504-205-0826</small></span></li>
+            <li><span>이메일</span><span><a href="mailto:camver2020@naver.com">camver2020@naver.com</a></span></li>
+          </ul>
+          <div class="actions">
+            <a class="btn line" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%B2%AD%EA%B3%84%EC%82%B0%EB%A1%9C9%EA%B8%B8%2070" target="_blank" rel="noopener">카카오맵에서 보기</a>
+            <a class="btn line" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EC%B2%AD%EA%B3%84%EC%82%B0%EB%A1%9C9%EA%B8%B8%2070" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+          </div>
+        </div>
+        <div class="photo map">
+          <img data-slot="company-map" src="img/slots/company-map.jpg" alt="캠버 본사 위치 지도: 서울 서초구 청계산로9길 70, 청계산입구역 근처" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="block corp">
+        <h3 class="sub-h">회사 개요</h3>
+        <div class="info">
+          <ul class="rows kv">
+            <li><span>회사명</span><span>주식회사 캠버 (CAMVER Inc.)</span></li>
+            <li><span>대표이사</span><span>김영신</span></li>
+            <li><span>설립일</span><span>2019년 12월 19일</span></li>
+            <li><span>사업자번호</span><span>596-87-01817</span></li>
+          </ul>
+          <ul class="rows kv">
+            <li><span>사업 분야</span><span>특수목적 차량 제작·개조, 차량 위탁 운영, AI 통합 안전관제(Fleet AI OS)</span></li>
+            <li><span>규제 특례</span><span>규제샌드박스 실증특례 제703호</span></li>
+            <li><span>신고·등록</span><span>위치기반서비스사업 신고 제2441호<small>국내여행업 2021-000008호 · 통신판매업 2021-서울서초-2215</small></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>

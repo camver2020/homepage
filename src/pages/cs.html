@@ -1,0 +1,223 @@
+<!--title: 고객센터 | 캠버 CAMVER-->
+<!--desc: 캠버 소식, 차량 사용법 영상, 도입·제휴 문의, 입사 지원. 대표 전화 02-576-6776.-->
+<style>
+.news-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px 56px; align-items: start; }
+.guide .tile.photo { aspect-ratio: 16 / 9; }
+.guide .tile-body { padding: 20px 22px 18px; }
+.guide .tile h3 { font-size: 19px; }
+.play { position: absolute; left: 50%; top: 42%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.8); display: grid; place-items: center; z-index: 1; transition: background-color 160ms; }
+.play svg { width: 18px; height: 18px; margin-left: 3px; }
+a.tile:hover .play { background: var(--yellow); border-color: var(--yellow); color: var(--yellow-ink); }
+
+.contact { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px 56px; align-items: start; }
+.aside { display: grid; gap: 22px; padding-top: 6px; }
+.aside h3, .join-info h3.sub-h { font-size: 18px; font-weight: 800; margin: 0; }
+.flow-s { margin: 0; padding: 0; list-style: none; counter-reset: f; display: grid; gap: 12px; }
+.flow-s li { counter-increment: f; display: grid; grid-template-columns: 26px minmax(0, 1fr); font-size: 15px; color: var(--ink-2); }
+.flow-s li::before { content: counter(f); font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.join-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px 56px; align-items: start; }
+.join-info { display: grid; gap: 36px; padding-top: 6px; }
+.join-info .sub-h { margin-bottom: 12px !important; }
+.fields-txt { color: var(--ink-2); line-height: 1.9; }
+.ptypes { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.ptypes li { padding: 14px 0; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.ptypes b { font-size: 15.5px; }
+.ptypes span { font-size: 14.5px; color: var(--ink-2); }
+.form-box { border: 1px solid var(--line-2); border-radius: var(--r-card); padding: 32px; }
+
+@media (max-width: 920px) {
+  .contact, .join-grid, .news-grid { grid-template-columns: minmax(0, 1fr); }
+  .guide .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .guide .tile-body { padding: 12px 12px 10px; }
+  .guide .tile h3 { font-size: 15px; }
+  .guide .tile p, .guide .lbl small { display: none; }
+  .play { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+  .form-box { padding: 24px 20px; }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="cs-01" src="img/slots/cs-01.jpg" alt="고속도로를 달리는 화물차와 승합차" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">C·S Center</h1>
+      <p class="subline">고객센터</p>
+      <p>소식, 차량 사용법, 도입·제휴 문의를 한곳에 모았습니다.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="이 페이지 안 이동">
+    <div class="wrap" lang="en">
+      <a href="#news">News</a>
+      <a href="#guide">Guide Videos</a>
+      <a href="#contact">Contact</a>
+      <a href="#join">Join Us</a>
+    </div>
+  </nav>
+
+  <section class="sec" id="news" aria-labelledby="news-h">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 id="news-h" class="en" lang="en">News</h2></div></div>
+      <div class="news-grid">
+      <div>
+        <!-- 구글 시트 연동 전 기본 목록(기존 게시판 기사 제목). 기사 원문 주소는 시트 링크 칸에 넣으면 연결됨 -->
+        <ul class="news" id="newsList" data-limit="30">
+          <li><a href="https://www.abc12.com/online_features/press_releases/camver-launches-fleet-ai-os-a-predictive-safety-platform-that-detects-ev-battery-hazards-before/article_dd0b2ad6-c917-5c4a-91ff-1f5e2d6b97a5.html" target="_blank" rel="noopener"><span class="news-title">캠버, 전기차 배터리 위험을 미리 감지하는 예측 안전 플랫폼 'Fleet AI OS' 출시</span><time datetime="2026-09-04">2026.09.04</time><span class="news-src">보도자료 · 미국 6개 매체</span></a></li>
+          <li><div class="row"><span class="news-title">연 1000만원↑…"캠핑카, 이제는 수익형 자산"</span><time datetime="2025-06-08">2025.06.08</time><span class="news-src">언론 보도</span></div></li>
+          <li><div class="row"><span class="news-title">주차부터 충전까지 무선으로…정부, 66개 샌드박스 과제 심의</span><time datetime="2025-05-30">2025.05.30</time><span class="news-src">언론 보도</span></div></li>
+          <li><div class="row"><span class="news-title">자율주행 전기차 충전 무인화 시동…규제샌드박스 과제 66개 승인</span><time datetime="2025-05-30">2025.05.30</time><span class="news-src">언론 보도</span></div></li>
+          <li><div class="row"><span class="news-title">스마트 캠핑카 플랫폼 '캠버' 글로벌 진출 '신호탄'</span><time datetime="2025-05-11">2025.05.11</time><span class="news-src">언론 보도</span></div></li>
+          <li><div class="row"><span class="news-title">(주)후경파트너와 (주)캠버, 업무협약 통해 지역 관광 다양성 강화 및 경제 활성화</span><time datetime="2025-04-19">2025.04.19</time><span class="news-src">언론 보도</span></div></li>
+          <li><div class="row"><span class="news-title">캠핑장 찾기 문제 없어요…정밀 주소 기반 캠핑여행플랫폼 개발</span><time datetime="2024-03-20">2024.03.20</time><span class="news-src">언론 보도</span></div></li>
+        </ul>
+      </div>
+        <div class="cs-box">
+          <h3>전화 상담</h3>
+          <dl class="tel">
+            <div><dt>대표 전화</dt><dd>02-576-6776<small>평일 10:00–17:00 · 주말·공휴일은 긴급 통화만</small></dd></div>
+            <div><dt>A/S 센터</dt><dd>070-7718-1219<small>평일 10:00–17:00 · 주말·공휴일은 긴급 통화만</small></dd></div>
+          </dl>
+          <ul class="cs-links">
+            <li><a href="https://pf.kakao.com/_njISxb" target="_blank" rel="noopener">카카오톡 채널 상담<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="#contact">도입·제휴 문의 남기기<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band guide" id="guide" aria-labelledby="guide-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 id="guide-h" class="en" lang="en">Guide Videos</h2><p>차종별 사용법을 영상으로 쉽고 안전하게 알려드립니다.</p></div>
+        <a class="more" href="https://www.youtube.com/channel/UCITsJlXB9UvCT7B33ysloMg" target="_blank" rel="noopener">유튜브 채널<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+      <!-- 썸네일은 각 재생목록 첫 영상의 유튜브 썸네일을 그대로 불러옴 -->
+      <div class="grid-3">
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj75ksBEdG01Y_6DP_Vs3rv0" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/nXkg7gmPuVM/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>현대자동차 스타리아 캠핑카</h3><p>유튜브 재생목록</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj5WGW1HWsqMv8snFJXzC29C" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/ck01uUKowlk/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>현대엔지니어링 스타리아 캠핑카</h3><p>유튜브 재생목록</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj5Ii1EkORJMLrvNuekNHWIo" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/IGd3-BVDTHw/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>포레스트 캠핑카</h3><p>유튜브 재생목록</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj4k1Vk4fthbSHkxpkxINZTy" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/mZ7SuGdvFYI/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>스타렉스 캠핑카</h3><p>유튜브 재생목록</p></div>
+        </a>
+        <a class="tile photo" href="https://www.youtube.com/playlist?list=PLmKu3aHEivj59NUVFPBDLFNn6-Z_5oIF0" target="_blank" rel="noopener">
+          <img src="https://i.ytimg.com/vi/OpkNIpBJ6iw/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span>
+          <div class="tile-body"><h3>레이 캠핑카</h3><p>유튜브 재생목록</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 id="contact-h" class="en" lang="en">Contact</h2><p>무엇이 필요한지 적어 주시면 담당자가 확인하고 연락드립니다.</p></div></div>
+      <div class="contact">
+        <!-- 보낸 내용은 Apps Script(deploy/apps-script/Code.gs)가 시트에 쌓고 camver2020@gmail.com 으로 메일 보냄. 주소는 src/config.json -->
+        <form class="form js-form form-box" data-form="contact" novalidate aria-labelledby="contact-h">
+          <div class="hp" aria-hidden="true"><label>홈페이지 주소<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <fieldset class="field full">
+            <legend>문의 유형 <span class="req" aria-hidden="true">*</span></legend>
+            <div class="chips">
+              <input type="radio" id="ct1" name="type" value="Fleet AI OS 도입" required><label for="ct1">Fleet AI OS 도입</label>
+              <input type="radio" id="ct2" name="type" value="휴양소·위탁 운영"><label for="ct2">휴양소·위탁 운영</label>
+              <input type="radio" id="ct3" name="type" value="이동형 안전 쉼터"><label for="ct3">이동형 안전 쉼터</label>
+              <input type="radio" id="ct4" name="type" value="차량 제작·개조"><label for="ct4">차량 제작·개조</label>
+              <input type="radio" id="ct5" name="type" value="스테이션 개설"><label for="ct5">스테이션 개설</label>
+              <input type="radio" id="ct6" name="type" value="기타"><label for="ct6">기타</label>
+            </div>
+            <p class="err">문의 유형을 골라 주세요.</p>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="c-org">회사·기관명</label><input id="c-org" name="org" autocomplete="organization"></div>
+            <div class="field"><label for="c-name">담당자 이름 <span class="req" aria-hidden="true">*</span></label><input id="c-name" name="name" required autocomplete="name"><p class="err">이름을 적어 주세요.</p></div>
+            <div class="field"><label for="c-tel">연락처 <span class="req" aria-hidden="true">*</span></label><input id="c-tel" name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="010-0000-0000"><p class="err">연락받을 번호를 적어 주세요.</p></div>
+            <div class="field"><label for="c-mail">이메일</label><input id="c-mail" name="email" type="email" autocomplete="email" placeholder="name@company.com"><p class="err">이메일 주소 형식을 확인해 주세요.</p></div>
+            <div class="field full"><label for="c-msg">문의 내용 <span class="req" aria-hidden="true">*</span></label><textarea id="c-msg" name="message" required placeholder="운영하는 차종과 대수, 원하는 시기를 적어 주시면 더 빨리 안내해 드릴 수 있습니다."></textarea><p class="err">문의 내용을 적어 주세요.</p></div>
+            <div class="field full agree"><label><input type="checkbox" name="agree" required><span>[필수] 개인정보 수집·이용에 동의합니다. 이름·연락처·문의 내용 등은 답변에만 쓰고 접수일부터 1년 뒤 지웁니다. 접수 내용은 Google 서버(미국 등)에 보관합니다. 동의하지 않으면 전화로 문의해 주세요. <a href="privacy.html" target="_blank" rel="noopener">처리방침 보기</a></span></label><p class="err">동의해야 문의를 보낼 수 있습니다.</p></div>
+          </div>
+          <div class="form-foot"><small>평일 10:00–17:00에 확인합니다.</small><button class="btn primary" type="submit">문의 보내기</button></div>
+          <div class="done" role="status" aria-live="polite"><strong>문의가 접수됐습니다.</strong>담당자가 확인하고 연락드리겠습니다.</div>
+        </form>
+
+        <aside class="aside" aria-label="다른 문의 방법">
+          <h3>이렇게 진행됩니다</h3>
+          <ol class="flow-s">
+            <li>남겨 주신 내용을 평일 10:00–17:00에 담당자가 확인합니다.</li>
+            <li>적어 주신 연락처로 담당자가 직접 연락드립니다.</li>
+          </ol>
+          <ul class="cs-links">
+            <li><a href="https://pf.kakao.com/_njISxb" target="_blank" rel="noopener">카카오톡 채널로 묻기<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+            <li><a href="mailto:camver2020@naver.com">메일 보내기 · camver2020@naver.com<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec last" id="join" aria-labelledby="join-h">
+    <div class="wrap">
+      <div class="sec-head"><div><h2 id="join-h" class="en" lang="en">Join Us</h2><p>새로운 기술과 서비스로 가치를 함께 만들 사람과 파트너를 기다립니다.</p></div></div>
+      <div class="join-grid">
+        <form class="form js-form form-box" data-form="join" novalidate aria-label="입사 지원·파트너 제휴 신청">
+          <div class="hp" aria-hidden="true"><label>홈페이지 주소<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <fieldset class="field full">
+            <legend>신청 구분 <span class="req" aria-hidden="true">*</span></legend>
+            <div class="chips">
+              <input type="radio" id="jt1" name="kind" value="입사 지원" required><label for="jt1">입사 지원</label>
+              <input type="radio" id="jt2" name="kind" value="파트너 제휴"><label for="jt2">파트너 제휴</label>
+            </div>
+            <p class="err">입사 지원인지 파트너 제휴인지 골라 주세요.</p>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="j-name">이름 또는 회사명 <span class="req" aria-hidden="true">*</span></label><input id="j-name" name="name" required autocomplete="name"><p class="err">이름이나 회사명을 적어 주세요.</p></div>
+            <div class="field"><label for="j-field">관심 분야</label>
+              <select id="j-field" name="field">
+                <option value="">고르기</option>
+                <option>모빌리티</option><option>캠핑카</option><option>카라반</option><option>캠핑장</option><option>렌터카</option><option>재무회계</option><option>이커머스</option><option>IT 기술</option><option>플랫폼</option><option>기타</option>
+              </select>
+            </div>
+            <div class="field"><label for="j-tel">연락처 <span class="req" aria-hidden="true">*</span></label><input id="j-tel" name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="010-0000-0000"><p class="err">연락받을 번호를 적어 주세요.</p></div>
+            <div class="field"><label for="j-mail">이메일 <span class="req" aria-hidden="true">*</span></label><input id="j-mail" name="email" type="email" required autocomplete="email" placeholder="name@company.com"><p class="err">이메일 주소를 확인해 주세요.</p></div>
+            <div class="field full"><label for="j-msg">소개 <span class="req" aria-hidden="true">*</span></label><textarea id="j-msg" name="message" required placeholder="입사 지원은 경력과 하고 싶은 일을, 제휴는 회사 소개와 제안 내용을 적어 주세요."></textarea><p class="err">간단한 소개를 적어 주세요.</p></div>
+            <div class="field full"><label for="j-file">첨부 파일 <small class="opt">10MB 이하</small></label><input id="j-file" name="file" type="file" accept=".pdf,.doc,.docx,.hwp,.hwpx,.ppt,.pptx" data-max-mb="10"><p class="err">10MB 이하 파일만 보낼 수 있습니다.</p></div>
+            <div class="field full agree"><label><input type="checkbox" name="agree" required><span>[필수] 개인정보 수집·이용에 동의합니다. 이름·연락처·이메일·소개·첨부 파일은 지원·제휴 검토에만 쓰고 접수일부터 1년 뒤 지웁니다. 접수 내용은 Google 서버(미국 등)에 보관합니다. <a href="privacy.html" target="_blank" rel="noopener">처리방침 보기</a></span></label><p class="err">동의해야 보낼 수 있습니다.</p></div>
+          </div>
+          <div class="form-foot"><small>이력서나 회사소개서는 PDF를 권장합니다.</small><button class="btn primary" type="submit">보내기</button></div>
+          <div class="done" role="status" aria-live="polite"><strong>잘 받았습니다.</strong>검토하고 연락드리겠습니다.</div>
+        </form>
+
+        <div class="join-info">
+          <div>
+            <h3 class="sub-h">모집 분야</h3>
+            <p class="fields-txt">모빌리티 · 캠핑카 · 카라반 · 캠핑장 · 렌터카 · 재무회계 · 이커머스 · IT 기술 · 플랫폼</p>
+          </div>
+          <div>
+            <h3 class="sub-h">파트너 유형</h3>
+            <ul class="ptypes">
+              <li><b>기술 파트너</b><span>기술과 노하우를 가진 전문 기업</span></li>
+              <li><b>공유 파트너</b><span>상품과 서비스를 가진 기업이나 개인</span></li>
+              <li><b>제휴 파트너</b><span>콘텐츠를 함께 나누며 인프라를 넓히는 기업</span></li>
+              <li><b>상생 파트너</b><span>협업으로 미래 가치를 함께 나누는 기업</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

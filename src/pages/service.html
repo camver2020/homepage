@@ -1,0 +1,158 @@
+<!--title: 서비스 | 캠버 CAMVER-->
+<!--desc: 차량 제작·개조, 차량 위탁 운영, 전국 9곳 스마트 스테이션. 차가 필요한 순간부터 운영까지 캠버가 맡습니다.-->
+<style>
+.svc-sec .split { align-items: start; }
+.svc-sec .split > .photo { aspect-ratio: 4 / 3; }
+.svc-sec .split-text { gap: 20px; }
+.models { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; border-top: 1px solid var(--ink); margin: 0; }
+.models div { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.models dt { font-weight: 800; font-size: 16px; }
+.models dd { margin: 0; color: var(--ink-2); font-size: 15px; }
+.stations { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; border-top: 1px solid var(--ink); }
+.stations li { padding: 18px 0 20px; border-bottom: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+.stations b { font-size: 16.5px; font-weight: 800; }
+.stations span { font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+.stations small { display: block; color: var(--muted); font-size: 13.5px; }
+@media (max-width: 920px) {
+  .models { grid-template-columns: minmax(0, 1fr); }
+  .stations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .models div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .stations { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+<main>
+  <section class="subhero photo" aria-labelledby="page-h">
+    <img data-slot="service-01" src="img/slots/service-01.jpg" alt="캠핑장 풍경 위에 띄운 VANPICK 앱 화면" loading="eager" fetchpriority="high" decoding="async">
+    <div class="subhero-body"><div class="wrap">
+      <h1 id="page-h" class="en" lang="en">Service</h1>
+      <p class="subline">만들고, 맡아 굴리고, 거점에서 챙깁니다</p>
+      <p>차량 제작·개조부터 위탁 운영, 전국 스마트 스테이션까지 한 회사에서 처리합니다.</p>
+    </div></div>
+  </section>
+
+  <nav class="localnav" aria-label="이 페이지 안 이동">
+    <div class="wrap" lang="en">
+      <a href="#build">Vehicle Build</a>
+      <a href="#operate">Managed Operation</a>
+      <a href="#station">Smart Station</a>
+    </div>
+  </nav>
+
+  <section class="sec svc-sec" id="build" aria-labelledby="build-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="photo plain">
+          <img data-slot="service-02" src="img/slots/service-02.jpg" alt="공장에서 PV5 실내를 개조하는 작업자들" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="build-h" class="en" lang="en">Vehicle Build</h2><p class="subline">필요한 차를 직접 만듭니다</p></div>
+          <p>특수목적 차량과 임직원 차량을 쓰임새에 맞게 개조하고, 관제 단말과 센서를 처음부터 달아서 내보냅니다. 성우모터스, 제이로드 같은 개조 전문 기업과 함께 개발합니다.</p>
+          <ul class="checks">
+            <li>구급차·이동형 화장차 같은 특수목적 차량 개조</li>
+            <li>캠핑카와 휴양 차량 개발</li>
+            <li>관제 단말·카메라·환경센서 장착</li>
+            <li>차량 수리와 업그레이드</li>
+          </ul>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">제작·개조 문의</a></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">직접 개발한 차량</h3>
+        <div class="grid-3">
+          <div class="tile photo wide">
+            <img data-slot="service-03" src="img/slots/service-03.jpg" alt="스마트홈 캠핑카 외관" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>스마트홈 캠핑카</h3><p>AI 기반 스마트 캠핑카 · 성우모터스 공동 개발</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="service-04" src="img/slots/service-04.jpg" alt="스타리아 캠핑카 외관" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>스타리아 캠핑카</h3><p>2021년 개발 · 성우모터스 공동 개발</p></div>
+          </div>
+          <div class="tile photo wide">
+            <img data-slot="service-05" src="img/ray-camper.jpg" alt="레이 캠핑카" loading="lazy" decoding="async">
+            <div class="tile-body"><h3>레이 캠핑카</h3><p>부담 없는 소형 캠핑카 · 제이로드 공동 개발</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band svc-sec" id="operate" aria-labelledby="operate-h">
+    <div class="wrap">
+      <div class="split rev">
+        <div class="photo plain">
+          <img data-slot="service-06" src="img/slots/service-06.jpg" alt="캠핑카들 앞에서 태블릿으로 차량을 확인하는 직원" loading="lazy" decoding="async">
+        </div>
+        <div class="split-text">
+          <div class="ttl"><h2 id="operate-h" class="en" lang="en">Managed Operation</h2><p class="subline">차를 맡기면 대신 굴립니다</p></div>
+          <p>예약 접수, 고객 응대, 출고와 반납, 정비까지 차량 운영에 드는 일을 캠버가 대신합니다. 현대자동차그룹 4개사(현대자동차·기아·현대엔지니어링·현대글로비스)의 차량을 위탁 운영하고 있습니다.</p>
+          <p>지금 운영하는 차는 145대입니다. 누적 운행은 3만 회, 누적 이용자는 9만 명입니다.</p>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">위탁 운영 문의</a></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">이런 일을 맡길 수 있습니다</h3>
+        <dl class="models">
+          <div><dt>관제 구독</dt><dd>모빌리티 분야별 운영·관리 관제를 구독으로 씁니다.</dd></div>
+          <div><dt>위탁 운영</dt><dd>캠버의 운영 노하우로 차량 운영과 관리를 대신합니다.</dd></div>
+          <div><dt>특수 개조</dt><dd>쓰는 목적에 맞춰 차량을 개조합니다.</dd></div>
+          <div><dt>수리·업그레이드</dt><dd>차종을 가리지 않고 수리하고 성능을 올립니다.</dd></div>
+          <div><dt>맞춤 관제 소프트웨어</dt><dd>사업에 맞는 관제 솔루션을 따로 개발합니다.</dd></div>
+          <div><dt>기업·지자체 컨설팅</dt><dd>기관 상황에 맞는 차량 서비스를 함께 설계합니다.</dd></div>
+          <div><dt>관제 라이선스</dt><dd>관제 솔루션 사용권으로 모빌리티 사업을 넓힐 수 있습니다.</dd></div>
+          <div><dt>관제 교육</dt><dd>사내 교육으로 관제를 맡을 인력을 키웁니다.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec svc-sec" id="station" aria-labelledby="station-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-text">
+          <div class="ttl"><h2 id="station-h" class="en" lang="en">Smart Station</h2><p class="subline">전국 9곳 거점에서 차를 챙깁니다</p></div>
+          <p>스마트 스테이션은 캠버 차량을 인수·반납하고 점검하는 지점입니다. 2023년 화성 남양에 스테이션을 열었고, 2024년 전국 거점을 갖췄습니다.</p>
+          <p>지점을 열고 싶은 파트너와는 상담부터 시범 운영까지 개설 과정을 함께합니다.</p>
+          <div class="actions"><a class="btn primary" href="cs.html#contact">지점 개설 문의</a></div>
+        </div>
+        <div class="photo plain">
+          <img data-slot="service-07" src="img/station-red.jpg" alt="캠버 스마트 스테이션 건물" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">스테이션 위치</h3>
+        <ul class="stations">
+          <li><b>서울 본사</b><span>서울특별시 서초구 청계산로9길 70, 2층 207호<small>내곡동, SH플라자</small></span></li>
+          <li><b>경기 화성</b><span>경기도 화성시 남양읍 신남리 1247, A동</span></li>
+          <li><b>경기 포천</b><span>경기도 포천시 자작로 155<small>대진테크노파크</small></span></li>
+          <li><b>충북 음성</b><span>충청북도 음성군 금왕읍 백야로 40-44</span></li>
+          <li><b>충남 천안</b><span>충청남도 천안시 서북구 성성동 1001<small>천안 G1 비즈캠퍼스 지식산업센터</small></span></li>
+          <li><b>전북 익산</b><span>전북특별자치도 익산시 덕기1길 15, 2동<small>덕기동</small></span></li>
+          <li><b>강원 강릉</b><span>강원특별자치도 강릉시 성덕포남로213번길 32, 2층<small>포남동</small></span></li>
+          <li><b>울산</b><span>울산광역시 북구 대안1길 97<small>산하동</small></span></li>
+          <li><b>제주</b><span>제주특별자치도 제주시 연삼로 75<small>오라삼동</small></span></li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3 class="sub-h">스테이션 개설 절차</h3>
+        <ol class="steps">
+          <li><h3>개설 상담</h3><p>직접 만나서 상담합니다.</p></li>
+          <li><h3>조건 분석</h3><p>현장을 보고 운영·관리 조건을 꼼꼼히 따집니다.</p></li>
+          <li><h3>지점 계약</h3><p>표준 견적이나 제안 견적으로 계약합니다.</p></li>
+          <li><h3>지점 세팅</h3><p>시설과 장비, 소프트웨어를 갖춥니다.</p></li>
+          <li><h3>서비스 교육</h3><p>지점 운영에 필요한 교육을 합니다.</p></li>
+          <li><h3>시범 서비스</h3><p>정식으로 열기 전에 먼저 돌려 봅니다.</p></li>
+          <li><h3>그랜드 오픈</h3><p>지점 서비스를 정식으로 시작합니다.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  {{JOIN}}
+</main>
