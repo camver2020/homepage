@@ -1,8 +1,12 @@
 (function () {
-  /* 메뉴·링크로 다른 페이지에 넘어오면 맨 위(주소에 #구역이 있으면 그 구역)에서 시작.
-     미리보기 화면이 앞 페이지의 스크롤 위치를 새 페이지에 다시 입히는 경우가 있어서 직접 맞춤.
-     새로고침·뒤로 가기는 건드리지 않음 */
+  /* 메뉴·링크로 다른 페이지에 넘어오면 새로 연 것처럼 맨 위(주소에 #구역이 있으면 그 구역)에서 시작.
+     미리보기 화면이 앞 페이지의 스크롤 위치를 새 페이지에 다시 입히는 경우가 있어서,
+     자리 잡을 때까지(사용자가 직접 스크롤하거나 로드 후 1.2초) 다른 스크롤을 그 자리에서 되돌림.
+     등장 애니메이션은 자리 잡은 뒤에 시작해서, 내려가며 볼 때 제대로 나옴. 새로고침·뒤로 가기는 건드리지 않음 */
   var KEY = 'camver:nav';
+  var waiting = [];
+  var settled = true;
+  window.camverAfterSettle = function (fn) { if (settled) fn(); else waiting.push(fn); };
   function same(a, b) { return a.replace(/index\.html$/, '') === b.replace(/index\.html$/, ''); }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]');
@@ -17,22 +21,33 @@
   var want = null;
   try { want = sessionStorage.getItem(KEY); sessionStorage.removeItem(KEY); } catch (err) {}
   if (!want || !same(want.split('#')[0], location.pathname)) return;
-  var hash = location.hash, stop = false;
+
+  settled = false;
+  var root = document.documentElement, smooth = root.style.scrollBehavior, busy = false, timer = 0;
+  root.style.scrollBehavior = 'auto';  // 미리보기 쪽 되돌리기도 부드럽게 굴러가지 않고 바로 잡히게
+  var target = null;
+  if (location.hash.length > 1) { try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (err) {} }
   function go() {
-    if (stop) return;
-    var root = document.documentElement, prev = root.style.scrollBehavior;
-    root.style.scrollBehavior = 'auto';
-    var el = null;
-    if (hash.length > 1) { try { el = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (err) {} }
-    if (el) el.scrollIntoView({ block: 'start' }); else window.scrollTo(0, 0);
-    root.style.scrollBehavior = prev;
+    if (settled || busy) return;
+    busy = true;
+    if (target) target.scrollIntoView({ block: 'start' }); else window.scrollTo(0, 0);
+    busy = false;
+  }
+  function done() {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
+    window.removeEventListener('scroll', go);
+    root.style.scrollBehavior = smooth;
+    waiting.splice(0).forEach(function (fn) { fn(); });
   }
   ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
-    window.addEventListener(ev, function () { stop = true; }, { once: true, passive: true });
+    window.addEventListener(ev, done, { once: true, passive: true, capture: true });
   });
+  window.addEventListener('scroll', go, { passive: true });  // 화면에 그려지기 전에 되돌림
   go();
-  window.addEventListener('load', go);
-  [60, 250, 600].forEach(function (ms) { setTimeout(go, ms); });
+  function arm() { go(); timer = setTimeout(done, 1200); }
+  if (document.readyState === 'complete') arm(); else window.addEventListener('load', arm, { once: true });
 })();
 
 (function () {
@@ -259,7 +274,17 @@
       io.unobserve(el);
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
-  $$('.rv').forEach(function (el) { io.observe(el); });
+  var after = window.camverAfterSettle || function (fn) { fn(); };
+  after(function () { $$('.rv').forEach(function (el) { io.observe(el); }); });
+  /* 빠르게 휙 내려서 화면을 건너뛴 요소는 감지가 안 될 수 있음: 이미 지나간 건 그냥 보이게 */
+  var passTick = false;
+  window.addEventListener('scroll', function () {
+    if (passTick) return; passTick = true;
+    requestAnimationFrame(function () {
+      passTick = false;
+      $$('.rv:not(.in)').forEach(function (el) { if (el.getBoundingClientRect().bottom < 0) { el.classList.add('in'); io.unobserve(el); } });
+    });
+  }, { passive: true });
   window.addEventListener('beforeprint', function () { $$('.rv').forEach(function (el) { el.classList.add('in'); }); });
 
   /* 숫자 카운트업: 0에서 실제 값까지, 끝은 원래 글자 그대로 */
@@ -291,7 +316,7 @@
   var cio = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { if (e.isIntersecting) { cio.unobserve(e.target); countUp(e.target); } });
   }, { threshold: 0.6 });
-  $$('.figs b, .proof b, .facts b').forEach(function (el) { if (/\d/.test(el.textContent)) cio.observe(el); });
+  after(function () { $$('.figs b, .proof b, .facts b').forEach(function (el) { if (/\d/.test(el.textContent)) cio.observe(el); }); });
 
   /* 패럴랙스: 큰 사진이 박스보다 느리게 움직여 깊이감. 화면에 보일 때만 계산 */
   var pxs = $$('.subhero > img, .join > img, .about > .photo > img');
