@@ -70,7 +70,8 @@ function doPost(e) {
     };
     if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email || '')) mail.replyTo = p.email;
     if (blob) mail.attachments = [blob];
-    MailApp.sendEmail(mail);
+    // 메일 한도(무료 지메일 하루 100통)를 넘어도 접수는 시트에 남았으니 성공으로 돌려줌
+    try { MailApp.sendEmail(mail); } catch (mailErr) { console.error('알림 메일 실패', mailErr); }
 
     return json({ ok: true });
   } catch (err) {
