@@ -27,9 +27,13 @@ PREVIEW = ROOT / "preview"
 PAGES = ["index", "company", "business", "service", "solution", "cs", "privacy", "admin"]
 DIST_ONLY = ["404"]  # 배포본에만 넣는 페이지 (아티팩트 미리보기엔 안 올림)
 
-# 옛 카페24 사이트 주소 → 새 페이지. 검색 결과·즐겨찾기로 들어오는 사람을 옮겨 줌
+# 옛 사이트 주소 → 새 페이지. 검색 결과·즐겨찾기로 들어오는 사람을 옮겨 줌
+# (camver.co.kr 시절 주소 + 지금 camver.ai.kr 에 떠 있는 빌더 사이트 주소)
 REDIRECTS = {
     "main": "index.html",
+    "page/page9": "index.html",
+    "pension_resv/search_form.htm": "index.html",
+    "pension_resv/resv_form1.htm": "index.html",
     "page/page23": "company.html#overview",
     "page/yy88": "company.html#history",
     "page/s555": "company.html#partners",

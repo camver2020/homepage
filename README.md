@@ -1,4 +1,4 @@
-# 캠버 홈페이지 (camver.co.kr)
+# 캠버 홈페이지 (camver.ai.kr)
 
 정적 사이트. `src/` 를 고치고 `main` 에 올리면 GitHub Actions 가 `tools/build.py` 로 `dist/` 를 만들어 GitHub Pages 에 배포함.
 
