@@ -3,12 +3,11 @@
 <!--robots: noindex, nofollow-->
 <!--bare-->
 <style>
-/* 관리자 바로가기: 사이트 머리·꼬리 없이 검은 한 화면. 왼쪽 글·버튼, 오른쪽 아래 AX 그림 */
+/* 관리자 바로가기: 사이트 머리·꼬리 없이 한 화면. 배경 전체가 AX 사진(오른쪽 아래 AX), 왼쪽 글·버튼 */
 body { background: #000; color: #fff; }
 .adm { position: relative; isolation: isolate; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
   padding: clamp(40px, 6vh, 76px) clamp(24px, 5.8vw, 112px) clamp(32px, 5vh, 64px); }
-.adm-visual { position: absolute; right: 0; bottom: 0; z-index: -1; height: 100%; width: min(54%, calc(100vh * 0.8125)); object-fit: cover; object-position: right bottom;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%); mask-image: linear-gradient(90deg, transparent 0%, #000 22%); }
+.adm-visual { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: right bottom; }
 .adm-logo { display: inline-grid; justify-items: end; gap: 2px; align-self: flex-start; color: #fff; text-decoration: none; }
 .adm-logo img { width: 170px; height: auto; display: block; }
 .adm-logo span { font-size: 11.5px; font-style: italic; font-weight: 500; letter-spacing: 0.01em; margin-right: 30px; }
@@ -27,7 +26,7 @@ body { background: #000; color: #fff; }
 .adm-card:focus-visible, .adm-logo:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 .adm-copy { font-size: 13.5px; color: rgba(255, 255, 255, 0.82); }
 @media (max-width: 560px) {
-  .adm-visual { width: 100%; height: 58%; opacity: 0.55; }
+  .adm-visual { object-position: 82% bottom; opacity: 0.6; }
   .adm-links { flex-direction: column; gap: 14px; }
   .adm-card { width: 100%; }
 }
@@ -41,7 +40,7 @@ body { background: #000; color: #fff; }
 </style>
 <main>
   <div class="adm">
-    <img class="adm-visual" src="img/admin-ax.jpg" alt="" width="1040" height="1280" decoding="async">
+    <img class="adm-visual" src="img/admin-bg.jpg" alt="" width="1920" height="1280" decoding="async">
     <a class="adm-logo" href="index.html" aria-label="캠버 홈페이지로"><img src="img/camver-ai-logo-white.png" alt="CAMVER.AI" width="462" height="78"><span lang="en">Next AI Experience</span></a>
     <div class="adm-body">
       <h1 lang="en">Next AI Experience<br>One platform from data to decision to action.</h1>
