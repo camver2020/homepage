@@ -105,7 +105,7 @@ def read(p):
 
 
 # 사진 교체 안내 딱지. 실제 사진을 다 바꾸면 False 로 두고 다시 빌드하면 사라짐
-SHOW_SPECS = os.environ.get("SHOW_SPECS", "1") != "0"  # SHOW_SPECS=0 python3 tools/build.py → 딱지 없이
+SHOW_SPECS = os.environ.get("SHOW_SPECS", "0") == "1"  # SHOW_SPECS=1 python3 tools/build.py → 사진 칸 번호·규격 딱지 다시 표시
 CONFIG = json.loads((SRC / "config.json").read_text(encoding="utf-8"))
 
 
