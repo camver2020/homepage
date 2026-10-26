@@ -1,4 +1,41 @@
 (function () {
+  /* 메뉴·링크로 다른 페이지에 넘어오면 맨 위(주소에 #구역이 있으면 그 구역)에서 시작.
+     미리보기 화면이 앞 페이지의 스크롤 위치를 새 페이지에 다시 입히는 경우가 있어서 직접 맞춤.
+     새로고침·뒤로 가기는 건드리지 않음 */
+  var KEY = 'camver:nav';
+  function same(a, b) { return a.replace(/index\.html$/, '') === b.replace(/index\.html$/, ''); }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.target && a.target !== '_self') return;
+    var u; try { u = new URL(a.href, location.href); } catch (err) { return; }
+    if (u.origin !== location.origin) return;
+    if (same(u.pathname, location.pathname) && u.hash) return; // 같은 페이지 안 구역 이동은 그대로
+    try { sessionStorage.setItem(KEY, u.pathname + u.hash); } catch (err) {}
+  }, true);
+
+  var want = null;
+  try { want = sessionStorage.getItem(KEY); sessionStorage.removeItem(KEY); } catch (err) {}
+  if (!want || !same(want.split('#')[0], location.pathname)) return;
+  var hash = location.hash, stop = false;
+  function go() {
+    if (stop) return;
+    var root = document.documentElement, prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    var el = null;
+    if (hash.length > 1) { try { el = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (err) {} }
+    if (el) el.scrollIntoView({ block: 'start' }); else window.scrollTo(0, 0);
+    root.style.scrollBehavior = prev;
+  }
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { stop = true; }, { once: true, passive: true });
+  });
+  go();
+  window.addEventListener('load', go);
+  [60, 250, 600].forEach(function (ms) { setTimeout(go, ms); });
+})();
+
+(function () {
   /* 페이지 안 이동 막대: 지금 보고 있는 구역 표시 */
   var nav = document.querySelector('.localnav');
   if (!nav || !('IntersectionObserver' in window)) return;
