@@ -37,7 +37,7 @@ MAP = {
     'company-map': ('company_map/map.png', '캠버 본사 위치 지도: 서울 서초구 청계산로9길 70, 청계산입구역 근처'),
     'cs-01': ('cs/cs-01.png', '고속도로를 달리는 화물차와 승합차'),
     'business-02': ('business/business-02.png', '노을 진 바닷가에서 차량 뒤에 앉아 쉬는 사람들'),
-    'business-03': ('business/business-03.png', '노을 진 바닷가에서 차량 옆에 앉아 쉬는 사람들'),
+    'business-03': ('business/business-03.png', '공사 현장 옆에 세운 쉼터 차량 안팎에서 쉬는 작업자들'),
     'business-04': ('business/business-04.png', '포레스트 캠핑카 외관'),
     'business-05': ('business/business-05.png', '스타리아 캠핑카 외관'),
     'business-06': ('business/business-06.png', 'PV5 캠핑카와 야외 테이블'),
