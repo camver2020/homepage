@@ -209,25 +209,34 @@ var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
   });
 })();
 
+/* 구글 시트 CSV 한 줄 → 칸 배열 (따옴표 안의 쉼표·"" 처리) */
+function camverCsvLine(line) {
+  var out = [], cur = '', q = false;
+  for (var i = 0; i < line.length; i++) {
+    var c = line[i];
+    if (c === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; }
+    else if (c === ',' && !q) { out.push(cur); cur = ''; }
+    else cur += c;
+  }
+  out.push(cur);
+  return out;
+}
+
 (function () {
   /* 소식 시트 연동: window.CAMVER_NEWS_CSV(src/config.json 의 news_csv)에 구글 시트 CSV 주소가 있으면
-     열 순서(날짜, 제목, 출처, 링크)대로 목록을 다시 그림. 시트에 적은 순서 그대로, data-limit 만큼만 보여줌.
+     열 순서(날짜, 제목, 출처, 링크, 공개)대로 목록을 다시 그림. 시트에 적은 순서 그대로, data-limit 만큼만 보여줌.
+     '공개' 칸이 숨김(관리자 화면에서 숨긴 소식)이면 건너뜀.
      시트는 '링크가 있는 모든 사용자 - 뷰어'로 공유돼 있어야 읽힘. 못 읽으면 페이지에 적힌 기본 목록이 그대로 남음. */
   var url = window.CAMVER_NEWS_CSV;
   var list = document.getElementById('newsList');
   if (!url || !list || !window.fetch) return;
   var limit = Number(list.getAttribute('data-limit')) || 50;
+  var HIDDEN = /^(숨김|비공개|n|no|false|x|0)$/i;
   fetch(url).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (csv) {
     if (/^\s*</.test(csv)) return; /* 공유 안 된 시트면 CSV 대신 로그인 화면(HTML)이 옴 */
     var rows = csv.trim().split(/\r?\n/).slice(1).map(function (line) {
-      var out = [], cur = '', q = false;
-      for (var i = 0; i < line.length; i++) {
-        var c = line[i];
-        if (c === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; }
-        else if (c === ',' && !q) { out.push(cur); cur = ''; }
-        else cur += c;
-      }
-      out.push(cur);
+      var out = camverCsvLine(line);
+      if (HIDDEN.test((out[4] || '').trim())) return [];
       var d = (out[0] || '').trim().match(/^(\d{4})\s*[.\-\/년]\s*(\d{1,2})\s*[.\-\/월]\s*(\d{1,2})/);
       out[0] = d ? d[1] + '.' + ('0' + d[2]).slice(-2) + '.' + ('0' + d[3]).slice(-2) : (out[0] || '').trim();
       out[1] = (out[1] || '').trim(); out[3] = (out[3] || '').trim();
@@ -244,6 +253,25 @@ var EN = (document.documentElement.lang || '').slice(0, 2) === 'en';
       var t = document.createElement('time'); t.textContent = r[0]; if (/^\d{4}\.\d{2}\.\d{2}$/.test(r[0])) t.setAttribute('datetime', r[0].replace(/\./g, '-'));
       var s = document.createElement('span'); s.className = 'news-src'; s.textContent = r[2] || '';
       el.append(h, t, s); li.append(el); list.append(li);
+    });
+  }).catch(function () {});
+})();
+
+(function () {
+  /* 사용법 영상 재생목록: 관리자 화면에서 바꾼 링크(소식 시트 '설정' 탭: 이름, 재생목록 링크, 썸네일 영상 ID)를
+     고객센터 Guide Videos 칸 순서대로 입힘. 못 읽거나 비어 있으면 페이지에 적힌 링크 그대로 */
+  var url = window.CAMVER_SETTINGS_CSV;
+  var tiles = document.querySelectorAll('#guide .tile');
+  if (!url || !tiles.length || !window.fetch) return;
+  fetch(url).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (csv) {
+    if (/^\s*</.test(csv)) return;
+    csv.trim().split(/\r?\n/).slice(1).forEach(function (line, i) {
+      var t = tiles[i], r = camverCsvLine(line);
+      if (!t) return;
+      var link = (r[1] || '').trim(), id = (r[2] || '').trim();
+      if (/^https:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\//i.test(link)) t.href = link;
+      var img = t.querySelector('img');
+      if (img && /^[\w-]{11}$/.test(id)) img.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
     });
   }).catch(function () {});
 })();

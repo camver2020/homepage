@@ -25,6 +25,14 @@ body { background: #000; color: #fff; }
 .adm-card:hover svg { transform: translateX(4px); }
 .adm-card:focus-visible, .adm-logo:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 .adm-copy { font-size: 13.5px; color: rgba(255, 255, 255, 0.82); }
+/* 오른쪽 위 톱니: 홈페이지 관리(/manage/) */
+.adm-gear { position: absolute; top: clamp(36px, calc(6vh - 4px), 72px); right: clamp(20px, calc(5.8vw - 4px), 108px); width: 44px; height: 44px; display: grid; place-items: center;
+  color: rgba(255, 255, 255, 0.78); border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 2px; text-decoration: none;
+  transition: color 180ms var(--ease), border-color 180ms var(--ease), background-color 180ms var(--ease); }
+.adm-gear svg { width: 20px; height: 20px; transition: transform 420ms var(--ease); }
+.adm-gear:hover { color: #fff; border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+.adm-gear:hover svg { transform: rotate(60deg); }
+.adm-gear:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 @media (max-width: 560px) {
   .adm-visual { object-position: 82% bottom; opacity: 0.6; }
   .adm-links { flex-direction: column; gap: 14px; }
@@ -36,11 +44,13 @@ body { background: #000; color: #fff; }
   .adm-links li { animation: rise 900ms var(--ease-out) both; }
   .adm-links li:nth-child(1) { animation-delay: 420ms; }
   .adm-links li:nth-child(2) { animation-delay: 520ms; }
+  .adm-gear { animation: fade-in 900ms var(--ease-out) 700ms both; }
 }
 </style>
 <main>
   <div class="adm">
     <img class="adm-visual" src="img/admin-bg.jpg" alt="" width="1920" height="1280" decoding="async">
+    <a class="adm-gear" href="manage/" aria-label="홈페이지 관리" title="홈페이지 관리"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a>
     <a class="adm-logo" href="index.html" aria-label="캠버 홈페이지로"><img src="img/camver-ai-logo-white.png" alt="CAMVER.AI" width="462" height="78"><span lang="en">Next AI Experience</span></a>
     <div class="adm-body">
       <h1 lang="en">Next AI Experience<br>One platform from data to decision to action.</h1>

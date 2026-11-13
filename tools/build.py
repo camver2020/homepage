@@ -12,16 +12,19 @@
   preview/index.html   아티팩트 미리보기용 홈 조각 (doctype 없이 title·meta로 시작)
   preview/*.html       아티팩트에 같이 올리는 하위 페이지 (완성 문서, 홈 링크만 ./ 로)
   dist/en/, preview/en/ 영어판 (src/pages_en + src/partials/en)
+  dist/manage/, preview/manage/  관리자 화면 (src/manage). 미리보기는 데모 데이터로 돎
 """
 import json
 import os
 import pathlib
 import re
 import shutil
+import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 PARTS = SRC / "partials"
+MANAGE = SRC / "manage"  # 관리자 화면(/manage/). 사이트 머리·꼬리 없이 혼자 도는 화면이라 통째로 복사하고 설정만 넣음
 DIST = ROOT / "dist"
 PREVIEW = ROOT / "preview"
 
@@ -113,12 +116,32 @@ SHOW_SPECS = os.environ.get("SHOW_SPECS", "0") == "1"  # SHOW_SPECS=1 python3 to
 CONFIG = json.loads((SRC / "config.json").read_text(encoding="utf-8"))
 
 
+def settings_csv():
+    """소식 시트의 '설정' 탭(관리자 화면에서 바꾸는 재생목록 링크) CSV 주소. 소식 시트 주소에 탭 이름만 붙임"""
+    news = CONFIG.get("news_csv") or ""
+    return news + ("&" if "?" in news else "?") + "sheet=" + urllib.parse.quote("설정") if news else ""
+
+
 def config_js(lang="ko"):
     """src/config.json → 폼 전송 주소·소식 시트 주소를 페이지에 심는 한 줄.
-    소식 시트는 한글 기사 제목이라 영어판에선 안 불러오고 페이지에 적힌 영어 목록을 그대로 씀"""
+    소식 시트는 한글 기사 제목이라 영어판에선 안 불러오고 페이지에 적힌 영어 목록을 그대로 씀.
+    재생목록 설정은 두 언어 모두 같은 링크를 씀"""
     news = (CONFIG.get("news_csv") or "") if lang == "ko" else ""
     return ("window.CAMVER_FORM_ENDPOINT = " + json.dumps(CONFIG.get("form_endpoint") or "") + ";\n"
-            "window.CAMVER_NEWS_CSV = " + json.dumps(news) + ";\n")
+            "window.CAMVER_NEWS_CSV = " + json.dumps(news) + ";\n"
+            "window.CAMVER_SETTINGS_CSV = " + json.dumps(settings_csv()) + ";\n")
+
+
+def build_manage(out, demo):
+    """관리자 화면을 out/manage/ 에 복사하고 접속 설정을 넣음.
+    배포본(dist)은 실제 Apps Script·구글 로그인, 미리보기(preview)는 화면 안 예시 데이터로 도는 데모"""
+    dst = out / "manage"
+    if dst.exists():
+        shutil.rmtree(dst)
+    shutil.copytree(MANAGE, dst)
+    cfg = {"endpoint": CONFIG.get("form_endpoint") or "", "clientId": CONFIG.get("google_client_id") or "", "demo": demo}
+    html = read(MANAGE / "index.html").replace("<!--CONFIG-->", "<script>window.CAMVER_MANAGE = " + json.dumps(cfg) + ";</script>", 1)
+    (dst / "index.html").write_text(html, encoding="utf-8")
 
 
 SPECS = {k: v for k, v in json.loads((SRC / "image-specs.json").read_text(encoding="utf-8")).items() if not k.startswith("_")}
@@ -271,7 +294,14 @@ def build():
             prev = PREVIEW_HEAD + FONTS + style + inner
         else:
             prev = head_for(name, lang, title, desc, flags) + FONTS + style + "</head>\n<body>\n" + inner + "</body>\n</html>\n"
-        (PREVIEW / f"{sub}{name}.html").write_text(home_links_to_root(fix(prev), lang), encoding="utf-8")
+        prev = home_links_to_root(fix(prev), lang)
+        if name == "admin":
+            # 아티팩트 미리보기는 폴더 주소(manage/)를 index.html 로 안 열어 줌
+            prev = prev.replace('href="manage/"', 'href="manage/index.html"')
+        (PREVIEW / f"{sub}{name}.html").write_text(prev, encoding="utf-8")
+
+    build_manage(DIST, demo=False)
+    build_manage(PREVIEW, demo=True)
 
     # 옛 주소 이동 페이지
     for old, target in REDIRECTS.items():
@@ -284,7 +314,7 @@ def build():
     (DIST / "CNAME").write_text(CONFIG["domain"].strip() + "\n", encoding="utf-8")
     (DIST / ".nojekyll").write_text("", encoding="utf-8")
     public = [(n, "ko") for n in PAGES if n != "admin"] + [(n, "en") for n in PAGES_EN]
-    (DIST / "robots.txt").write_text(f"User-agent: *\nDisallow: /admin.html\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
+    (DIST / "robots.txt").write_text(f"User-agent: *\nDisallow: /admin.html\nDisallow: /manage/\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
     urls = "".join(f"  <url><loc>{page_url(n, l)}</loc></url>\n" for n, l in public)
     (DIST / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n", encoding="utf-8")
     print("redirects", len(REDIRECTS), "· CNAME", CONFIG["domain"])

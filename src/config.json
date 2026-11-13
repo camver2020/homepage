@@ -1,7 +1,8 @@
 {
-  "_설명": "배포 설정. form_endpoint = Apps Script 웹앱 주소(https://script.google.com/macros/s/.../exec). 비워 두면 폼은 보내는 척만 함. news_csv = 소식 시트 CSV 주소. 바꾸면 python3 tools/build.py 다시 실행. site_url·domain = 실제 도메인(GitHub Pages CNAME 에 들어감)",
+  "_설명": "배포 설정. form_endpoint = Apps Script 웹앱 주소(https://script.google.com/macros/s/.../exec). 비워 두면 폼은 보내는 척만 함. news_csv = 소식 시트 CSV 주소. 바꾸면 python3 tools/build.py 다시 실행. site_url·domain = 실제 도메인(GitHub Pages CNAME 에 들어감). google_client_id = 관리자 화면(/manage/) 구글 로그인 클라이언트 ID. 비워 두면 관리자 화면은 '설정 전' 안내만 보임. Apps Script 의 CLIENT_ID 와 같은 값",
   "site_url": "https://www.camver.ai.kr",
   "domain": "www.camver.ai.kr",
   "form_endpoint": "https://script.google.com/macros/s/AKfycbxBbdWt7UPyT9YjJkg3qC1A8L6kVBd1bNmGowXAycimpg1BXlpSvIb9Uu62GmgpG3n1/exec",
-  "news_csv": "https://docs.google.com/spreadsheets/d/1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo/gviz/tq?tqx=out:csv&headers=1"
+  "news_csv": "https://docs.google.com/spreadsheets/d/1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo/gviz/tq?tqx=out:csv&headers=1",
+  "google_client_id": ""
 }
