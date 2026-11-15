@@ -122,7 +122,12 @@ function makeWorld(code = src) {
     DriveApp: {
       createFolder(name) { return { getId: () => 'folder1', createFile(b) { const id = 'FILE' + 'x'.repeat(24) + (++seq); files[id] = { blob: b, created: new Date(), trashed: false }; return { setDescription() { return { getUrl: () => `https://drive.google.com/file/d/${id}/view?usp=drivesdk` }; } }; }, getFiles() { const ids = Object.keys(files); let i = 0; return { hasNext: () => i < ids.length, next: () => { const f = files[ids[i++]]; return { getDateCreated: () => f.created, setTrashed: v => { f.trashed = v; } }; } }; } }; },
       getFolderById() { return this.createFolder(); },
-      getFileById(id) { const f = files[id]; if (!f) throw new Error('no file'); return { getName: () => f.blob.name, getBlob: () => f.blob }; },
+      getFileById(id) {
+        if (books[id]) return { setSharing: (a, p) => { books[id].sharing = [a, p]; } };
+        const f = files[id]; if (!f) throw new Error('no file'); return { getName: () => f.blob.name, getBlob: () => f.blob };
+      },
+      Access: { ANYONE_WITH_LINK: 'ANYONE_WITH_LINK' },
+      Permission: { VIEW: 'VIEW' },
     },
     MailApp: { sendEmail(m) { mails.push(m); } },
     ContentService: { MimeType: { JSON: 'json' }, createTextOutput: s => ({ s, setMimeType() { return this; } }) },
@@ -139,6 +144,7 @@ function makeWorld(code = src) {
    ['2025.06.08', '캠핑카 수익형 자산', '언론 보도', ''],
    ['2025.05.30', '샌드박스 과제 승인', '언론 보도', '']].forEach(r => ns.appendRow(r));
   ns.put(3, 1, new realm.D('2025-06-08T00:00:00+09:00'));  // 날짜 칸이 진짜 날짜로 들어간 경우
+  props.NEWS_SHEET_ID = NEWS_ID;  // 이미 소식 시트가 있는 상태로 시작
   vm.runInContext(code, ctx, { filename: 'Code.gs' });
   return { g, ctx, books, props, files, mails, fetches, news: ns };
 }
@@ -354,6 +360,25 @@ check('CLIENT_ID 가 비어 있으면 관리자 요청은 setup 오류, 폼 접�
   const ctx2 = w2.ctx;
   assert.strictEqual(out(ctx2.doPost({ parameter: { action: 'admin', payload: JSON.stringify({ token: 'good', op: 'load' }) } })).error, 'setup');
   assert.strictEqual(out(ctx2.doPost({ parameter: { form: 'contact', name: 'a', tel: '010' } })).ok, true);
+});
+
+check('소식 시트가 없으면 setup 이 새로 만들고 링크 보기 공유를 켬', () => {
+  const w3 = makeWorld();
+  delete w3.props.NEWS_SHEET_ID;
+  w3.ctx.setup();
+  const id = w3.props.NEWS_SHEET_ID;
+  assert(id && id !== NEWS_ID, '새 소식 시트 ID 저장');
+  const book = w3.books[id];
+  assert.strictEqual(book.name, '캠버 홈페이지 소식');
+  assert.deepStrictEqual(book.sharing, ['ANYONE_WITH_LINK', 'VIEW']);
+  const rows = book.sheets[0].table();
+  assert.deepStrictEqual(rows[0], ['날짜', '제목', '출처', '링크', '공개']);
+  assert.strictEqual(rows.length, 8);
+  assert.strictEqual(rows[1][0], '2026.09.04');  // 글자로 들어감
+  assert(book.sheets.some(s => s.name === '설정'));
+  const r = out(w3.ctx.doPost({ parameter: { action: 'admin', payload: JSON.stringify({ token: 'good', actor: '맹현호', op: 'load' }) } }));
+  assert.strictEqual(r.news.length, 7);
+  assert(r.news.every(n => n.visible));
 });
 
 console.log(`\n${passed}개 통과` + (process.exitCode ? ' · 실패 있음' : ''));

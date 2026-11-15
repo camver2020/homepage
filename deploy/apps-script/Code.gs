@@ -30,7 +30,19 @@ const SOON_DAYS = 30;                          // 보관 현황의 '삭제 예�
 // ── 관리자 화면 ─────────────────────────────────────────────
 const CLIENT_ID = '477110782616-9204rov70a1gvg8vrmvqpacjs5l96ttm.apps.googleusercontent.com';                          // 구글 로그인 클라이언트 ID (…apps.googleusercontent.com). 홈페이지 config.json 의 google_client_id 와 같은 값
 const ADMINS = ['camver2020@gmail.com'];       // 관리자 화면에 들어올 수 있는 구글 계정
-const NEWS_SHEET_ID = '1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo';  // '캠버 홈페이지 소식' 시트 (홈페이지가 CSV 로 읽는 시트)
+// '캠버 홈페이지 소식' 시트(홈페이지가 CSV 로 읽음). 비워 두면 setup 이 이 계정 드라이브에 새로 만들고
+// '링크가 있는 모든 사용자 - 뷰어'로 공유한 뒤 ID 를 스크립트 속성 NEWS_SHEET_ID 에 기억함. 실행 로그에 CSV 주소가 찍힘
+const NEWS_SHEET_ID = '';
+// 소식 시트를 새로 만들 때 처음 넣는 목록 (날짜, 제목, 출처, 링크, 공개)
+const NEWS_SEED = [
+  ['2026.09.04', "캠버, 전기차 배터리 위험을 미리 감지하는 예측 안전 플랫폼 'Fleet AI OS' 출시", '보도자료 · 미국 6개 매체', 'https://www.abc12.com/online_features/press_releases/camver-launches-fleet-ai-os-a-predictive-safety-platform-that-detects-ev-battery-hazards-before/article_dd0b2ad6-c917-5c4a-91ff-1f5e2d6b97a5.html', '공개'],
+  ['2025.06.08', '연 1000만원↑…"캠핑카, 이제는 수익형 자산"', '언론 보도', '', '공개'],
+  ['2025.05.30', '주차부터 충전까지 무선으로…정부, 66개 샌드박스 과제 심의', '언론 보도', '', '공개'],
+  ['2025.05.30', '자율주행 전기차 충전 무인화 시동…규제샌드박스 과제 66개 승인', '언론 보도', '', '공개'],
+  ['2025.05.11', "스마트 캠핑카 플랫폼 '캠버' 글로벌 진출 '신호탄'", '언론 보도', '', '공개'],
+  ['2025.04.19', '(주)후경파트너와 (주)캠버, 업무협약 통해 지역 관광 다양성 강화 및 경제 활성화', '언론 보도', '', '공개'],
+  ['2024.03.20', '캠핑장 찾기 문제 없어요…정밀 주소 기반 캠핑여행플랫폼 개발', '언론 보도', '', '공개'],
+];
 const MANAGE_URL = 'https://www.camver.ai.kr/manage/';
 const LOG_TAB = '작업 기록';                    // 문의 접수 시트 안
 const SETTINGS_TAB = '설정';                    // 소식 시트 안. 홈페이지가 공개로 읽는 값(재생목록 링크)만 둠
@@ -589,6 +601,8 @@ function setup() {
   // 관리자 로그인 확인에 쓰는 '외부 요청' 권한을 여기서 미리 받아 둠
   UrlFetchApp.fetch('https://oauth2.googleapis.com/tokeninfo?id_token=setup', { muteHttpExceptions: true });
   console.log('접수 시트: ' + ss_().getUrl());
+  console.log('소식 시트: ' + newsSs_().getUrl());
+  console.log('소식 CSV(config.json news_csv): https://docs.google.com/spreadsheets/d/' + newsSs_().getId() + '/gviz/tq?tqx=out:csv&headers=1');
   if (!CLIENT_ID) console.log('관리자 화면을 쓰려면 CLIENT_ID 를 채우고 다시 배포해야 함');
 }
 
@@ -625,7 +639,19 @@ function ss_() {
 }
 
 function newsSs_() {
-  return NEWS_SS_ || (NEWS_SS_ = SpreadsheetApp.openById(NEWS_SHEET_ID));
+  if (NEWS_SS_) return NEWS_SS_;
+  const props = PropertiesService.getScriptProperties();
+  const id = NEWS_SHEET_ID || props.getProperty('NEWS_SHEET_ID');
+  if (id) return (NEWS_SS_ = SpreadsheetApp.openById(id));
+  const ss = SpreadsheetApp.create('캠버 홈페이지 소식');
+  const sh = ss.getSheets()[0].setName('소식');
+  sh.getRange(1, 1, 1, 5).setValues([['날짜', '제목', '출처', '링크', '공개']]).setFontWeight('bold');
+  sh.setFrozenRows(1);
+  sh.getRange(2, 1, NEWS_SEED.length, 5).setNumberFormat('@').setValues(NEWS_SEED);
+  // 홈페이지가 로그인 없이 CSV 로 읽을 수 있게 링크 보기만 열어 둠(편집은 이 계정과 관리자 화면만)
+  DriveApp.getFileById(ss.getId()).setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  props.setProperty('NEWS_SHEET_ID', ss.getId());
+  return (NEWS_SS_ = ss);
 }
 
 function tab_(def) {
