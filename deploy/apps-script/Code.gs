@@ -28,7 +28,7 @@ const KEEP_DAYS = 365;                         // 개인정보 처리방침의 �
 const SOON_DAYS = 30;                          // 보관 현황의 '삭제 예정': 앞으로 이 날짜 수 안에 지워질 건
 
 // ── 관리자 화면 ─────────────────────────────────────────────
-const CLIENT_ID = '';                          // 구글 로그인 클라이언트 ID (…apps.googleusercontent.com). 홈페이지 config.json 의 google_client_id 와 같은 값
+const CLIENT_ID = '477110782616-9204rov70a1gvg8vrmvqpacjs5l96ttm.apps.googleusercontent.com';                          // 구글 로그인 클라이언트 ID (…apps.googleusercontent.com). 홈페이지 config.json 의 google_client_id 와 같은 값
 const ADMINS = ['camver2020@gmail.com'];       // 관리자 화면에 들어올 수 있는 구글 계정
 const NEWS_SHEET_ID = '1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo';  // '캠버 홈페이지 소식' 시트 (홈페이지가 CSV 로 읽는 시트)
 const MANAGE_URL = 'https://www.camver.ai.kr/manage/';

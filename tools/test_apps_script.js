@@ -10,7 +10,7 @@ const assert = require('assert');
 const CLIENT = 'test-client.apps.googleusercontent.com';
 const NEWS_ID = '1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo';
 let src = fs.readFileSync(path.join(__dirname, '..', 'deploy', 'apps-script', 'Code.gs'), 'utf8');
-src = src.replace("const CLIENT_ID = '';", `const CLIENT_ID = '${CLIENT}';`);
+src = src.replace(/const CLIENT_ID = '[^']*';/, `const CLIENT_ID = '${CLIENT}';`);
 
 // ── 날짜 ──
 const KST = 9 * 3600000;
