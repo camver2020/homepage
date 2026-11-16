@@ -3,6 +3,6 @@
   "site_url": "https://www.camver.ai.kr",
   "domain": "www.camver.ai.kr",
   "form_endpoint": "https://script.google.com/macros/s/AKfycbxBbdWt7UPyT9YjJkg3qC1A8L6kVBd1bNmGowXAycimpg1BXlpSvIb9Uu62GmgpG3n1/exec",
-  "news_csv": "https://docs.google.com/spreadsheets/d/1XLl6xyv0A507Kjf3uErwg9RL-TMhQgY-TIg9V_KwIeo/gviz/tq?tqx=out:csv&headers=1",
+  "news_csv": "https://docs.google.com/spreadsheets/d/1RltpPn59R2nOY286itvRxMRWFB63Hu_F2uPTwprbTVM/gviz/tq?tqx=out:csv&headers=1",
   "google_client_id": "477110782616-9204rov70a1gvg8vrmvqpacjs5l96ttm.apps.googleusercontent.com"
 }
