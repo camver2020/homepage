@@ -42,7 +42,7 @@
 
   var ERR = {
     auth: '로그인 시간이 지났습니다. 다시 로그인해 주세요.',
-    forbidden: '관리자로 허용된 구글 계정이 아닙니다. camver2020 계정으로 로그인해 주세요.',
+    forbidden: '관리자로 허용된 구글 계정이 아닙니다.',
     setup: 'Apps Script 에 구글 로그인 설정(CLIENT_ID)이 아직 없습니다.',
     stale: '그사이 소식 시트가 바뀌었습니다. 새 목록을 불러왔으니 다시 해 주세요.',
     notfound: '해당 접수를 찾지 못했습니다. 보관 기간이 지나 자동 삭제됐을 수 있습니다.',
@@ -127,7 +127,7 @@
     s.src = 'https://accounts.google.com/gsi/client';
     s.async = true;
     s.onload = function () {
-      google.accounts.id.initialize({ client_id: CFG.clientId, callback: onCredential, ux_mode: 'popup', auto_select: false, context: 'signin', login_hint: 'camver2020@gmail.com' });
+      google.accounts.id.initialize({ client_id: CFG.clientId, callback: onCredential, ux_mode: 'popup', auto_select: false, context: 'signin' });
       google.accounts.id.renderButton($('#gbtn'), { type: 'standard', theme: 'filled_black', size: 'large', text: 'signin_with', shape: 'rectangular', logo_alignment: 'left', width: 320, locale: 'ko' });
     };
     s.onerror = function () { msgEl.textContent = '구글 로그인 버튼을 불러오지 못했습니다. 인터넷 연결이나 광고 차단 설정을 확인해 주세요.'; };
